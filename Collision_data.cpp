@@ -23,8 +23,9 @@ using namespace jsoncons;
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
+	std::string level_path = "\\Niveau_1_1";
 	std::string base_path = argv[1];
-	std::string level_image_path = base_path + "Niveau_1_1\\level.png";
+	std::string level_image_path = base_path + level_path + "\\level.png";
 	std::string collision_textures_path = base_path + "\\platforms";
 
 	// Fetch level image.
@@ -96,7 +97,7 @@ int main(int argc, char* argv[]) {
 			cv::Rect rect(collision.y, collision.x, collision.w, collision.h);
 			cv::rectangle(collision_raw_image, rect, cv::Scalar(255, 255, 255));
 		}
-		cv::imwrite(base_path + "\\collision_raw.png", collision_raw_image);
+		cv::imwrite(base_path + level_path + "\\collision_raw.png", collision_raw_image);
 
 		// Print out the unique collision image.
 		cv::Mat collision_merged_final_image(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
@@ -104,7 +105,7 @@ int main(int argc, char* argv[]) {
 			cv::Rect rect(collision.y, collision.x, collision.w, collision.h);
 			cv::rectangle(collision_merged_final_image, rect, cv::Scalar(255, 255, 255));
 		}
-		cv::imwrite(base_path + "\\collision_merged_final.png", collision_merged_final_image);
+		cv::imwrite(base_path + level_path + "\\collision_merged_final.png", collision_merged_final_image);
 
 		// Print out the merged collision image.
 		cv::Mat collision_merged_image(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
@@ -112,7 +113,7 @@ int main(int argc, char* argv[]) {
 			cv::Rect rect(collision.y, collision.x, collision.w, collision.h);
 			cv::rectangle(collision_merged_image, rect, cv::Scalar(255, 255, 255));
 		}
-		cv::imwrite(base_path + "\\collision_merged.png", collision_merged_image);
+		cv::imwrite(base_path + level_path + "\\collision_merged.png", collision_merged_image);
 
 		// Print out the filled collision image.
 		cv::Mat collision_filled_image(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
@@ -120,24 +121,24 @@ int main(int argc, char* argv[]) {
 			cv::Rect rect(collision.y, collision.x, collision.w, collision.h);
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(255, 255, 255), cv::FILLED);
 		}
-		cv::imwrite(base_path + "\\collision_filled.png", collision_filled_image);
+		cv::imwrite(base_path + level_path + "\\collision_filled.png", collision_filled_image);
 	}
 
 	/* Print out collision files. */ {
 		// Print out the raw collision file.
-		std::ofstream collision_raw_file(base_path + "\\collision_raw.txt");
+		std::ofstream collision_raw_file(base_path + level_path + "\\collision_raw.txt");
 		collision_raw_file << "x, y, height, width\n";
 		for (const collision_t& collision : collision_raw)	collision_raw_file << to_string(collision) << "\n";
 		collision_raw_file.close();
 
 		// Print out the unique collision file.
-		std::ofstream collision_merged_final_file(base_path + "\\collision_merged_final.txt");
+		std::ofstream collision_merged_final_file(base_path + level_path + "\\collision_merged_final.txt");
 		collision_merged_final_file << "x, y, height, width\n";
 		for (const collision_t& collision : collision_merged_final) collision_merged_final_file << to_string(collision) << "\n";
 		collision_merged_final_file.close();
 
 		// Print out the merged collision file.
-		std::ofstream collision_merged_file(base_path + "\\collision_merged.txt");
+		std::ofstream collision_merged_file(base_path + level_path + "\\collision_merged.txt");
 		collision_merged_file << "x, y, height, width\n";
 		for (const collision_t& collision : collision_merged) collision_merged_file << to_string(collision) << "\n";
 		collision_merged_file.close();
@@ -151,20 +152,20 @@ int main(int argc, char* argv[]) {
 			.ignore_empty_values(true)
 			.column_types("integer,integer,integer,integer");
 
-		std::ofstream json_file_merged_final(base_path + "\\collision_merged_final.json");
-		std::ifstream is_merged_final(base_path + "\\collision_merged_final.txt");
+		std::ofstream json_file_merged_final(base_path + level_path + "\\collision_merged_final.json");
+		std::ifstream is_merged_final(base_path + level_path + "\\collision_merged_final.txt");
 		ojson tasks_merged_final = csv::decode_csv<ojson>(is_merged_final, options);
 		json_file_merged_final << pretty_print(tasks_merged_final);
 		json_file_merged_final.close();
 
-		std::ofstream json_file_raw(base_path + "\\collision_raw.json");
-		std::ifstream is_raw(base_path + "\\collision_raw.txt");
+		std::ofstream json_file_raw(base_path + level_path + "\\collision_raw.json");
+		std::ifstream is_raw(base_path + level_path + "\\collision_raw.txt");
 		ojson tasks_raw = csv::decode_csv<ojson>(is_raw, options);
 		json_file_raw << pretty_print(tasks_raw);
 		json_file_raw.close();
 
-		std::ofstream json_file_merged(base_path + "\\collision_merged.json");
-		std::ifstream is_merged(base_path + "\\collision_merged.txt");
+		std::ofstream json_file_merged(base_path + level_path + "\\collision_merged.json");
+		std::ifstream is_merged(base_path + level_path + "\\collision_merged.txt");
 		ojson tasks_merged = csv::decode_csv<ojson>(is_merged, options);
 		json_file_merged << pretty_print(tasks_merged);
 		json_file_merged.close();
