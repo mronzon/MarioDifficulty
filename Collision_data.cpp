@@ -25,10 +25,10 @@ JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_1_1";
+	std::string level_path = "\\Niveau_4_1";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
-	std::string collision_textures_path = base_path + "\\platforms";
+	std::string collision_textures_path = base_path + "\\CollisionBlock";
 
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
