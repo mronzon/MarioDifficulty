@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
 
-	// Get the spawn position of Mario and the End of the level. The end is supposed to be a collision of 1 of width.
+	// Get the spawn position of Mario and the End of the level.
 
 	std::vector<cv::Mat> end_textures;
 	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(end_textures_path)) {
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
 			for (int y = 0; y < collision_hits.cols - 8; y++)
 				if (collision_hits.at<float>(x, y) >= 0.85f)
 				{
-					end = { x, y, end_texture.rows, 1 };
+					end = { x, y, end_texture.rows, end_texture.cols };
 				}
 	}
 
@@ -152,8 +152,15 @@ int main(int argc, char* argv[]) {
 		std::string s;
 		jsoncons::encode_json(collision_merged_final, s, jsoncons::indenting::indent);
 		auto json_content_static = jsoncons::decode_json<std::vector<collision_t>>(s);
+		jsoncons::encode_json(end, s, jsoncons::indenting::indent);
 
 		json_content["static"] = json_content_static;
+		json json_end;
+		json_end["x"] = end.x;
+		json_end["y"] = end.y;
+		json_end["height"] = end.height;
+		json_end["width"] = end.width;
+		json_content["end"] = json_end;
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();

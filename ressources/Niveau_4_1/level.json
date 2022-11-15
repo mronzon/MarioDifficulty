@@ -1,4 +1,10 @@
 {
+    "end": {
+        "height": 152, 
+        "width": 8, 
+        "x": 33, 
+        "y": 3604
+    }, 
     "static": [
         {
             "height": 16, 
