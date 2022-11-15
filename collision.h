@@ -5,11 +5,11 @@
 #include <string>
 
 struct collision_t {
-	int x, y, h, w;
+	int x, y, height, width;
 };
 
 std::string to_string(const collision_t& c) {
-	return std::string(std::to_string(c.x) + "," + std::to_string(c.y) + "," + std::to_string(c.h) + "," + std::to_string(c.w));
+	return std::string(std::to_string(c.x) + "," + std::to_string(c.y) + "," + std::to_string(c.height) + "," + std::to_string(c.width));
 }
 
 collision_t from_string(const std::string& s) {
@@ -20,8 +20,8 @@ collision_t from_string(const std::string& s) {
 	collision_t result;
 	result.x = std::stoi(s.substr(0, a));
 	result.y = std::stoi(s.substr(a + 1, b - a - 1));
-	result.h = std::stoi(s.substr(b + 1, c - b - 1));
-	result.w = std::stoi(s.substr(c + 1));
+	result.height = std::stoi(s.substr(b + 1, c - b - 1));
+	result.width = std::stoi(s.substr(c + 1));
 	return result;
 }
 
