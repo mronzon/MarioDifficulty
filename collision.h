@@ -29,5 +29,6 @@ bool comp(const collision_t& a, const collision_t& b) {
 	return (a.x < b.x || (a.x == b.x && a.y < b.y));
 }
 
+
 #endif // !COLLISION_H
 #pragma once
