@@ -18,12 +18,13 @@
 using namespace jsoncons;
 
 #include "collision.h"
+#include "enemy.h"
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
 	std::string base_path = argv[1];
-	std::string level_image_path = base_path + "\\level.png";
+	std::string level_image_path = base_path + "Niveau_1_1\\level.png";
 	std::string collision_textures_path = base_path + "\\platforms";
 
 	// Fetch level image.
