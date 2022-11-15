@@ -26,14 +26,39 @@ int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
 	std::string level_path = "\\Niveau_4_1";
+	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
-	std::string collision_textures_path = base_path + "\\CollisionBlock";
-
+	std::string collision_textures_path = base_path + sprite_path + "\\CollisionBlock";
+	std::string spawn_textures_path = base_path + sprite_path + "\\Spawn";
+	std::string end_textures_path = base_path + sprite_path + "\\End";
+	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
 
-	
+	// Get the spawn position of Mario and the End of the level. The end is supposed to be a collision of 1 of width.
+
+	std::vector<cv::Mat> end_textures;
+	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(end_textures_path)) {
+		if (entry.path().extension().string() != ".png") continue;
+		cv::Mat texture = cv::imread(entry.path().string(), cv::IMREAD_COLOR);
+		end_textures.push_back(texture);
+	}
+
+	collision_t end = {0,0,0,0};
+	for(const cv::Mat& end_texture : end_textures)
+	{
+		cv::Mat collision_hits;
+		cv::matchTemplate(level_image, end_texture, collision_hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < collision_hits.rows - 8; x++)
+			for (int y = 0; y < collision_hits.cols - 8; y++)
+				if (collision_hits.at<float>(x, y) >= 0.85f)
+				{
+					end = { x, y, end_texture.rows, 1 };
+				}
+	}
+
+
 	// Fetch collision textures from folder.
 	std::vector<cv::Mat> collision_textures;
 	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(collision_textures_path)) {
@@ -77,11 +102,11 @@ int main(int argc, char* argv[]) {
 	{
 		//Check if the current collision has already been merged with another one.
 		pass = false;
-		for(int i = 0; i < collision_merged_final.size(); i++)
+		for(const collision_t& collision : collision_merged_final)
 		{
-			if(collision_merged[cur].y == collision_merged_final[i].y && collision_merged[cur].width == collision_merged_final[i].width)
+			if(collision_merged[cur].y == collision.y && collision_merged[cur].width == collision.width)
 			{
-				if(collision_merged[cur].x < collision_merged_final[i].x + collision_merged_final[i].height)
+				if(collision_merged[cur].x < collision.x + collision.height)
 				{
 					pass = true;
 					break;
@@ -113,6 +138,8 @@ int main(int argc, char* argv[]) {
 			cv::rectangle(collision_merged_final_image, rect, cv::Scalar(255, 255, 255));
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(255, 255, 255), cv::FILLED);
 		}
+		cv::Rect rect(end.y, end.x, end.width, end.height);
+		cv::rectangle(collision_filled_image, rect, cv::Scalar(255, 0, 0), cv::FILLED);
 		cv::imwrite(base_path + level_path + "\\collision.png", collision_merged_final_image);
 		cv::imwrite(base_path + level_path + "\\collision_filled.png", collision_filled_image);
 	}
