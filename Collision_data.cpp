@@ -72,14 +72,26 @@ int main(int argc, char* argv[]) {
 
 	// Merge vertically the connected collision
 	std::vector<collision_t> collision_merged_final;
-	std::vector<std::tuple<int, int>> y_width_checked;
-	y_width_checked.emplace_back(std::tuple<int, int>(-1, -1));
-	std::tuple<int, int> to_check;
+	bool pass = false;
 	for(int cur = 0; cur < collision_merged.size(); cur++)
 	{
-		to_check = std::tuple<int, int>(collision_merged[cur].y, collision_merged[cur].width);
-		if (std::find(y_width_checked.begin(), y_width_checked.end(), to_check) != y_width_checked.end()) continue; // We check if this collision has already been merged.
-		y_width_checked.push_back(to_check);
+		//Check if the current collision has already been merged with another one.
+		pass = false;
+		for(int i = 0; i < collision_merged_final.size(); i++)
+		{
+			if(collision_merged[cur].y == collision_merged_final[i].y && collision_merged[cur].width == collision_merged_final[i].width)
+			{
+				if(collision_merged[cur].x < collision_merged_final[i].x + collision_merged_final[i].height)
+				{
+					pass = true;
+					break;
+				}
+			}
+		}
+		if(pass)
+		{
+			continue;
+		}
 		result = collision_merged[cur];
 		for(int i = cur + 1; i < collision_merged.size(); i++)
 		{
