@@ -10,7 +10,6 @@
 #include <filesystem>
 #include <fstream>
 #include <vector>
-#include <algorithm>
 
 #include <jsoncons/json.hpp>
 #include <jsoncons_ext/csv/csv.hpp>
@@ -25,7 +24,7 @@ JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_4_1";
+	std::string level_path = "\\Niveau_8_3";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -37,15 +36,21 @@ int main(int argc, char* argv[]) {
 	cv::Mat level_image = cv::imread(level_image_path);
 
 	// Get the spawn position of Mario and the End of the level.
-
 	std::vector<cv::Mat> end_textures;
 	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(end_textures_path)) {
 		if (entry.path().extension().string() != ".png") continue;
 		cv::Mat texture = cv::imread(entry.path().string(), cv::IMREAD_COLOR);
 		end_textures.push_back(texture);
 	}
+	std::vector<cv::Mat> spawn_textures;
+	for (const std::filesystem::directory_entry& entry : std::filesystem::directory_iterator(spawn_textures_path)) {
+		if (entry.path().extension().string() != ".png") continue;
+		cv::Mat texture = cv::imread(entry.path().string(), cv::IMREAD_COLOR);
+		spawn_textures.push_back(texture);
+	}
 
-	collision_t end = {0,0,0,0};
+	//Detect the end of the level.
+	collision_t end = {-1,-1,-1,-1};
 	for(const cv::Mat& end_texture : end_textures)
 	{
 		cv::Mat collision_hits;
@@ -55,6 +60,20 @@ int main(int argc, char* argv[]) {
 				if (collision_hits.at<float>(x, y) >= 0.85f)
 				{
 					end = { x, y, end_texture.rows, end_texture.cols };
+				}
+	}
+
+	//Detect the spawn of the level.
+	collision_t spawn = { -1,-1,-1,-1 };
+	for (const cv::Mat& spawn_texture : spawn_textures)
+	{
+		cv::Mat collision_hits;
+		cv::matchTemplate(level_image, spawn_texture, collision_hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < collision_hits.rows - 8; x++)
+			for (int y = 0; y < collision_hits.cols - 8; y++)
+				if (collision_hits.at<float>(x, y) >= 0.85f)
+				{
+					spawn = { x, y, spawn_texture.rows, spawn_texture.cols };
 				}
 	}
 
@@ -138,8 +157,10 @@ int main(int argc, char* argv[]) {
 			cv::rectangle(collision_merged_final_image, rect, cv::Scalar(255, 255, 255));
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(255, 255, 255), cv::FILLED);
 		}
-		cv::Rect rect(end.y, end.x, end.width, end.height);
-		cv::rectangle(collision_filled_image, rect, cv::Scalar(255, 0, 0), cv::FILLED);
+		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
+		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);
+		cv::Rect rectSpawn(spawn.y, spawn.x, spawn.width, spawn.height);
+		cv::rectangle(collision_filled_image, rectSpawn, cv::Scalar(0, 255, 0), cv::FILLED);
 		cv::imwrite(base_path + level_path + "\\collision.png", collision_merged_final_image);
 		cv::imwrite(base_path + level_path + "\\collision_filled.png", collision_filled_image);
 	}
@@ -154,13 +175,16 @@ int main(int argc, char* argv[]) {
 		auto json_content_static = jsoncons::decode_json<std::vector<collision_t>>(s);
 		jsoncons::encode_json(end, s, jsoncons::indenting::indent);
 
-		json_content["static"] = json_content_static;
-		json json_end;
-		json_end["x"] = end.x;
-		json_end["y"] = end.y;
-		json_end["height"] = end.height;
-		json_end["width"] = end.width;
-		json_content["end"] = json_end;
+		json_content["static"]["positionCollision"] = json_content_static;
+		json_content["static"]["end"]["x"] = end.x;
+		json_content["static"]["end"]["y"] = end.y;
+		json_content["static"]["end"]["height"] = end.height;
+		json_content["static"]["end"]["width"] = end.width;
+		json_content["static"]["spawn"]["x"] = spawn.x;
+		json_content["static"]["spawn"]["y"] = spawn.y;
+		json_content["static"]["spawn"]["height"] = spawn.height;
+		json_content["static"]["spawn"]["width"] = spawn.width;
+		
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
