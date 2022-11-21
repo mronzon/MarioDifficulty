@@ -113,7 +113,26 @@ std::vector<collision_t> inline merge_collisions(std::vector<collision_t>& colli
 		}
 		collision_merged_final.push_back(result);
 	}
-	return collision_merged_final;
+
+	std::vector<collision_t> final;
+	bool to_add = true;
+	for(const collision_t& collision : collision_merged_final)
+	{
+		to_add = true;
+		for(const collision_t& col : final)
+		{
+			if(collision.x > col.x && collision.x < col.x + col.height)
+			{
+				if (collision.y > col.y && collision.y < col.y + col.width)
+				{
+					to_add = false;
+					break;
+				}
+			}
+		}
+		if (to_add) final.push_back(collision);
+	}
+	return final;
 }
 
 #endif // !COLLISION_H
