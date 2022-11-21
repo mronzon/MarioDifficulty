@@ -31,7 +31,7 @@ collision_t inline from_string(const std::string& s) {
 	return result;
 }
 
-bool inline comp(const collision_t& a, const collision_t& b) {
+bool inline comp_collision(const collision_t& a, const collision_t& b) {
 	return (a.x < b.x || (a.x == b.x && a.y < b.y));
 }
 
@@ -67,7 +67,7 @@ collision_t inline find_a_position(const std::vector<cv::Mat>& textures, const c
 std::vector<collision_t> inline merge_collisions(std::vector<collision_t>& collisions)
 {
 	// Sort unique collisions for rows (top -> bot), then cols (left -> right).
-	std::sort(collisions.begin(), collisions.end(), comp);
+	std::sort(collisions.begin(), collisions.end(), comp_collision);
 
 	// Merge horizontaly connected collisions.
 	std::vector<collision_t> collision_merged;
