@@ -32,6 +32,7 @@ int main(int argc, char* argv[]) {
 	std::string spawn_textures_path = base_path + sprite_path + "\\Spawn";
 	std::string end_textures_path = base_path + sprite_path + "\\End";
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
+	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
 	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
@@ -45,6 +46,9 @@ int main(int argc, char* argv[]) {
 
 	// Fetch the Pipe textures from folder.
 	std::vector<cv::Mat> pipe_textures = find_textures(pipe_textures_path);
+
+	// Fetch Enemies textures from folder.
+	std::vector<cv::Mat> enemies_textures = find_textures(enemies_textures_path);
 
 	//Detect the end of the level.
 	collision_t end = find_a_position(end_textures, level_image);
@@ -120,6 +124,19 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
+	}
+
+	// Identify enemies in level image.
+	std::vector<enemy> enemy_raw;
+	for (const cv::Mat& enemy_texture : enemies_textures) {
+		cv::Mat enemy_hits;
+		cv::matchTemplate(level_image, enemy_texture, enemy_hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < enemy_hits.rows - 8; x++)
+			for (int y = 0; y < enemy_hits.cols - 8; y++)
+				if (enemy_hits.at<float>(x, y) >= 0.70f)
+				{
+					//enemy_raw.push_back(enemy{ x, y, type });
+				}
 	}
 
 
