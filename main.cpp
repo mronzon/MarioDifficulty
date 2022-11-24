@@ -8,10 +8,8 @@
 
 #include <fstream>
 #include <vector>
-#include <iostream>
 
 #include <jsoncons/json.hpp>
-#include <jsoncons_ext/csv/csv.hpp>
 
 using namespace jsoncons;
 
@@ -25,7 +23,7 @@ JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_3_1";
+	std::string level_path = "\\Niveau_4_2";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -105,9 +103,9 @@ int main(int argc, char* argv[]) {
 	{
 		cv::Mat hits;
 		cv::matchTemplate(level_image, pipe_texture, hits, cv::TM_CCOEFF_NORMED);
-		for (int x = 0; x < hits.rows - 8; x++)
+		for (int x = 0; x < hits.rows; x++)
 		{
-			for (int y = 0; y < hits.cols - 8; y++)
+			for (int y = 0; y < hits.cols; y++)
 			{
 				if (hits.at<float>(x, y) >= 0.85f)
 				{
@@ -115,7 +113,6 @@ int main(int argc, char* argv[]) {
 					{
 						if (pipe.y == y && x >= pipe.x && x <= pipe.x + pipe.height)
 						{
-							std::cout << "Le hit est de : " << hits.at<float>(x, y) << std::endl;
 							pipe.dynamic_pipe = true;
 						}
 					}

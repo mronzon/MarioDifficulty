@@ -45,30 +45,19 @@ std::vector<pipe_t> inline merge_pipe(std::vector<pipe_t>& pipes)
 	// Sort unique pipe for rows (top -> bot), then cols (left -> right).
 	std::sort(pipes.begin(), pipes.end(), comp_pipe);
 
-	// Merge horizontaly connected collisions.
-	std::vector<pipe_t> pipe_merged;
-	pipe_t result;
-	for (int cur = 0; cur < pipes.size();) {
-		result = pipes[cur++];
-		while (cur < pipes.size() && pipes[cur].x == result.x && pipes[cur].height == result.height && pipes[cur].y <= result.y + result.width) {
-			result.width += pipes[cur].width - ((result.y + result.width) - pipes[cur].y);
-			cur++;
-		}
-		pipe_merged.push_back(result);
-	}
-
 	// Merge vertically the connected collision
 	std::vector<pipe_t> pipe_merged_final;
+	pipe_t result;
 	bool pass = false;
-	for (int cur = 0; cur < pipe_merged.size(); cur++)
+	for (int cur = 0; cur < pipes.size(); cur++)
 	{
 		//Check if the current collision has already been merged with another one.
 		pass = false;
 		for (const pipe_t& pipe : pipe_merged_final)
 		{
-			if (pipe_merged[cur].y == pipe.y && pipe_merged[cur].width == pipe.width)
+			if (pipes[cur].y == pipe.y && pipes[cur].width == pipe.width)
 			{
-				if (pipe_merged[cur].x < pipe.x + pipe.height)
+				if (pipes[cur].x < pipe.x + pipe.height)
 				{
 					pass = true;
 					break;
@@ -79,12 +68,12 @@ std::vector<pipe_t> inline merge_pipe(std::vector<pipe_t>& pipes)
 		{
 			continue;
 		}
-		result = pipe_merged[cur];
-		for (int i = cur + 1; i < pipe_merged.size(); i++)
+		result = pipes[cur];
+		for (int i = cur + 1; i < pipes.size(); i++)
 		{
-			if (pipe_merged[i].y == result.y && pipe_merged[i].width == result.width && pipe_merged[i].x <= result.x + result.height)
+			if (pipes[i].y == result.y && pipes[i].width == result.width && pipes[i].x <= result.x + result.height)
 			{
-				result.height += pipe_merged[i].height - ((result.x + result.height) - pipe_merged[i].x);
+				result.height += pipes[i].height - ((result.x + result.height) - pipes[i].x);
 			}
 		}
 		pipe_merged_final.push_back(result);
