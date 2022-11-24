@@ -69,6 +69,25 @@ std::vector<collision_t> inline merge_collisions(std::vector<collision_t>& colli
 	// Sort unique collisions for rows (top -> bot), then cols (left -> right).
 	std::sort(collisions.begin(), collisions.end(), comp_collision);
 
+	std::vector<collision_t> tmp;
+	bool to_add = true;
+	for (const collision_t& collision : collisions)
+	{
+		to_add = true;
+		for (const collision_t& col : tmp)
+		{
+			if (collision.x > col.x && collision.x < col.x + col.height)
+			{
+				if (collision.y > col.y && collision.y < col.y + col.width)
+				{
+					to_add = false;
+					break;
+				}
+			}
+		}
+		if (to_add) tmp.push_back(collision);
+	}
+	collisions = tmp;
 	// Merge horizontaly connected collisions.
 	std::vector<collision_t> collision_merged;
 	collision_t result;
@@ -113,6 +132,8 @@ std::vector<collision_t> inline merge_collisions(std::vector<collision_t>& colli
 		}
 		collision_merged_final.push_back(result);
 	}
+
+	
 	return collision_merged_final;
 }
 
