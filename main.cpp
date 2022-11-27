@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
 			for (int y = 0; y < enemy_hits.cols - 8; y++)
 				if (enemy_hits.at<float>(x, y) >= 0.70f)
 				{
-					enemy_raw.push_back(enemy{ x, y, tEnemy });
+					enemy_raw.push_back(enemy{ x, y, enemy_texture.rows, enemy_texture.cols, tEnemy });
 				}
 	}
 
@@ -182,6 +182,10 @@ int main(int argc, char* argv[]) {
 		{
 			cv::Rect rect(pipe.y, pipe.x, pipe.width, pipe.height);
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(0, 0, 255), cv::FILLED);
+		}
+		for (const enemy& enemy : enemy_raw) {
+			cv::Rect rect(enemy.x, enemy.y, enemy.width, enemy.height);
+			cv::rectangle(collision_filled_image, rect, cv::Scalar(165, 42, 42), cv::FILLED);
 		}
 		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
 		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);

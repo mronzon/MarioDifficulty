@@ -12,6 +12,8 @@ typedef enum {
 struct enemy {
 	int x;
 	int y;
+	int height;
+	int width;
 	type_enemy type;
 };
 
