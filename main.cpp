@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include <jsoncons/json.hpp>
 
@@ -23,7 +24,7 @@ JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_4_2";
+	std::string level_path = "\\Niveau_1_1";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -32,6 +33,7 @@ int main(int argc, char* argv[]) {
 	std::string end_textures_path = base_path + sprite_path + "\\End";
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
+	std::map<cv::Mat, type_enemy> maptypenemy;
 	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
@@ -47,7 +49,7 @@ int main(int argc, char* argv[]) {
 	std::vector<cv::Mat> pipe_textures = find_textures(pipe_textures_path);
 
 	// Fetch Enemies textures from folder.
-	std::vector<cv::Mat> enemies_textures = find_textures(enemies_textures_path);
+	std::vector<cv::Mat> enemies_textures = find_textures_enemies(enemies_textures_path,&maptypenemy);
 
 	//Detect the end of the level.
 	collision_t end = find_a_position(end_textures, level_image);
@@ -128,13 +130,14 @@ int main(int argc, char* argv[]) {
 	// Identify enemies in level image.
 	std::vector<enemy> enemy_raw;
 	for (const cv::Mat& enemy_texture : enemies_textures) {
+		type_enemy tEnemy = maptypenemy[enemy_texture];
 		cv::Mat enemy_hits;
 		cv::matchTemplate(level_image, enemy_texture, enemy_hits, cv::TM_CCOEFF_NORMED);
 		for (int x = 0; x < enemy_hits.rows - 8; x++)
 			for (int y = 0; y < enemy_hits.cols - 8; y++)
 				if (enemy_hits.at<float>(x, y) >= 0.70f)
 				{
-					//enemy_raw.push_back(enemy{ x, y, type });
+					enemy_raw.push_back(enemy{ x, y, tEnemy });
 				}
 	}
 
@@ -204,6 +207,7 @@ int main(int argc, char* argv[]) {
 		json_content["static"]["spawn"]["y"] = spawn.y;
 		json_content["static"]["spawn"]["height"] = spawn.height;
 		json_content["static"]["spawn"]["width"] = spawn.width;
+		json_content["dynamic"]["enemies"] = enemy_raw;
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
