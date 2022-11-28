@@ -20,6 +20,7 @@ using namespace jsoncons;
 
 JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
+JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width);
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
@@ -33,7 +34,7 @@ int main(int argc, char* argv[]) {
 	std::string end_textures_path = base_path + sprite_path + "\\End";
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
-	std::map<cv::Mat, type_enemy> maptypenemy;
+	std::map<int, type_enemy> maptypenemy;
 	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
@@ -129,8 +130,9 @@ int main(int argc, char* argv[]) {
 
 	// Identify enemies in level image.
 	std::vector<enemy> enemy_raw;
-	for (const cv::Mat& enemy_texture : enemies_textures) {
-		type_enemy tEnemy = maptypenemy[enemy_texture];
+	for (int i = 0; i < enemies_textures.size(); i++) {
+		const cv::Mat& enemy_texture = enemies_textures.at(i);
+		type_enemy tEnemy = maptypenemy[i];
 		cv::Mat enemy_hits;
 		cv::matchTemplate(level_image, enemy_texture, enemy_hits, cv::TM_CCOEFF_NORMED);
 		for (int x = 0; x < enemy_hits.rows - 8; x++)
@@ -184,7 +186,7 @@ int main(int argc, char* argv[]) {
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(0, 0, 255), cv::FILLED);
 		}
 		for (const enemy& enemy : enemy_raw) {
-			cv::Rect rect(enemy.x, enemy.y, enemy.width, enemy.height);
+			cv::Rect rect(enemy.y, enemy.x, enemy.width, enemy.height);
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(165, 42, 42), cv::FILLED);
 		}
 		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
