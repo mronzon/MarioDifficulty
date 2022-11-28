@@ -32,6 +32,7 @@ int main(int argc, char* argv[]) {
 	std::string end_textures_path = base_path + sprite_path + "\\End";
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
+	std::string platform_textures_path = base_path + sprite_path + "\\Platforms";
 	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
