@@ -248,9 +248,9 @@ int main(int argc, char* argv[]) {
 							{
 								if(pos_balance_point_right[k].x == x)
 								{
-									if((pos_balance_point_right[k].y - y) > 0 && (pos_balance_point_right[k].y - y) < old_y)
+									if((y - pos_balance_point_right[k].y ) > 0 && (y - pos_balance_point_right[k].y ) < old_y)
 									{
-										old_y = (pos_balance_point_right[k].y - y);
+										old_y = (y - pos_balance_point_right[k].y);
 										good_index = k;
 									}
 								}

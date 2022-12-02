@@ -4,18 +4,6 @@
             "balanced": [
                 {
                     "height_first": 8, 
-                    "height_second": 0, 
-                    "max_x": 17, 
-                    "total_length": 43, 
-                    "width_first": 48, 
-                    "width_second": 0, 
-                    "x_first": 71, 
-                    "x_second": 0, 
-                    "y_first": 768, 
-                    "y_second": 0
-                }, 
-                {
-                    "height_first": 8, 
                     "height_second": 8, 
                     "max_x": 17, 
                     "total_length": 134, 
@@ -23,7 +11,7 @@
                     "width_second": 40, 
                     "x_first": 71, 
                     "x_second": 119, 
-                    "y_first": 1280, 
+                    "y_first": 768, 
                     "y_second": 880
                 }, 
                 {
@@ -35,7 +23,7 @@
                     "width_second": 48, 
                     "x_first": 71, 
                     "x_second": 135, 
-                    "y_first": 1456, 
+                    "y_first": 1280, 
                     "y_second": 1408
                 }, 
                 {
@@ -47,8 +35,20 @@
                     "width_second": 48, 
                     "x_first": 71, 
                     "x_second": 135, 
-                    "y_first": 1632, 
+                    "y_first": 1456, 
                     "y_second": 1536
+                }, 
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 17, 
+                    "total_length": 150, 
+                    "width_first": 48, 
+                    "width_second": 48, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1632, 
+                    "y_second": 1728
                 }
             ], 
             "moving": [
