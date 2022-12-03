@@ -14,7 +14,7 @@ This project was realized in C++ language using the Visual Studio 2022 IDE. More
 
 ## Get Started
 
-Pour utiliser les deux mini-projet, vous devez installer les librairies opencv et jsoncons en utilisant le gestionnaire de librairie vcpkg. Apres cela, veuillez lire les readme des différent projet pour connaitre leur spécificité.
+To use the two mini-projects, you need to install the opencv and jsoncons libraries using the vcpkg library manager. After that, please read the readme of the different projects to know their specificity.
 
 ## Author
 
