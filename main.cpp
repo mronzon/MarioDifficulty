@@ -17,9 +17,12 @@ using namespace jsoncons;
 #include "collision.h"
 #include "pipe.h"
 #include "enemy.h"
+#include "platforms.h"
 
 JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
+JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit, initial_velocity);
+JSONCONS_ALL_MEMBER_TRAITS(balanced_lift_t, x_first, y_first, width_first, height_first, x_second, y_second, width_second, height_second, total_length, max_x);
 JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width);
 
 int main(int argc, char* argv[]) {
@@ -34,6 +37,7 @@ int main(int argc, char* argv[]) {
 	std::string end_textures_path = base_path + sprite_path + "\\End";
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
+	std::string platform_textures_path = base_path + sprite_path + "\\Platforms";
 	std::map<int, type_enemy> maptypenemy;
 	
 	// Fetch level image.
@@ -51,6 +55,9 @@ int main(int argc, char* argv[]) {
 
 	// Fetch Enemies textures from folder.
 	std::vector<cv::Mat> enemies_textures = find_textures_enemies(enemies_textures_path,&maptypenemy);
+
+	// Fetch platforms textures from folder.
+	std::vector<cv::Mat> platforms_textures = find_textures(platform_textures_path);
 
 	//Detect the end of the level.
 	collision_t end = find_a_position(end_textures, level_image);
@@ -171,6 +178,114 @@ int main(int argc, char* argv[]) {
 	std::vector<collision_t> collisions_merged = merge_collisions(collision_raw);
 
 
+	// Platforms code:
+	// We detect all the platform first and after that we try to put them to the right type.
+
+	std::vector<collision_t> raw_platforms;
+	for (const cv::Mat& platform_texture : platforms_textures) {
+		cv::Mat hits;
+		cv::matchTemplate(level_image, platform_texture, hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < hits.rows - 8; x++)
+			for (int y = 0; y < hits.cols - 8; y++)
+				if (hits.at<float>(x, y) >= 0.85f)
+				{
+					raw_platforms.push_back(collision_t{ x, y, platform_texture.rows, platform_texture.cols });
+				}
+	}
+
+	raw_platforms = merge_collisions(raw_platforms);
+
+	//Now we have all the platforms. We can detect the balanced platforms using the dot on the top
+	std::vector<balanced_lift_t> balanced_lifts;
+	std::vector<moving_lift_t> normal_lifts;
+	std::string balance_platforms_path = platform_textures_path + "\\BalancePoint";
+	std::vector<position_t> pos_balance_point_right;
+	std::vector<cv::Mat> balance_right_textures = get_textures(balance_platforms_path, "right");
+	std::vector<cv::Mat> balance_left_textures = get_textures(balance_platforms_path, "left");
+	for(const cv::Mat& balance_texture : balance_left_textures)
+	{
+		cv::Mat hits;
+		cv::matchTemplate(level_image, balance_texture, hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < hits.rows - 8; x++)
+		{
+			for (int y = 0; y < hits.cols - 8; y++)
+			{
+				if (hits.at<float>(x, y) >= 0.85f)
+				{
+					int i = 0;
+					while(i < raw_platforms.size())
+					{
+						if((raw_platforms[i].y <= y) && y <= (raw_platforms[i].y + raw_platforms[i].width))
+						{
+							balanced_lifts.push_back(balanced_lift_t{ raw_platforms[i].x, raw_platforms[i].y, raw_platforms[i].width, raw_platforms[i].height,0,0,0,0, raw_platforms[i].x - x, x-balance_texture.rows});
+							pos_balance_point_right.push_back(position_t{ x,y });
+							break;
+						}
+						i++;
+					}
+					if(i != raw_platforms.size())
+					{
+						raw_platforms.erase(raw_platforms.begin() + i);
+					}
+				}
+			}
+		}
+	}
+
+	for (const cv::Mat& balance_texture : balance_right_textures)
+	{
+		cv::Mat hits;
+		cv::matchTemplate(level_image, balance_texture, hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < hits.rows - 8; x++)
+		{
+			for (int y = 0; y < hits.cols - 8; y++)
+			{
+				if (hits.at<float>(x, y) >= 0.85f)
+				{
+					int i = 0;
+					while (i < raw_platforms.size())
+					{
+						if ((raw_platforms[i].y <= y) && y <= (raw_platforms[i].y + raw_platforms[i].width))
+						{
+							int old_y = 20000000;
+							int good_index = -1;
+							for(int k = 0; k < pos_balance_point_right.size(); k++)
+							{
+								if(pos_balance_point_right[k].x == x)
+								{
+									if((y - pos_balance_point_right[k].y ) > 0 && (y - pos_balance_point_right[k].y ) < old_y)
+									{
+										old_y = (y - pos_balance_point_right[k].y);
+										good_index = k;
+									}
+								}
+							}
+							if(good_index != -1)
+							{
+								balanced_lifts[good_index].x_second = raw_platforms[i].x;
+								balanced_lifts[good_index].y_second = raw_platforms[i].y;
+								balanced_lifts[good_index].height_second = raw_platforms[i].height;
+								balanced_lifts[good_index].width_second = raw_platforms[i].width;
+								balanced_lifts[good_index].total_length += raw_platforms[i].x - x;
+							}
+							break;
+						}
+						i++;
+					}
+					if (i != raw_platforms.size())
+					{
+						raw_platforms.erase(raw_platforms.begin() + i);
+					}
+				}
+			}
+		}
+	}
+
+	for(const collision_t& lift : raw_platforms)
+	{
+		normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, -1, 0, 0, 0 });
+	}
+
 	/* Print out collisions images. */ {
 		// Print out the unique collision image and the filled collision image.
 		cv::Mat collision_merged_final_image(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
@@ -193,6 +308,20 @@ int main(int argc, char* argv[]) {
 		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);
 		cv::Rect rectSpawn(spawn.y, spawn.x, spawn.width, spawn.height);
 		cv::rectangle(collision_filled_image, rectSpawn, cv::Scalar(0, 255, 0), cv::FILLED);
+
+		//Display of the lifts
+		for(const moving_lift_t& lift : normal_lifts)
+		{
+			cv::Rect rect(lift.y, lift.x, lift.width, lift.height);
+			cv::rectangle(collision_filled_image, rect, cv::Scalar(47, 173, 208), cv::FILLED);
+		}
+		for (const balanced_lift_t& lift : balanced_lifts)
+		{
+			cv::Rect rectLeft(lift.y_first, lift.x_first, lift.width_first, lift.height_first);
+			cv::rectangle(collision_filled_image, rectLeft, cv::Scalar(208, 82, 47), cv::FILLED);
+			cv::Rect rectRight(lift.y_second, lift.x_second, lift.width_second, lift.height_second);
+			cv::rectangle(collision_filled_image, rectRight, cv::Scalar(208, 82, 47), cv::FILLED);
+		}
 		cv::imwrite(base_path + level_path + "\\collision.png", collision_merged_final_image);
 		cv::imwrite(base_path + level_path + "\\collision_filled.png", collision_filled_image);
 	}
@@ -212,8 +341,9 @@ int main(int argc, char* argv[]) {
 		json_content["static"]["spawn"]["x"] = spawn.x;
 		json_content["static"]["spawn"]["y"] = spawn.y;
 		json_content["static"]["spawn"]["height"] = spawn.height;
-		json_content["static"]["spawn"]["width"] = spawn.width;
-		json_content["dynamic"]["enemies"] = enemy_raw;
+		json_content["dynamic"]["platform"]["moving"] = normal_lifts;
+		json_content["dynamic"]["platform"]["balanced"] = balanced_lifts;
+		json_content["dynamic"]["enemies"] = enemy_raw
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();

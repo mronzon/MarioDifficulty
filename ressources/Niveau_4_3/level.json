@@ -1,11 +1,98 @@
 {
+    "dynamic": {
+        "platform": {
+            "balanced": [
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 17, 
+                    "total_length": 134, 
+                    "width_first": 48, 
+                    "width_second": 40, 
+                    "x_first": 71, 
+                    "x_second": 119, 
+                    "y_first": 768, 
+                    "y_second": 880
+                }, 
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 17, 
+                    "total_length": 150, 
+                    "width_first": 48, 
+                    "width_second": 48, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1280, 
+                    "y_second": 1408
+                }, 
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 17, 
+                    "total_length": 150, 
+                    "width_first": 48, 
+                    "width_second": 48, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1456, 
+                    "y_second": 1536
+                }, 
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 17, 
+                    "total_length": 150, 
+                    "width_first": 48, 
+                    "width_second": 48, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1632, 
+                    "y_second": 1728
+                }
+            ], 
+            "moving": [
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 67, 
+                    "y": 2176
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 68, 
+                    "y": 992
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 87, 
+                    "y": 928
+                }
+            ]
+        }
+    }, 
     "static": {
         "end": {
             "height": 151, 
             "width": 7, 
-            "x": 33, 
+            "x": 31, 
             "y": 2356
         }, 
+        "pipes": [], 
         "positionCollision": [
             {
                 "height": 16, 
