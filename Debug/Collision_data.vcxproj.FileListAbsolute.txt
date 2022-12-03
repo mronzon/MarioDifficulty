@@ -1,0 +1,14 @@
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\Collision_data.vcxproj.CopyComplete
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\Collision_data.exe
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\opencv_core4d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\zlibd1.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\opencv_highgui4d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\opencv_videoio4d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\opencv_imgcodecs4d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\opencv_imgproc4d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\jpeg62.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\webpdecoder.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\webp.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\libpng16d.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\tiffd.dll
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Debug\liblzma.dll

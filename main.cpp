@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include <vector>
+#include <map>
 
 #include <jsoncons/json.hpp>
 
@@ -22,11 +23,12 @@ JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
 JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit, initial_velocity);
 JSONCONS_ALL_MEMBER_TRAITS(balanced_lift_t, x_first, y_first, width_first, height_first, x_second, y_second, width_second, height_second, total_length, max_x);
+JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width);
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_4_3";
+	std::string level_path = "\\Niveau_1_1";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -36,6 +38,7 @@ int main(int argc, char* argv[]) {
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
 	std::string platform_textures_path = base_path + sprite_path + "\\Platforms";
+	std::map<int, type_enemy> maptypenemy;
 	
 	// Fetch level image.
 	cv::Mat level_image = cv::imread(level_image_path);
@@ -51,7 +54,7 @@ int main(int argc, char* argv[]) {
 	std::vector<cv::Mat> pipe_textures = find_textures(pipe_textures_path);
 
 	// Fetch Enemies textures from folder.
-	std::vector<cv::Mat> enemies_textures = find_textures(enemies_textures_path);
+	std::vector<cv::Mat> enemies_textures = find_textures_enemies(enemies_textures_path,&maptypenemy);
 
 	// Fetch platforms textures from folder.
 	std::vector<cv::Mat> platforms_textures = find_textures(platform_textures_path);
@@ -134,14 +137,16 @@ int main(int argc, char* argv[]) {
 
 	// Identify enemies in level image.
 	std::vector<enemy> enemy_raw;
-	for (const cv::Mat& enemy_texture : enemies_textures) {
+	for (int i = 0; i < enemies_textures.size(); i++) {
+		const cv::Mat& enemy_texture = enemies_textures.at(i);
+		type_enemy tEnemy = maptypenemy[i];
 		cv::Mat enemy_hits;
 		cv::matchTemplate(level_image, enemy_texture, enemy_hits, cv::TM_CCOEFF_NORMED);
 		for (int x = 0; x < enemy_hits.rows - 8; x++)
 			for (int y = 0; y < enemy_hits.cols - 8; y++)
 				if (enemy_hits.at<float>(x, y) >= 0.70f)
 				{
-					//enemy_raw.push_back(enemy{ x, y, type });
+					enemy_raw.push_back(enemy{ x, y, enemy_texture.rows, enemy_texture.cols, tEnemy });
 				}
 	}
 
@@ -295,6 +300,10 @@ int main(int argc, char* argv[]) {
 			cv::Rect rect(pipe.y, pipe.x, pipe.width, pipe.height);
 			cv::rectangle(collision_filled_image, rect, cv::Scalar(0, 0, 255), cv::FILLED);
 		}
+		for (const enemy& enemy : enemy_raw) {
+			cv::Rect rect(enemy.y, enemy.x, enemy.width, enemy.height);
+			cv::rectangle(collision_filled_image, rect, cv::Scalar(165, 42, 42), cv::FILLED);
+		}
 		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
 		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);
 		cv::Rect rectSpawn(spawn.y, spawn.x, spawn.width, spawn.height);
@@ -332,9 +341,9 @@ int main(int argc, char* argv[]) {
 		json_content["static"]["spawn"]["x"] = spawn.x;
 		json_content["static"]["spawn"]["y"] = spawn.y;
 		json_content["static"]["spawn"]["height"] = spawn.height;
-		json_content["static"]["spawn"]["width"] = spawn.width;
 		json_content["dynamic"]["platform"]["moving"] = normal_lifts;
 		json_content["dynamic"]["platform"]["balanced"] = balanced_lifts;
+		json_content["dynamic"]["enemies"] = enemy_raw
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
