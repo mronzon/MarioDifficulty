@@ -21,7 +21,7 @@ Pour utiliser les deux mini-projet, vous devez installer les librairies opencv e
 - [Jules Linard](https://github.com/JulesLinard)
 - [Mathis Ronzon](https://github.com/mronzon)
 
-## Remerciement
+## Acknowledgment
 
 This project is based on the work done by Simon NOMDEFAMILLE, who has already implemented a bass of `Collision_data` and coded `Challenge`.
 Thanks also to UQAC who allow us to work on this subject and to Yannick Francillette and Hugo Tremblay who are our supervisors.
