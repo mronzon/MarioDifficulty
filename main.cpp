@@ -343,7 +343,7 @@ int main(int argc, char* argv[]) {
 		json_content["static"]["spawn"]["height"] = spawn.height;
 		json_content["dynamic"]["platform"]["moving"] = normal_lifts;
 		json_content["dynamic"]["platform"]["balanced"] = balanced_lifts;
-		json_content["dynamic"]["enemies"] = enemy_raw
+		json_content["dynamic"]["enemies"] = enemy_raw;
 
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
