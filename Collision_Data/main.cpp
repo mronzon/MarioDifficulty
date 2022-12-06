@@ -24,11 +24,12 @@ JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
 JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit, initial_velocity);
 JSONCONS_ALL_MEMBER_TRAITS(balanced_lift_t, x_first, y_first, width_first, height_first, x_second, y_second, width_second, height_second, total_length, max_x);
 JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width);
+JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_1_1";
+	std::string level_path = "\\Niveau_2_1";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -38,6 +39,7 @@ int main(int argc, char* argv[]) {
 	std::string pipe_textures_path = base_path + sprite_path + "\\Pipes";
 	std::string enemies_textures_path = base_path + sprite_path + "\\Enemies";
 	std::string platform_textures_path = base_path + sprite_path + "\\Platforms";
+	std::string magicBeans_textures_path = base_path + sprite_path + "\\MagicBean";
 	std::map<int, type_enemy> maptypenemy;
 	
 	// Fetch level image.
@@ -180,7 +182,6 @@ int main(int argc, char* argv[]) {
 
 	// Platforms code:
 	// We detect all the platform first and after that we try to put them to the right type.
-
 	std::vector<collision_t> raw_platforms;
 	for (const cv::Mat& platform_texture : platforms_textures) {
 		cv::Mat hits;
@@ -286,6 +287,55 @@ int main(int argc, char* argv[]) {
 		normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, -1, 0, 0, 0 });
 	}
 
+	// We now check if their is a magic beans inside the level.
+	std::vector<cv::Mat> magicBeans_textures = get_textures(magicBeans_textures_path, "sprite");
+	std::vector<magic_bean_t> magic_beans;
+	magic_bean_t magic_bean{};
+	for (const cv::Mat& magicBeans_texture : magicBeans_textures) {
+		cv::Mat collision_hits;
+		cv::matchTemplate(level_image, magicBeans_texture, collision_hits, cv::TM_CCOEFF_NORMED);
+		for (int x = 0; x < collision_hits.rows - 8; x++)
+			for (int y = 0; y < collision_hits.cols - 8; y++)
+				if (collision_hits.at<float>(x, y) >= 0.85f)
+				{
+					magic_beans.push_back(magic_bean_t{ x, y, magicBeans_texture.rows, magicBeans_texture.cols , -1, -1});
+				}
+	}
+
+	if(!magic_beans.empty()) // We have found a magic beans inside the level !
+	{
+		std::cout << "Slt je suis la !" << std::endl;
+		int height = -1;
+		int x_min = 100000;
+		int x_max = -1;
+		for(auto bean : magic_beans)
+		{
+			if(x_min >  bean.x)
+			{
+				x_min = bean.x;
+			}
+			if(x_max < bean.x)
+			{
+				x_max = bean.x;
+				height = bean.height;
+			}
+		}
+		magic_bean = magic_bean_t{ x_min, magic_beans.at(0).y, magic_beans.at(0).width, (x_max - x_min + height), -1, -1 };
+		// Now we have to find the exit !
+		std::vector<cv::Mat> exit_textures = get_textures(magicBeans_textures_path, "downArrow");
+		for (const cv::Mat& exit_texture : exit_textures) {
+			cv::Mat collision_hits;
+			cv::matchTemplate(level_image, exit_texture, collision_hits, cv::TM_CCOEFF_NORMED);
+			for (int x = 0; x < collision_hits.rows - 8; x++)
+				for (int y = 0; y < collision_hits.cols - 8; y++)
+					if (collision_hits.at<float>(x, y) >= 0.85f)
+					{
+						magic_bean.x_exit = x + (exit_texture.cols / 2);
+						magic_bean.y_exit = y + (exit_texture.rows / 2);
+					}
+		}
+	}
+
 	/* Print out collisions images. */ {
 		// Print out the unique collision image and the filled collision image.
 		cv::Mat collision_merged_final_image(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
@@ -341,6 +391,10 @@ int main(int argc, char* argv[]) {
 		json_content["static"]["spawn"]["x"] = spawn.x;
 		json_content["static"]["spawn"]["y"] = spawn.y;
 		json_content["static"]["spawn"]["height"] = spawn.height;
+		if(magic_bean.x >= 0)
+		{
+			json_content["static"]["magicBean"] = magic_bean;
+		}
 		json_content["dynamic"]["platform"]["moving"] = normal_lifts;
 		json_content["dynamic"]["platform"]["balanced"] = balanced_lifts;
 		json_content["dynamic"]["enemies"] = enemy_raw;

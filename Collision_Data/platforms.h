@@ -32,8 +32,15 @@ struct balanced_lift_t
 	int max_x;
 };
 
-// TODO Finish the struct.
-struct flimsy_lift
+
+// The structures for the Magic Bean
+struct magic_bean_t
 {
-	
+	int x;
+	int y;
+	int width;
+	int height;
+	int x_exit;
+	int y_exit;
 };
+
