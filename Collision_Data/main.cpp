@@ -23,13 +23,13 @@ JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
 JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
 JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit, initial_velocity);
 JSONCONS_ALL_MEMBER_TRAITS(balanced_lift_t, x_first, y_first, width_first, height_first, x_second, y_second, width_second, height_second, total_length, max_x);
-JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width);
+JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width, type);
 JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_2_1";
+	std::string level_path = "\\Niveau_1_3";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
 	std::vector<enemy> enemy_raw;
 	for (int i = 0; i < enemies_textures.size(); i++) {
 		const cv::Mat& enemy_texture = enemies_textures.at(i);
-		type_enemy tEnemy = maptypenemy[i];
+		std::string tEnemy = convertToString(maptypenemy[i]);
 		cv::Mat enemy_hits;
 		cv::matchTemplate(level_image, enemy_texture, enemy_hits, cv::TM_CCOEFF_NORMED);
 		for (int x = 0; x < enemy_hits.rows - 8; x++)
@@ -352,7 +352,7 @@ int main(int argc, char* argv[]) {
 		}
 		for (const enemy& enemy : enemy_raw) {
 			cv::Rect rect(enemy.y, enemy.x, enemy.width, enemy.height);
-			cv::rectangle(collision_filled_image, rect, cv::Scalar(165, 42, 42), cv::FILLED);
+			cv::rectangle(collision_filled_image, rect, cv::Scalar(119,183,41), cv::FILLED);
 		}
 		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
 		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);
@@ -402,7 +402,7 @@ int main(int argc, char* argv[]) {
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
 	}
-	
+	std::cout << "On a fini d'écrire le json !" << std::endl;
 	cv::waitKey();
 	return 0;
 }

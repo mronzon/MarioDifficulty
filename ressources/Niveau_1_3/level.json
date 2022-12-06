@@ -1,11 +1,146 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 41, 
+                "y": 655
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 41, 
+                "y": 703
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 73, 
+                "y": 1232
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 82, 
+                "y": 1683
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2141
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 50, 
+                "y": 413
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 50, 
+                "y": 413
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 57, 
+                "y": 1184
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 64, 
+                "y": 1824
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 57, 
+                "y": 1184
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 64, 
+                "y": 1824
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": [
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 89, 
+                    "y": 2046
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 121, 
+                    "y": 1375
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 137, 
+                    "y": 1503
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 48, 
+                    "x": 159, 
+                    "y": 880
+                }
+            ]
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
             "width": 8, 
-            "x": 33, 
+            "x": 31, 
             "y": 2436
         }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
+        }, 
+        "pipes": [], 
         "positionCollision": [
             {
                 "height": 16, 
@@ -154,7 +289,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

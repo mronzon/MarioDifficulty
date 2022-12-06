@@ -3,101 +3,121 @@
         "enemies": [
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 57, 
                 "y": 1304
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 98, 
                 "y": 1260
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 329
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 644
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 841
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 865
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 1517
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 1541
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 1974
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 1997
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 2029
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 2052
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 2771
             }, 
             {
                 "height": 16, 
+                "type": 1, 
                 "width": 16, 
                 "x": 185, 
                 "y": 2794
             }, 
             {
                 "height": 23, 
+                "type": 4, 
                 "width": 16, 
                 "x": 178, 
                 "y": 1691
             }, 
             {
                 "height": 23, 
+                "type": 4, 
                 "width": 16, 
                 "x": 178, 
                 "y": 1691
             }
-        ]
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
     }, 
     "static": {
         "end": {
@@ -105,6 +125,14 @@
             "width": 8, 
             "x": 31, 
             "y": 3172
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
         }, 
         "pipes": [
             {
@@ -436,7 +464,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }
