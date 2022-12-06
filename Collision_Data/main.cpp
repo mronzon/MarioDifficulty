@@ -29,7 +29,7 @@ JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_8_3";
+	std::string level_path = "\\Niveau_1_1";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -352,7 +352,7 @@ int main(int argc, char* argv[]) {
 		}
 		for (const enemy& enemy : enemy_raw) {
 			cv::Rect rect(enemy.y, enemy.x, enemy.width, enemy.height);
-			cv::rectangle(collision_filled_image, rect, cv::Scalar(119,183,41), cv::FILLED);
+			cv::rectangle(collision_filled_image, rect, cv::Scalar(41,119,183), cv::FILLED);
 		}
 		cv::Rect rectEnd(end.y, end.x, end.width, end.height);
 		cv::rectangle(collision_filled_image, rectEnd, cv::Scalar(255, 0, 0), cv::FILLED);
