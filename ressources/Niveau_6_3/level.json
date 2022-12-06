@@ -1,10 +1,186 @@
 {
+    "dynamic": {
+        "enemies": [], 
+        "platform": {
+            "balanced": [], 
+            "moving": [
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 55, 
+                    "y": 960
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 65, 
+                    "y": 448
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 71, 
+                    "y": 1128
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 71, 
+                    "y": 1256
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 73, 
+                    "y": 635
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 73, 
+                    "y": 1920
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 87, 
+                    "y": 2024
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 89, 
+                    "y": 836
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 89, 
+                    "y": 2320
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 105, 
+                    "y": 729
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 105, 
+                    "y": 2256
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 105, 
+                    "y": 2448
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 121, 
+                    "y": 2384
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 135, 
+                    "y": 1192
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 135, 
+                    "y": 1304
+                }, 
+                {
+                    "axe": -1, 
+                    "first_limit": 0, 
+                    "height": 8, 
+                    "initial_velocity": 0, 
+                    "second_limit": 0, 
+                    "width": 32, 
+                    "x": 135, 
+                    "y": 2072
+                }
+            ]
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
             "width": 8, 
             "x": 31, 
             "y": 2676
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
         }, 
         "pipes": [], 
         "positionCollision": [
@@ -161,7 +337,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

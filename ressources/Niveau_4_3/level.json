@@ -1,5 +1,63 @@
 {
     "dynamic": {
+        "enemies": [
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 50, 
+                "y": 1179
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 114, 
+                "y": 426
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 114, 
+                "y": 446
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 162, 
+                "y": 589
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1105
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 50, 
+                "y": 1179
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 36, 
+                "y": 576
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 36, 
+                "y": 576
+            }
+        ], 
         "platform": {
             "balanced": [
                 {
@@ -91,6 +149,14 @@
             "width": 7, 
             "x": 31, 
             "y": 2356
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
         }, 
         "pipes": [], 
         "positionCollision": [
@@ -241,7 +307,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

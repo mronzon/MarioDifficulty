@@ -3,112 +3,112 @@
         "enemies": [
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 57, 
                 "y": 1304
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 98, 
                 "y": 1260
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 329
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 644
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 841
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 865
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1517
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1541
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1974
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1997
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 2029
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 2052
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 2771
             }, 
             {
                 "height": 16, 
-                "type": 1, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 2794
             }, 
             {
                 "height": 23, 
-                "type": 4, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
                 "y": 1691
             }, 
             {
                 "height": 23, 
-                "type": 4, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
                 "y": 1691

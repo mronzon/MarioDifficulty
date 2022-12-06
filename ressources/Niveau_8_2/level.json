@@ -1,11 +1,208 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 121, 
+                "y": 2955
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 161, 
+                "y": 2915
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 65, 
+                "y": 3227
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 135, 
+                "y": 870
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 135, 
+                "y": 1077
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 136, 
+                "y": 2670
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 142, 
+                "y": 1019
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 145, 
+                "y": 242
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 148, 
+                "y": 2198
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 155, 
+                "y": 1440
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 157, 
+                "y": 2709
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 16, 
+                "y": 358
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 125, 
+                "y": 2774
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 16, 
+                "y": 358
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 125, 
+                "y": 2774
+            }, 
+            {
+                "height": 24, 
+                "type": "lakitu", 
+                "width": 16, 
+                "x": 33, 
+                "y": 332
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 2504
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2104
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2280
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2616
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 185, 
+                "y": 3003
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 186, 
+                "y": 1733
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 186, 
+                "y": 1885
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
             "width": 8, 
-            "x": 33, 
+            "x": 31, 
             "y": 3460
         }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
+        }, 
+        "pipes": [
+            {
+                "go_id": -2, 
+                "height": 12, 
+                "id": -1, 
+                "inside": true, 
+                "width": 32, 
+                "x": 162, 
+                "y": 2496
+            }, 
+            {
+                "go_id": -2, 
+                "height": 32, 
+                "id": -1, 
+                "inside": false, 
+                "width": 32, 
+                "x": 168, 
+                "y": 2608
+            }
+        ], 
         "positionCollision": [
             {
                 "height": 16, 
@@ -95,6 +292,12 @@
                 "height": 16, 
                 "width": 32, 
                 "x": 136, 
+                "y": 2496
+            }, 
+            {
+                "height": 16, 
+                "width": 32, 
+                "x": 136, 
                 "y": 2960
             }, 
             {
@@ -152,6 +355,18 @@
                 "y": 1680
             }, 
             {
+                "height": 32, 
+                "width": 32, 
+                "x": 168, 
+                "y": 2096
+            }, 
+            {
+                "height": 32, 
+                "width": 32, 
+                "x": 168, 
+                "y": 2272
+            }, 
+            {
                 "height": 48, 
                 "width": 16, 
                 "x": 168, 
@@ -180,6 +395,12 @@
                 "width": 16, 
                 "x": 184, 
                 "y": 1840
+            }, 
+            {
+                "height": 16, 
+                "width": 32, 
+                "x": 184, 
+                "y": 2496
             }, 
             {
                 "height": 16, 
@@ -304,7 +525,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

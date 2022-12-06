@@ -1,10 +1,215 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 121, 
+                "y": 669
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 121, 
+                "y": 693
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 121, 
+                "y": 717
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 177, 
+                "y": 1200
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 177, 
+                "y": 1580
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 177, 
+                "y": 1604
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2164
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2680
+            }, 
+            {
+                "height": 24, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2704
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 66, 
+                "y": 1256
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 66, 
+                "y": 2888
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 1720
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 2280
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1160
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1352
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1432
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 2216
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2104
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 177, 
+                "y": 2419
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1302
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1303
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1304
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1398
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1399
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1400
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 2853
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 2854
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
     "static": {
         "end": {
             "height": 32, 
             "width": 39, 
             "x": 120, 
             "y": 2992
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
         }, 
         "pipes": [
             {
@@ -402,7 +607,6 @@
         ], 
         "spawn": {
             "height": 15, 
-            "width": 13, 
             "x": 49, 
             "y": 42
         }

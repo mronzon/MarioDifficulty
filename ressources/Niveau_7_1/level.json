@@ -1,11 +1,173 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 49, 
+                "y": 1377
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 113, 
+                "y": 1340
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 113, 
+                "y": 2156
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 177, 
+                "y": 2182
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 113, 
+                "y": 2157
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 141, 
+                "y": 374
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1778
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 151, 
+                "y": 820
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 163, 
+                "y": 613
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 151, 
+                "y": 820
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 163, 
+                "y": 613
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1224
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1496
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1752
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 1848
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2056
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 89, 
+                "y": 2667
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 89, 
+                "y": 2668
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
             "width": 8, 
-            "x": 33, 
+            "x": 31, 
             "y": 2868
         }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
+        }, 
+        "pipes": [
+            {
+                "go_id": -2, 
+                "height": 36, 
+                "id": -1, 
+                "inside": true, 
+                "width": 32, 
+                "x": 152, 
+                "y": 1488
+            }, 
+            {
+                "go_id": -2, 
+                "height": 32, 
+                "id": -1, 
+                "inside": false, 
+                "width": 32, 
+                "x": 168, 
+                "y": 1840
+            }
+        ], 
         "positionCollision": [
             {
                 "height": 16, 
@@ -147,6 +309,18 @@
             }, 
             {
                 "height": 48, 
+                "width": 32, 
+                "x": 152, 
+                "y": 1216
+            }, 
+            {
+                "height": 48, 
+                "width": 32, 
+                "x": 152, 
+                "y": 1744
+            }, 
+            {
+                "height": 48, 
                 "width": 16, 
                 "x": 152, 
                 "y": 2256
@@ -200,6 +374,12 @@
                 "y": 1952
             }, 
             {
+                "height": 32, 
+                "width": 32, 
+                "x": 168, 
+                "y": 2048
+            }, 
+            {
                 "height": 16, 
                 "width": 80, 
                 "x": 168, 
@@ -250,7 +430,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

@@ -1,10 +1,40 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 24, 
+                "type": "lakitu", 
+                "width": 16, 
+                "x": 33, 
+                "y": 514
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1640
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
             "width": 8, 
             "x": 31, 
             "y": 2980
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
         }, 
         "pipes": [], 
         "positionCollision": [
@@ -341,7 +371,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }

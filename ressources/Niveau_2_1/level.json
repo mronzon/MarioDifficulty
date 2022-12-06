@@ -3,153 +3,234 @@
         "enemies": [
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 134, 
                 "y": 354
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 609
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 963
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1059
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1082
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1106
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1326
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1350
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1374
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 1588
             }, 
             {
                 "height": 16, 
+                "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
                 "y": 2549
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
                 "y": 2847
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 129, 
                 "y": 830
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 145, 
                 "y": 2707
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 177, 
                 "y": 449
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 177, 
                 "y": 474
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 177, 
                 "y": 1021
             }, 
             {
                 "height": 23, 
+                "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
                 "y": 2847
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 135, 
                 "y": 2635
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 166, 
                 "y": 2387
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 129, 
                 "y": 830
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 135, 
                 "y": 2635
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 166, 
                 "y": 2387
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 177, 
                 "y": 449
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
                 "x": 177, 
                 "y": 474
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 98, 
+                "y": 2088
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 744
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 1192
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 1656
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 1960
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 2024
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 2824
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 1848
             }
         ], 
         "platform": {

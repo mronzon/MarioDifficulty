@@ -29,7 +29,7 @@ JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_1_3";
+	std::string level_path = "\\Niveau_8_3";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -402,7 +402,7 @@ int main(int argc, char* argv[]) {
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
 	}
-	std::cout << "On a fini d'écrire le json !" << std::endl;
+	std::cout << "On a fini d'ecrire le json !" << std::endl;
 	cv::waitKey();
 	return 0;
 }

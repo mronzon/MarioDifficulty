@@ -1,4 +1,47 @@
 {
+    "dynamic": {
+        "enemies": [
+            {
+                "height": 24, 
+                "type": "lakitu", 
+                "width": 16, 
+                "x": 33, 
+                "y": 528
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 1864
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 114, 
+                "y": 2120
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 130, 
+                "y": 344
+            }, 
+            {
+                "height": 22, 
+                "type": "piranha_plant", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2616
+            }
+        ], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
     "static": {
         "end": {
             "height": 152, 
@@ -6,11 +49,19 @@
             "x": 31, 
             "y": 3604
         }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
+        }, 
         "pipes": [
             {
-                "go_id": 2, 
+                "go_id": -2, 
                 "height": 64, 
-                "id": 1, 
+                "id": -1, 
                 "inside": true, 
                 "width": 32, 
                 "x": 136, 
@@ -19,7 +70,7 @@
             {
                 "go_id": -2, 
                 "height": 32, 
-                "id": 2, 
+                "id": -1, 
                 "inside": false, 
                 "width": 32, 
                 "x": 168, 
@@ -216,7 +267,6 @@
         ], 
         "spawn": {
             "height": 16, 
-            "width": 12, 
             "x": 185, 
             "y": 42
         }
