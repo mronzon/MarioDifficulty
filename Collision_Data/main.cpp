@@ -1,3 +1,4 @@
+
 /*
 	Inputs: a level image and a set of collision textures.
 	Output: a text file with all collision hits.
@@ -20,8 +21,9 @@ using namespace jsoncons;
 #include "platforms.h"
 
 JSONCONS_ALL_MEMBER_TRAITS(collision_t, x, y, height, width);
+JSONCONS_ALL_MEMBER_TRAITS(flimsy_lift_t, x, y, height, width);
 JSONCONS_ALL_MEMBER_TRAITS(pipe_t, x, y, height, width, id, inside, go_id);
-JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit, initial_velocity);
+JSONCONS_ALL_MEMBER_TRAITS(moving_lift_t, x, y, width, height, axe, first_limit, second_limit);
 JSONCONS_ALL_MEMBER_TRAITS(balanced_lift_t, x_first, y_first, width_first, height_first, x_second, y_second, width_second, height_second, total_length, max_x);
 JSONCONS_ALL_MEMBER_TRAITS(enemy, x, y, height, width, type);
 JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
@@ -29,7 +31,7 @@ JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_1_1";
+	std::string level_path = "\\Niveau_6_3";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -194,7 +196,7 @@ int main(int argc, char* argv[]) {
 				}
 	}
 
-	raw_platforms = merge_collisions(raw_platforms);
+	raw_platforms = merge_lift(raw_platforms);
 
 	//Now we have all the platforms. We can detect the balanced platforms using the dot on the top
 	std::vector<balanced_lift_t> balanced_lifts;
@@ -282,10 +284,29 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	std::sort(raw_platforms.begin(), raw_platforms.end(), comp_lift);
+	int id = 0;
+	std::ifstream is(base_path + "\\plateformLimit.json");
+	json json_content = json::parse(is);
+	json platformsInfo = json_content[level_path.substr(level_path.length() - 3, 3)];
+	std::vector<flimsy_lift_t> flimsy_lifts;
 	for(const collision_t& lift : raw_platforms)
 	{
-		normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, -1, 0, 0, 0 });
+		std::cout << "Le x :  " << lift.x << std::endl;
+		// On check leur valeur dans le fichier json.
+		if(platformsInfo[id]["flimsy"].as_bool())
+		{
+			flimsy_lifts.push_back(flimsy_lift_t{ lift.x, lift.y, lift.width, lift.height });
+		}
+		else
+		{
+			#pragma warning(suppress : 4996)
+			normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, platformsInfo[id]["axe"].as_int(), platformsInfo[id]["first_limit"].as_int(), platformsInfo[id]["second_limit"].as_int() });
+		}
+		id++;
 	}
+
+	
 
 	// We now check if their is a magic beans inside the level.
 	std::vector<cv::Mat> magicBeans_textures = get_textures(magicBeans_textures_path, "sprite");
@@ -397,6 +418,10 @@ int main(int argc, char* argv[]) {
 		}
 		json_content["dynamic"]["platform"]["moving"] = normal_lifts;
 		json_content["dynamic"]["platform"]["balanced"] = balanced_lifts;
+		if(!flimsy_lifts.empty())
+		{
+			json_content["dynamic"]["platform"]["flimsy"] = flimsy_lifts;
+		}
 		json_content["dynamic"]["enemies"] = enemy_raw;
 
 		json_file_merged_final << pretty_print(json_content);

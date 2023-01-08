@@ -99,73 +99,65 @@
                     "y_second": 2240
                 }
             ], 
+            "flimsy": [
+                {
+                    "height": 8, 
+                    "width": 48, 
+                    "x": 89, 
+                    "y": 960
+                }
+            ], 
             "moving": [
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 427, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 485, 
                     "width": 40, 
                     "x": 57, 
                     "y": 435
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 474, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 527, 
                     "width": 48, 
                     "x": 73, 
                     "y": 1519
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1450, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 48, 
-                    "x": 89, 
-                    "y": 960
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1503, 
                     "width": 48, 
                     "x": 89, 
                     "y": 2068
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1482, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1536, 
                     "width": 48, 
                     "x": 121, 
                     "y": 486
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1595, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1647, 
                     "width": 48, 
                     "x": 137, 
                     "y": 1474
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 2041, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 2048, 
                     "width": 48, 
                     "x": 169, 
                     "y": 1605

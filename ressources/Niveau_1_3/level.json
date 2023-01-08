@@ -83,41 +83,37 @@
             "balanced": [], 
             "moving": [
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 80, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 216, 
                     "width": 48, 
                     "x": 89, 
                     "y": 2046
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1324, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1377, 
                     "width": 48, 
                     "x": 121, 
                     "y": 1375
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1453, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1504, 
                     "width": 48, 
                     "x": 137, 
                     "y": 1503
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 2041, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 2096, 
                     "width": 48, 
                     "x": 159, 
                     "y": 880

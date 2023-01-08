@@ -2,167 +2,124 @@
     "dynamic": {
         "enemies": [], 
         "platform": {
-            "balanced": [], 
-            "moving": [
+            "balanced": [
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 55, 
-                    "y": 960
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 16, 
+                    "total_length": 152, 
+                    "width_first": 32, 
+                    "width_second": 32, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1128, 
+                    "y_second": 1192
                 }, 
                 {
-                    "axe": -1, 
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 16, 
+                    "total_length": 152, 
+                    "width_first": 32, 
+                    "width_second": 32, 
+                    "x_first": 71, 
+                    "x_second": 135, 
+                    "y_first": 1256, 
+                    "y_second": 1304
+                }, 
+                {
+                    "height_first": 8, 
+                    "height_second": 8, 
+                    "max_x": 16, 
+                    "total_length": 168, 
+                    "width_first": 32, 
+                    "width_second": 32, 
+                    "x_first": 87, 
+                    "x_second": 135, 
+                    "y_first": 2024, 
+                    "y_second": 2072
+                }
+            ], 
+            "flimsy": [
+                {
+                    "height": 8, 
+                    "width": 32, 
+                    "x": 105, 
+                    "y": 2256
+                }, 
+                {
+                    "height": 8, 
+                    "width": 32, 
+                    "x": 89, 
+                    "y": 2320
+                }, 
+                {
+                    "height": 8, 
+                    "width": 32, 
+                    "x": 121, 
+                    "y": 2384
+                }, 
+                {
+                    "height": 8, 
+                    "width": 32, 
+                    "x": 105, 
+                    "y": 2448
+                }
+            ], 
+            "moving": [
+                {
+                    "axe": 0, 
                     "first_limit": 0, 
                     "height": 8, 
-                    "initial_velocity": 0, 
                     "second_limit": 0, 
                     "width": 32, 
                     "x": 65, 
                     "y": 448
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 635, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 71, 
-                    "y": 1128
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 71, 
-                    "y": 1256
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 671, 
                     "width": 32, 
                     "x": 73, 
                     "y": 635
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 682, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 73, 
-                    "y": 1920
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 87, 
-                    "y": 2024
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 89, 
-                    "y": 836
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 89, 
-                    "y": 2320
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 771, 
                     "width": 32, 
                     "x": 105, 
                     "y": 729
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 827, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 879, 
                     "width": 32, 
-                    "x": 105, 
-                    "y": 2256
+                    "x": 89, 
+                    "y": 836
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 49, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 185, 
                     "width": 32, 
-                    "x": 105, 
-                    "y": 2448
+                    "x": 55, 
+                    "y": 960
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1879, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1943, 
                     "width": 32, 
-                    "x": 121, 
-                    "y": 2384
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 135, 
-                    "y": 1192
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 135, 
-                    "y": 1304
-                }, 
-                {
-                    "axe": -1, 
-                    "first_limit": 0, 
-                    "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
-                    "width": 32, 
-                    "x": 135, 
-                    "y": 2072
+                    "x": 73, 
+                    "y": 1920
                 }
             ]
         }

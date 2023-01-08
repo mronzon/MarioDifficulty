@@ -22,3 +22,8 @@ Moreover, it also allows you to detect pipe inputs and outputs. However, you hav
 The platforms are automatically detected and linked.
 
 In order to make our program work we had to make some modifications on the levels. However, all these modifications were only made on the scenery elements and we did not touch the important elements of the level. This means that we have for example removed the black background on some levels, or we have removed the pipes allowing to teleport to another world at the end of level 1-2 for example.
+
+## Information about the values
+
+For the platforms:
+-axe 1 means vertical and 0 means horizontal.
