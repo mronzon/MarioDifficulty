@@ -144,7 +144,44 @@
         ], 
         "platform": {
             "balanced": [], 
-            "moving": []
+            "moving": [
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 63, 
+                    "y": 2236
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 158, 
+                    "y": 2236
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 68, 
+                    "y": 2476
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 196, 
+                    "y": 2476
+                }
+            ]
         }
     }, 
     "static": {

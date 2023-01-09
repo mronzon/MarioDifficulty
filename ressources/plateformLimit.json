@@ -1,5 +1,35 @@
 {
     "velocity":56,
+    "1_2":[
+        {
+            "id":0,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":1,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":2,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":3,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        }
+    ],
     "1_3":[
         {
             "id":0,
@@ -75,6 +105,50 @@
             "axe":0,
             "first_limit":2041,
             "second_limit":2048,
+            "flimsy":false
+        }
+    ],
+    "4_2":[
+        {
+            "id":0,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":1,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":2,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":3,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":4,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
+            "flimsy":false
+        },
+        {
+            "id":5,
+            "axe":1,
+            "first_limit":-1,
+            "second_limit":-1,
             "flimsy":false
         }
     ],

@@ -27,3 +27,4 @@ In order to make our program work we had to make some modifications on the level
 
 For the platforms:
 -axe 1 means vertical and 0 means horizontal.
+-If both limits are equal to -1 it means that the platforms are endless. So in this case axis 1 means that they go from top to bottom, and 0 from bottom to top.

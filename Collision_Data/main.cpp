@@ -31,7 +31,7 @@ JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_6_3";
+	std::string level_path = "\\Niveau_1_2";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -186,6 +186,7 @@ int main(int argc, char* argv[]) {
 	// We detect all the platform first and after that we try to put them to the right type.
 	std::vector<collision_t> raw_platforms;
 	for (const cv::Mat& platform_texture : platforms_textures) {
+		
 		cv::Mat hits;
 		cv::matchTemplate(level_image, platform_texture, hits, cv::TM_CCOEFF_NORMED);
 		for (int x = 0; x < hits.rows - 8; x++)
@@ -283,16 +284,14 @@ int main(int argc, char* argv[]) {
 			}
 		}
 	}
-
+	std::vector<flimsy_lift_t> flimsy_lifts;
 	std::sort(raw_platforms.begin(), raw_platforms.end(), comp_lift);
 	int id = 0;
 	std::ifstream is(base_path + "\\plateformLimit.json");
 	json json_content = json::parse(is);
 	json platformsInfo = json_content[level_path.substr(level_path.length() - 3, 3)];
-	std::vector<flimsy_lift_t> flimsy_lifts;
 	for(const collision_t& lift : raw_platforms)
 	{
-		std::cout << "Le x :  " << lift.x << std::endl;
 		// On check leur valeur dans le fichier json.
 		if(platformsInfo[id]["flimsy"].as_bool())
 		{
@@ -305,7 +304,6 @@ int main(int argc, char* argv[]) {
 		}
 		id++;
 	}
-
 	
 
 	// We now check if their is a magic beans inside the level.
@@ -325,7 +323,6 @@ int main(int argc, char* argv[]) {
 
 	if(!magic_beans.empty()) // We have found a magic beans inside the level !
 	{
-		std::cout << "Slt je suis la !" << std::endl;
 		int height = -1;
 		int x_min = 100000;
 		int x_max = -1;
