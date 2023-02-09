@@ -31,7 +31,7 @@ JSONCONS_ALL_MEMBER_TRAITS(magic_bean_t, x, y, height, width, x_exit, y_exit);
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 
-	std::string level_path = "\\Niveau_1_2";
+	std::string level_path = "\\Niveau_1_1";
 	std::string sprite_path = "\\Sprite";
 	std::string base_path = argv[1];
 	std::string level_image_path = base_path + level_path + "\\level.png";
@@ -289,21 +289,25 @@ int main(int argc, char* argv[]) {
 	int id = 0;
 	std::ifstream is(base_path + "\\plateformLimit.json");
 	json json_content = json::parse(is);
-	json platformsInfo = json_content[level_path.substr(level_path.length() - 3, 3)];
-	for(const collision_t& lift : raw_platforms)
+	json platformsInfo = json_content.get_value_or<json>(level_path.substr(level_path.length() - 3, 3), nullptr);
+	if(platformsInfo != nullptr)
 	{
-		// On check leur valeur dans le fichier json.
-		if(platformsInfo[id]["flimsy"].as_bool())
+		for(const collision_t& lift : raw_platforms)
 		{
-			flimsy_lifts.push_back(flimsy_lift_t{ lift.x, lift.y, lift.width, lift.height });
+			// On check leur valeur dans le fichier json.
+			if(platformsInfo[id]["flimsy"].as_bool())
+			{
+				flimsy_lifts.push_back(flimsy_lift_t{ lift.x, lift.y, lift.width, lift.height });
+			}
+			else
+			{
+				#pragma warning(suppress : 4996)
+				normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, platformsInfo[id]["axe"].as_int(), platformsInfo[id]["first_limit"].as_int(), platformsInfo[id]["second_limit"].as_int() });
+			}
+			id++;
 		}
-		else
-		{
-			#pragma warning(suppress : 4996)
-			normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, platformsInfo[id]["axe"].as_int(), platformsInfo[id]["first_limit"].as_int(), platformsInfo[id]["second_limit"].as_int() });
-		}
-		id++;
 	}
+	
 	
 
 	// We now check if their is a magic beans inside the level.
@@ -402,13 +406,8 @@ int main(int argc, char* argv[]) {
 
 		json_content["static"]["positionCollision"] = collisions_merged;
 		json_content["static"]["pipes"] = pipe_final;
-		json_content["static"]["end"]["x"] = end.x;
-		json_content["static"]["end"]["y"] = end.y;
-		json_content["static"]["end"]["height"] = end.height;
-		json_content["static"]["end"]["width"] = end.width;
-		json_content["static"]["spawn"]["x"] = spawn.x;
-		json_content["static"]["spawn"]["y"] = spawn.y;
-		json_content["static"]["spawn"]["height"] = spawn.height;
+		json_content["static"]["end"] = end;
+		json_content["static"]["spawn"]= spawn;
 		if(magic_bean.x >= 0)
 		{
 			json_content["static"]["magicBean"] = magic_bean;
