@@ -14,52 +14,38 @@
 #define dbg_write_img(rows, cols, collisions, file_path) (void(0))
 #endif // !NDEBUG
 
-
-
 struct collision_t {
 	int32_t x, y, h, w;
 };
 
-void write_collision_cache(
-	const std::vector<collision_t>& collisions,
-	const std::string& file_path)
-{
-	std::ofstream file(file_path.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
 
-	if (!file.is_open()) {
-		dbg_printf("File \"%s\" could not be oppened for writing.\n", file_path.c_str());
-		return;
-	}
-
-	file.write(reinterpret_cast<const char*>(collisions.data()), sizeof(collision_t) * collisions.size());
-	file.close();
-}
-
-bool read_collision_cache(
+bool inline read_collision(
 	std::vector<collision_t>& collisions,
 	const std::string& file_path)
 {
-	std::ifstream file(file_path.c_str(), std::ios::in | std::ios::binary);
+	std::ifstream file(file_path.c_str());
 
 	if (!file.is_open()) {
 		dbg_printf("File \"%s\" could not be oppened for reading.\n", file_path.c_str());
 		return false;
 	}
-
-	file.seekg(0, std::ios::end);
-	size_t file_size = file.tellg();
-	file.seekg(0, std::ios::beg);
-
-	collisions.resize(file_size / sizeof(collision_t));
-	file.read(reinterpret_cast<char*>(collisions.data()), file_size);
+	json json_content = json::parse(file);
+	int n = json_content["static"]["positionCollision"].size();
+	collisions.resize(n * sizeof(collision_t));
+	for(int i = 0; i < n ; i++)
+	{
+#pragma warning(suppress : 4996)
+		collisions.push_back(collision_t{json_content["static"]["positionCollision"][i]["x"].as_int(), json_content["static"]["positionCollision"][i]["y"].as_int(), json_content["static"]["positionCollision"][i]["height"].as_int(), json_content["static"]["positionCollision"][i]["width"].as_int()});
+	}
+	
 	return true;
 }
 
-bool collision_compare(const collision_t& a, const collision_t& b) {
+bool inline collision_compare(const collision_t& a, const collision_t& b) {
 	return (a.x < b.x || (a.x == b.x && a.y < b.y));
 }
 
-void write_collision_img(
+void inline write_collision_img(
 	int rows,
 	int cols,
 	const std::vector<collision_t>& collisions,

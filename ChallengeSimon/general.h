@@ -4,6 +4,9 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc.hpp>
+#include <jsoncons/json.hpp>
+
+using namespace jsoncons;
 
 #include <cstdio>
 #include <vector>
