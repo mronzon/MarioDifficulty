@@ -59,4 +59,9 @@ void inline write_collision_img(
 	cv::imwrite(file_path, result);
 }
 
+bool inline is_inside(const collision_t& collision, const int& x, const int& y)
+{
+	return((collision.x >= x && x <= collision.x + collision.h) && (collision.y >= y && y <= collision.y + collision.w));
+}
+
 #endif // !COLLISIONS_HPP

@@ -156,6 +156,10 @@
   <ItemGroup>
     <ClCompile Include="Danger_Data.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="collisions.h" />
+    <ClInclude Include="general.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
