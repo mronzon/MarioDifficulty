@@ -420,6 +420,9 @@ int main(int argc, char* argv[]) {
 		}
 		json_content["dynamic"]["enemies"] = enemy_raw;
 
+		json_content["levelRows"] = level_image.rows;
+		json_content["levelCols"] = level_image.cols;
+		
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
 	}
