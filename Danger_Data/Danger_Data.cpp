@@ -13,7 +13,7 @@ void propagate(const std::vector<collision_t>& collision_merged, cv::Mat& danger
 
     danger_gradient_temp.at<uchar>(point.x, point.y) = 255;
     propagate(collision_merged, danger_gradient_temp, cv::Point(point.x - 1, point.y - 1));
-    propagate(collision_merged, danger_gradient_temp, cv::Point(point.x - 1, point.y)    );
+    propagate(collision_merged, danger_gradient_temp, cv::Point(point.x - 1, point.y));
     propagate(collision_merged, danger_gradient_temp, cv::Point(point.x - 1, point.y + 1));
 
 }
