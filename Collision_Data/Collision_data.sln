@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Collision_data", "Collision_data.vcxproj", "{51C3622B-9BCE-4EAD-B8BC-35C195D222DF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ChallengeSimon", "..\ChallengeSimon\ChallengeSimon.vcxproj", "{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Reach_Data", "..\Reach_Data\Reach_Data.vcxproj", "{4D8D6F7E-940F-4A5C-9003-5F33C1A4D338}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Danger_Data", "..\Danger_Data\Danger_Data.vcxproj", "{C3338E9D-9F18-49F1-BCC0-418B5000D0F2}"
@@ -27,14 +25,6 @@ Global
 		{51C3622B-9BCE-4EAD-B8BC-35C195D222DF}.Release|x64.Build.0 = Release|x64
 		{51C3622B-9BCE-4EAD-B8BC-35C195D222DF}.Release|x86.ActiveCfg = Release|Win32
 		{51C3622B-9BCE-4EAD-B8BC-35C195D222DF}.Release|x86.Build.0 = Release|Win32
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Debug|x64.ActiveCfg = Debug|x64
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Debug|x64.Build.0 = Debug|x64
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Debug|x86.ActiveCfg = Debug|Win32
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Debug|x86.Build.0 = Debug|Win32
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Release|x64.ActiveCfg = Release|x64
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Release|x64.Build.0 = Release|x64
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Release|x86.ActiveCfg = Release|Win32
-		{B1A847AA-6F05-4C1B-88E9-E953706CD7DD}.Release|x86.Build.0 = Release|Win32
 		{4D8D6F7E-940F-4A5C-9003-5F33C1A4D338}.Debug|x64.ActiveCfg = Debug|x64
 		{4D8D6F7E-940F-4A5C-9003-5F33C1A4D338}.Debug|x64.Build.0 = Debug|x64
 		{4D8D6F7E-940F-4A5C-9003-5F33C1A4D338}.Debug|x86.ActiveCfg = Debug|Win32
