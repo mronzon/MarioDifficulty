@@ -19,10 +19,12 @@ int main(int argc, char* argv[]) {
 	clock_t start_time = clock();
 
 	std::string base_path = argv[1];
-	
-	cv::Mat level_image = cv::imread(base_path + "\\level.png");
 
-	std::vector<collision_t> collisions = from_file(base_path + "\\collision_merged.txt");
+	std::tuple<int, int> dim_image;
+	get_dimension(dim_image, base_path + "\\level.json");
+	
+	// Get the collision from the json file.
+	std::vector<collision_t> collisions = from_file(base_path + "\\level.json");	
 	
 	std::vector<cv::Point> platform_pixels;
 	/* Find all platform pixels. (aka all pixels where the player can jump form. */ {
@@ -30,36 +32,32 @@ int main(int argc, char* argv[]) {
 		for (const collision_t& collision : collisions)
 			for (int y = collision.y; y < collision.y + collision.w; y++)
 				if (collision_filled_image.at<uchar>(collision.x - 1, y) == 0)
-					platform_pixels.push_back(cv::Point(collision.x - 1, y));
+					platform_pixels.emplace_back(cv::Point(collision.x - 1, y));
 
 		cv::Mat platform_image(collision_filled_image.rows, collision_filled_image.cols, CV_8UC1, cv::Scalar(0));
 		for (const cv::Point& pixel : platform_pixels)
 			platform_image.at<uchar>(pixel.x, pixel.y) = 255;
 		cv::imwrite(base_path + "\\platform_image.png", platform_image);
-	}
-
-	cv::Mat jump_up(globals.jump_height, globals.jump_half_width * 2, CV_8UC1, cv::Scalar(0));
-	cv::Mat jump_down(globals.jump_height, globals.jump_half_width * 2, CV_8UC1, cv::Scalar(0));
+	}	
+	
+	cv::Mat jump_up((int) globals.jump_height, static_cast<int>(globals.jump_half_width)* 2, CV_8UC1, cv::Scalar(0));
+	cv::Mat jump_down((int) globals.jump_height, static_cast<int>(globals.jump_half_width) * 2, CV_8UC1, cv::Scalar(0));
 	for (int x = 0; x < jump_up.rows; x++) {
-		float hd = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, -x);
-		for (int y = 0; y <= globals.jump_half_width - hd; y++) jump_up.at<uchar>(x, y) = 255;
-		for (int y = 0; y <= globals.jump_half_width + hd; y++) jump_down.at<uchar>(x, y) = 255;
+		float hd = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, static_cast<float>(-x));
+		for (int y = 0; y <= static_cast<int>(globals.jump_half_width - hd); y++) jump_up.at<uchar>(x, y) = 255;
+		for (int y = 0; y <= static_cast<int>(globals.jump_half_width + hd); y++) jump_down.at<uchar>(x, y) = 255;
 	}
 	cv::imwrite("jump_up.png", jump_up);
 	cv::imwrite("jump_down.png", jump_down);
 
-	cv::Mat reach_image(level_image.rows, level_image.cols, CV_32SC1, cv::Scalar(0));
+	cv::Mat reach_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_32SC1, cv::Scalar(0));
 
 	int count = 0;
+	
 	for (const cv::Point& platform_pixel : platform_pixels) {
-
-		cv::Mat jump_right_image(level_image.rows, level_image.cols, CV_8UC1, cv::Scalar(0));
+		cv::Mat jump_right_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1, cv::Scalar(0));
 		/* Calculates the right sided jump. */ {
 			cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y + globals.jump_half_width);
-
-			if (count == 2524) {
-				int b = 0;
-			}
 
 			cv::Mat ascending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
 			/* Paint the full ascending motion of the jump. */ {
@@ -176,11 +174,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
-		cv::Mat jump_left_image(level_image.rows, level_image.cols, CV_8UC1, cv::Scalar(0));
+		cv::Mat jump_left_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1, cv::Scalar(0));
 		/* Calculates the left sided jump. */ {
-			if (count == 2128) {
-				int b = 0;
-			}
 			cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y - globals.jump_half_width);
 
 			cv::Mat ascending_image(jump_left_image.rows, jump_left_image.cols, CV_8UC1, cv::Scalar(0));
@@ -283,7 +278,7 @@ int main(int argc, char* argv[]) {
 
 
 	/* Prints out the reach data image with values of EITHER 0 or 255 (aka no gradient). */ {
-		cv::Mat reach_filled_image(level_image.rows, level_image.cols, CV_8UC1);
+		cv::Mat reach_filled_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1);
 		for (int x = 0; x < reach_filled_image.rows; x++)
 			for (int y = 0; y < reach_filled_image.cols; y++)
 				reach_filled_image.at<uchar>(x, y) = 255 * (reach_image.at<int>(x, y) != 0);
@@ -291,7 +286,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	/**/ {
-		cv::Mat reach_normalized_image(level_image.rows, level_image.cols, CV_8UC1);
+		cv::Mat reach_normalized_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1);
 		int max = 0;
 		for (int x = 0; x < reach_normalized_image.rows; x++)
 			for (int y = 0; y < reach_normalized_image.cols; y++)
@@ -303,7 +298,7 @@ int main(int argc, char* argv[]) {
 
 		cv::Mat danger_image = cv::imread(base_path + "\\danger_filled.png", cv::IMREAD_GRAYSCALE);
 		cv::Mat collision_filled_image = cv::imread(base_path + "\\collision_filled.png", cv::IMREAD_GRAYSCALE);
-		cv::Mat showcase_image(level_image.rows, level_image.cols, CV_8UC3);
+		cv::Mat showcase_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC3);
 		for (int x = 0; x < showcase_image.rows; x++)
 			for (int y = 0; y < showcase_image.cols; y++) {
 				showcase_image.at<cv::Vec3b>(x, y)[0] = collision_filled_image.at<uchar>(x, y);
@@ -315,8 +310,8 @@ int main(int argc, char* argv[]) {
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
 		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image) << '\n';
 		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
-		result_file << "Filled Perimeter Metric:   " << metric_premimeter_filled(reach_image, danger_image) << '\n';
-		result_file << "Gradient Perimeter Metric: " << metric_premimeter_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
+		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image) << '\n';
+		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
 		result_file << "Execution time:  " << clock() - start_time;
 		result_file.close();
 	}
