@@ -288,6 +288,11 @@ int main(int argc, char* argv[]) {
 	std::sort(raw_platforms.begin(), raw_platforms.end(), comp_lift);
 	int id = 0;
 	std::ifstream is(base_path + "\\plateformLimit.json");
+	if(!is)
+	{
+		std::cout << "Le fichier d'information sur les plateformes est introuvable." << std::endl;
+		return -6;
+	}
 	json json_content = json::parse(is);
 	json platformsInfo = json_content.get_value_or<json>(level_path.substr(level_path.length() - 3, 3), nullptr);
 	if(platformsInfo != nullptr)
@@ -301,8 +306,7 @@ int main(int argc, char* argv[]) {
 			}
 			else
 			{
-				#pragma warning(suppress : 4996)
-				normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, platformsInfo[id]["axe"].as_int(), platformsInfo[id]["first_limit"].as_int(), platformsInfo[id]["second_limit"].as_int() });
+				normal_lifts.push_back(moving_lift_t{ lift.x, lift.y, lift.width, lift.height, platformsInfo[id]["axe"].as<int>(), platformsInfo[id]["first_limit"].as<int>(), platformsInfo[id]["second_limit"].as<int>() });
 			}
 			id++;
 		}
@@ -420,6 +424,9 @@ int main(int argc, char* argv[]) {
 		}
 		json_content["dynamic"]["enemies"] = enemy_raw;
 
+		json_content["levelRows"] = level_image.rows;
+		json_content["levelCols"] = level_image.cols;
+		
 		json_file_merged_final << pretty_print(json_content);
 		json_file_merged_final.close();
 	}
