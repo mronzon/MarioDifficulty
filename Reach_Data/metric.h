@@ -6,8 +6,6 @@
 float inline metric_area_filled(const cv::Mat& reach_filled, const cv::Mat& danger_filled) {
 	int reach_count = 0;
 	int effective_count = 0;
-	printf("Size of reach_filled : %i, %i", reach_filled.rows, reach_filled.cols);
-	printf("Size of danger_filled : %i, %i", danger_filled.rows, danger_filled.cols);
 
 	for (int x = 0; x < reach_filled.rows; x++)
 		for (int y = 0; y < reach_filled.cols; y++) {
