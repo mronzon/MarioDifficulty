@@ -5,8 +5,10 @@ C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\collision.h(106,2
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\collision.h(126,27): warning C4018: '<' : incompatibilité signed/unsigned
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\pipe.h(52,24): warning C4018: '<' : incompatibilité signed/unsigned
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\pipe.h(72,27): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(142,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(217,14): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(247,15): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(253,25): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\platforms.h(69,24): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\platforms.h(71,14): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(144,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(220,14): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(250,15): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\main.cpp(256,25): warning C4018: '<' : incompatibilité signed/unsigned
   Collision_data.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\Collision_data.exe
