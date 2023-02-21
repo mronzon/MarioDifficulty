@@ -169,7 +169,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			/* Merge both ascending and descending parts into one image. */ {
+			/* Merge both ascending and descending parts into one image. */ { // TODO: Optimisation possible. Mettre a jour l'image que dans les zones importantes.
 				for (int x = 0; x < jump_right_image.rows; x++)
 					for (int y = 0; y < jump_right_image.cols; y++)
 						jump_right_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
@@ -265,7 +265,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			/* Merge both ascending and descending parts into one image. */ {
+			/* Merge both ascending and descending parts into one image. */ { // TODO: Faire la même opti que l'autre coté.
 				for (int x = 0; x < jump_left_image.rows; x++)
 					for (int y = 0; y < jump_left_image.cols; y++)
 						jump_left_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
@@ -277,7 +277,7 @@ int main(int argc, char* argv[]) {
 				reach_image.at<int>(x, y) += (jump_right_image.at<uchar>(x, y) || jump_left_image.at<uchar>(x, y));
 
 		printf("%i\n", count++);
-	}
+	} // TODO : Faire l'opti sur cette fonction.
 
 
 	/* Prints out the reach data image with values of EITHER 0 or 255 (aka no gradient). */ {
