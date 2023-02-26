@@ -39,17 +39,22 @@ int main(int argc, char* argv[]) {
 			platform_image.at<uchar>(pixel.x, pixel.y) = 255;
 		cv::imwrite(base_path + "\\platform_image.png", platform_image);
 	}	
-	
-	cv::Mat jump_up((int) globals.jump_height, static_cast<int>(globals.jump_half_width)* 2, CV_8UC1, cv::Scalar(0));
-	cv::Mat jump_down((int) globals.jump_height, static_cast<int>(globals.jump_half_width) * 2, CV_8UC1, cv::Scalar(0));
-	for (int x = 0; x < jump_up.rows; x++) {
-		float hd = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, static_cast<float>(-x));
-		for (int y = 0; y <= static_cast<int>(globals.jump_half_width - hd); y++) jump_up.at<uchar>(x, y) = 255;
-		for (int y = 0; y <= static_cast<int>(globals.jump_half_width + hd); y++) jump_down.at<uchar>(x, y) = 255;
-	}
-	cv::imwrite("jump_up.png", jump_up);
-	cv::imwrite("jump_down.png", jump_down);
+	std::ifstream jump_up_image("jump_up.png");
+	std::ifstream jump_down_image("jump_down.png");
 
+	if(!(jump_down_image && jump_up_image))
+	{
+		cv::Mat jump_up((int) globals.jump_height, static_cast<int>(globals.jump_half_width)* 2, CV_8UC1, cv::Scalar(0));
+		cv::Mat jump_down((int) globals.jump_height, static_cast<int>(globals.jump_half_width) * 2, CV_8UC1, cv::Scalar(0));
+        for (int x = 0; x < jump_up.rows; x++) {
+        	float hd = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, static_cast<float>(-x));
+        	for (int y = 0; y <= static_cast<int>(globals.jump_half_width - hd); y++) jump_up.at<uchar>(x, y) = 255;
+        	for (int y = 0; y <= static_cast<int>(globals.jump_half_width + hd); y++) jump_down.at<uchar>(x, y) = 255;
+        }
+		cv::imwrite("jump_up.png", jump_up);
+		cv::imwrite("jump_down.png", jump_down);
+	}
+	
 	cv::Mat reach_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_32SC1, cv::Scalar(0));
 
 	int count = 0;
@@ -57,117 +62,114 @@ int main(int argc, char* argv[]) {
 	for (const cv::Point& platform_pixel : platform_pixels) {
 		cv::Mat jump_right_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1, cv::Scalar(0));
 		/* Calculates the right sided jump. */ {
-			cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y + globals.jump_half_width);
+		cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y + globals.jump_half_width);
 
-			cv::Mat ascending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
-			/* Paint the full ascending motion of the jump. */ {
-				for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < platform_pixel.x; x++) {
-					float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
-					for (int y = platform_pixel.y; y <= __min(summit.y - horizontal_delta, ascending_image.cols - 1) /* if jump is too far right of the image. */; y++)
-						ascending_image.at<uchar>(x, y) = 255;
-				}
+		cv::Mat ascending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
+		/* Paint the full ascending motion of the jump. */ {
+			for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < platform_pixel.x; x++) {
+				float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
+				for (int y = platform_pixel.y; y <= __min(summit.y - horizontal_delta, ascending_image.cols - 1) /* if jump is too far right of the image. */; y++)
+					ascending_image.at<uchar>(x, y) = 255;
+			}
+		}
+
+		cv::Mat descending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
+		/* Paint the full descending motion of the jump. */ {
+			for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < descending_image.rows; x++) {
+				float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
+				for (int y = platform_pixel.y; y <= __min(summit.y + horizontal_delta, descending_image.cols - 1) /* if jump is too far right of the image. */; y++)
+					descending_image.at<uchar>(x, y) = 255;
+			}
+		}
+
+		for (const collision_t& collision : collisions) {
+			bool process_ascending = true;
+			bool process_descending = true;
+			/* Cut-offs for optimisation (platforms that will have no impact on reach). */ {
+				if (collision.y + collision.w <= platform_pixel.y) continue;   // The platform is to the left of the jump.
+				if (collision.x + collision.h <= summit.x) continue;		   // The platform is above the jump height.
+				if (collision.x > platform_pixel.x) process_ascending = false; // Ascending specific: the platform is below the starting point.
+				if (collision.y > summit.y) process_ascending = false;		   // Ascending specific: the platform is farther right than the summit.
+
+				float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - descending_image.rows);
+				if (collision.y > summit.y + horizontal_delta) process_descending = false; // Descending specific: the platform is farther right than the jump can reach.
 			}
 
-			cv::Mat descending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
-			/* Paint the full descending motion of the jump. */ {
-				for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < descending_image.rows; x++) {
-					float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
-					for (int y = platform_pixel.y; y <= __min(summit.y + horizontal_delta, descending_image.cols - 1) /* if jump is too far right of the image. */; y++)
-						descending_image.at<uchar>(x, y) = 255;
-				}
-			}
+			if (process_ascending) {
+				cv::Point   ul_corner(__max(collision.x, summit.x), collision.y - 1);
+				cv::Point2f ul_velocity = ascending_velocity(platform_pixel, ul_corner, globals.velocity, globals.gravity);
+				cv::Point2f ul_summit   = ascending_summit(ul_corner, ul_velocity, globals.gravity);
 
-			for (const collision_t& collision : collisions) {
-				bool process_ascending = true;
-				bool process_descending = true;
-				/* Cut-offs for optimisation (platforms that will have no impact on reach). */ {
-					if (collision.y + collision.w <= platform_pixel.y) continue;   // The platform is to the left of the jump.
-					if (collision.x + collision.h <= summit.x) continue;		   // The platform is above the jump height.
-					if (collision.x > platform_pixel.x) process_ascending = false; // Ascending specific: the platform is below the starting point.
-					if (collision.y > summit.y) process_ascending = false;		   // Ascending specific: the platform is farther right than the summit.
+				cv::Point   lr_corner(collision.x + collision.h - 1, collision.y + collision.w);
+				cv::Point2f lr_velocity = ascending_velocity(platform_pixel, lr_corner, globals.velocity, globals.gravity);
+				cv::Point2f lr_summit   = ascending_summit(lr_corner, lr_velocity, globals.gravity);
 
-					float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - descending_image.rows);
-					if (collision.y > summit.y + horizontal_delta) process_descending = false; // Descending specific: the platform is farther right than the jump can reach.
-				}
+				if (ul_velocity.y <= globals.velocity.y) {
+					int start_x = __max(ul_summit.x, lr_summit.x); // Get rid of floating-point errors.
+					start_x = __max(start_x, 0); // if jump is higher than the top of the image.
+					for (int x = start_x; x <= lr_corner.x; x++) {
+						float right = lr_summit.y - horizontal_from_vertical(cv::Point2f(0.f, lr_velocity.y), globals.gravity, lr_summit.x - x) - 1;
+						float left  = ul_summit.y - horizontal_from_vertical(cv::Point2f(0.f, ul_velocity.y), globals.gravity, ul_summit.x - x) + 1;
+						right = __min(right, ascending_image.cols - 1); // If the platform is at the same level as the jump origin (inf otherwise).
+						left  = __max(__min(left, ascending_image.cols - 1) /* if the jump is farther right than the image. */, platform_pixel.y);
 
-				if (process_ascending) {
-					cv::Point   ul_corner(__max(collision.x, summit.x), collision.y - 1);
-					cv::Point2f ul_velocity = ascending_velocity(platform_pixel, ul_corner, globals.velocity, globals.gravity);
-					cv::Point2f ul_summit   = ascending_summit(ul_corner, ul_velocity, globals.gravity);
-
-					cv::Point   lr_corner(collision.x + collision.h - 1, collision.y + collision.w);
-					cv::Point2f lr_velocity = ascending_velocity(platform_pixel, lr_corner, globals.velocity, globals.gravity);
-					cv::Point2f lr_summit   = ascending_summit(lr_corner, lr_velocity, globals.gravity);
-
-					if (ul_velocity.y <= globals.velocity.y) {
-						int start_x = __max(ul_summit.x, lr_summit.x); // Get rid of floating-point errors.
-						start_x = __max(start_x, 0); // if jump is higher than the top of the image.
-						for (int x = start_x; x <= lr_corner.x; x++) {
-							float right = lr_summit.y - horizontal_from_vertical(cv::Point2f(0.f, lr_velocity.y), globals.gravity, lr_summit.x - x) - 1;
-							float left  = ul_summit.y - horizontal_from_vertical(cv::Point2f(0.f, ul_velocity.y), globals.gravity, ul_summit.x - x) + 1;
-							right = __min(right, ascending_image.cols - 1); // If the platform is at the same level as the jump origin (inf otherwise).
-							left  = __max(__min(left, ascending_image.cols - 1) /* if the jump is farther right than the image. */, platform_pixel.y);
-
-							for (int y = left; y <= right; y++)
-								ascending_image.at<uchar>(x, y) = 0;
-						}
-
-						for (int x = start_x; x < ascending_image.rows; x++) {
-							float right = lr_summit.y + horizontal_from_vertical(cv::Point2f(0.f, lr_velocity.y), globals.gravity, lr_summit.x - x) - 1;
-							float left = ul_summit.y + horizontal_from_vertical(cv::Point2f(0.f, ul_velocity.y), globals.gravity, ul_summit.x - x) + 1;
-							right = __max(__min(right, ascending_image.cols - 1), 0); // If the jump is farther right than the image.
-							left = __max(__min(left, ascending_image.cols - 1), 0); // If the jump is farther right than the image.
-
-							for (int y = left; y <= right; y++)
-								descending_image.at<uchar>(x, y) = 0;
-						}
+						for (int y = left; y <= right; y++)
+							ascending_image.at<uchar>(x, y) = 0;
 					}
-				}
 
-				if (process_descending) {
-					cv::Point   ll_corner(collision.x + collision.h - 1, collision.y - 1);
-					cv::Point2f ll_velocity = descending_velocity(platform_pixel, ll_corner, globals.velocity, globals.gravity);
+					for (int x = start_x; x < ascending_image.rows; x++) {
+						float right = lr_summit.y + horizontal_from_vertical(cv::Point2f(0.f, lr_velocity.y), globals.gravity, lr_summit.x - x) - 1;
+						float left = ul_summit.y + horizontal_from_vertical(cv::Point2f(0.f, ul_velocity.y), globals.gravity, ul_summit.x - x) + 1;
+						right = __max(__min(right, ascending_image.cols - 1), 0); // If the jump is farther right than the image.
+						left = __max(__min(left, ascending_image.cols - 1), 0); // If the jump is farther right than the image.
 
-					cv::Point   ur_corner(collision.x, collision.y + collision.w);
-					cv::Point2f ur_velocity = descending_velocity(platform_pixel, ur_corner, globals.velocity, globals.gravity);
-
-					for (int x = ur_corner.x; x < descending_image.rows; x++) {
-						float right = ur_corner.y + horizontal_from_vertical(ur_velocity, globals.gravity, ur_corner.x - x) - 1;
-						float left  = ll_corner.y + horizontal_from_vertical(ll_velocity, globals.gravity, __min(ll_corner.x - x, 0)) + 1;
-						right = __min(right, descending_image.cols - 1); // If the jump is farther right than the image.
-						left  = __min(__max(left, 0), descending_image.cols - 1); // If the jump is farther right than the image.
-
-						for (int y = left; y <= right; y++) {
+						for (int y = left; y <= right; y++)
 							descending_image.at<uchar>(x, y) = 0;
-						}
 					}
 				}
-
-				//if (process_ascending) {
-				//	if (platform_pixel.y == 1276)
-				//		int breakpoint = 0;
-
-				//	cv::Point corner(collision.x + collision.h - 1, collision.y + collision.w - 1);
-				//	float time = time_from_to_small(platform_pixel, corner, globals.velocity, globals.gravity);
-
-				//	cv::Point   ll_corner(collision.x + collision.h - 1, collision.y);
-				//	cv::Point2f hit(corner.x, __min(platform_pixel.y + globals.velocity.y * time, corner.y));
-				//	cv::Point2f hit_velocity = ascending_velocity(platform_pixel, hit, globals.velocity, globals.gravity);
-
-
-				//	//if (hit.y < collision.y) continue; // The jump hits the side of the platform, not underneath. 
-				//	for (int x = corner.x; x < descending_image.rows; x++) {
-				//		float left  = __max(ll_corner.y, platform_pixel.y);
-				//		float right = hit.y + horizontal_from_vertical(cv::Point2f(0.f, hit_velocity.y), globals.gravity, hit.x - x);
-				//		right = __min(right, descending_image.cols - 1); // if the jump is farther right than the image.
-
-				//		for (int y = left; y <= right; y++)
-				//			descending_image.at<uchar>(x, y) = 255;
-				//	}
-				//}
 			}
 
-			/* Merge both ascending and descending parts into one image. */ {
+			if (process_descending) {
+				cv::Point   ll_corner(collision.x + collision.h - 1, collision.y - 1);
+				cv::Point2f ll_velocity = descending_velocity(platform_pixel, ll_corner, globals.velocity, globals.gravity);
+
+				cv::Point   ur_corner(collision.x, collision.y + collision.w);
+				cv::Point2f ur_velocity = descending_velocity(platform_pixel, ur_corner, globals.velocity, globals.gravity);
+
+				for (int x = ur_corner.x; x < descending_image.rows; x++) {
+					float right = ur_corner.y + horizontal_from_vertical(ur_velocity, globals.gravity, ur_corner.x - x) - 1;
+					float left  = ll_corner.y + horizontal_from_vertical(ll_velocity, globals.gravity, __min(ll_corner.x - x, 0)) + 1;
+					right = __min(right, descending_image.cols - 1); // If the jump is farther right than the image.
+					left  = __min(__max(left, 0), descending_image.cols - 1); // If the jump is farther right than the image.
+
+					for (int y = left; y <= right; y++) {
+						descending_image.at<uchar>(x, y) = 0;
+					}
+				}
+			}
+
+			if (process_ascending) {
+				cv::Point corner(collision.x + collision.h - 1, collision.y + collision.w - 1);
+				float time = time_from_to_small(platform_pixel, corner, globals.velocity, globals.gravity);
+
+				cv::Point   ll_corner(collision.x + collision.h - 1, collision.y);
+					cv::Point2f hit(corner.x, __min(platform_pixel.y + globals.velocity.y * time, corner.y));
+					cv::Point2f hit_velocity = ascending_velocity(platform_pixel, hit, globals.velocity, globals.gravity);
+
+
+				//if (hit.y < collision.y) continue; // The jump hits the side of the platform, not underneath. 
+				for (int x = corner.x; x < descending_image.rows; x++) {
+					float left  = __max(ll_corner.y, platform_pixel.y);
+					float right = hit.y + horizontal_from_vertical(cv::Point2f(0.f, hit_velocity.y), globals.gravity, hit.x - x);
+					right = __min(right, descending_image.cols - 1); // if the jump is farther right than the image.
+
+					for (int y = left; y <= right; y++)
+						descending_image.at<uchar>(x, y) = 255;
+					}
+				}
+			}
+
+			/* Merge both ascending and descending parts into one image. */ { // TODO: Optimisation possible. Mettre a jour l'image que dans les zones importantes.
 				for (int x = 0; x < jump_right_image.rows; x++)
 					for (int y = 0; y < jump_right_image.cols; y++)
 						jump_right_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
@@ -195,6 +197,7 @@ int main(int argc, char* argv[]) {
 						descending_image.at<uchar>(x, y) = 255;
 				}
 			}
+			
 
 			for (const collision_t& collision : collisions) {
 				bool process_ascending = true;
@@ -262,7 +265,7 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			/* Merge both ascending and descending parts into one image. */ {
+			/* Merge both ascending and descending parts into one image. */ { // TODO: Faire la même opti que l'autre coté.
 				for (int x = 0; x < jump_left_image.rows; x++)
 					for (int y = 0; y < jump_left_image.cols; y++)
 						jump_left_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
@@ -274,7 +277,7 @@ int main(int argc, char* argv[]) {
 				reach_image.at<int>(x, y) += (jump_right_image.at<uchar>(x, y) || jump_left_image.at<uchar>(x, y));
 
 		printf("%i\n", count++);
-	}
+	} // TODO : Faire l'opti sur cette fonction.
 
 
 	/* Prints out the reach data image with values of EITHER 0 or 255 (aka no gradient). */ {

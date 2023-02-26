@@ -8,7 +8,6 @@
 #include "jsoncons/json.hpp"
 #include "jsoncons/basic_json.hpp"
 
-using namespace jsoncons;
 
 struct collision_t {
 	int x, y, h, w;
@@ -27,7 +26,7 @@ collision_t inline from_string(const std::string& s) {
 	return result;
 }
 
-bool comp(const collision_t& a, const collision_t& b) {
+bool inline comp(const collision_t& a, const collision_t& b) {
 	return (a.x < b.x || (a.x == b.x && a.y < b.y));
 }
 
@@ -36,7 +35,7 @@ std::vector<collision_t> inline from_file(const std::string& file_path) {
 	std::ifstream collision_file(file_path);
 	if (!collision_file) printf("A problem occured when trying to open file: %s.\n", file_path.c_str());
 	else {
-		json json_content = json::parse(collision_file);
+		jsoncons::json json_content = jsoncons::json::parse(collision_file);
 		std::size_t n = json_content["static"]["positionCollision"].size();
 		for(std::size_t i = 0; i < n ; i++)
 		{
@@ -47,15 +46,15 @@ std::vector<collision_t> inline from_file(const std::string& file_path) {
 	return result;
 }
 
-bool inline get_dimension(std::tuple<int, int>& dim, std::string json_path)
+bool inline get_dimension(std::tuple<int, int>& dim,const std::string& json_path)
 {
 	std::ifstream file(json_path.c_str());
 
 	if (!file.is_open()) {
-		printf("File \"%s\" could not be oppened for reading.\n", json_path.c_str());
+		printf("File \"%s\" could not be opened for reading.\n", json_path.c_str());
 		return false;
 	}
-	json json_content = json::parse(file);
+	jsoncons::json json_content = jsoncons::json::parse(file);
 	std::get<0>(dim) = json_content["levelRows"].as<int>();
 	std::get<1>(dim) = json_content["levelCols"].as<int>();
 	return true;

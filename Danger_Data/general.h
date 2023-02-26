@@ -30,10 +30,8 @@ bool inline get_dimension(std::tuple<int, int>& dim, std::string json_path)
         return false;
     }
     json json_content = json::parse(file);
-#pragma warning(suppress : 4996)
-    std::get<0>(dim) = json_content["levelRows"].as_int();
-#pragma warning(suppress : 4996)
-    std::get<1>(dim) = json_content["levelCols"].as_int();
+    std::get<0>(dim) = json_content["levelRows"].as<int>();
+    std::get<1>(dim) = json_content["levelCols"].as<int>();
     return true;
 }
 
