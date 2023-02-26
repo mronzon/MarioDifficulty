@@ -1,3 +1,5 @@
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "collision.h"
 #include "metric.h"
