@@ -3,12 +3,12 @@
 
 #include <opencv2/imgproc.hpp>
 
-float inline metric_area_filled(const cv::Mat& reach_filled, const cv::Mat& danger_filled) {
+float inline metric_area_filled(const cv::Mat& reach_filled, const cv::Mat& danger_filled, int start_y, int end_y) {
 	int reach_count = 0;
 	int effective_count = 0;
 
 	for (int x = 0; x < reach_filled.rows; x++)
-		for (int y = 0; y < reach_filled.cols; y++) {
+		for (int y = 0; y < end_y; y++) {
 			reach_count += (reach_filled.at<int>(x, y) != 0);
 			effective_count += (reach_filled.at<int>(x, y) && danger_filled.at<uchar>(x, y));
 		}

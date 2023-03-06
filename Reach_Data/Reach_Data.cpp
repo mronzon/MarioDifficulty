@@ -5,8 +5,6 @@
 #include "metric.h"
 #include "reach.h"
 
-#include <algorithm>
-
 struct {
 	cv::Point2f velocity = cv::Point2f(30.f, 10.f);
 	float gravity = -5.f;
@@ -318,7 +316,7 @@ int main(int argc, char* argv[]) {
 		cv::imwrite(base_path + "\\reach_filled.png", reach_filled_image);
 	}
 
-	/**/ {
+	/* Create the visual of the result and save them inside a txt file.*/ {
 		cv::Mat reach_normalized_image(dim_image.first, dim_image.second, CV_8UC1);
 		int max = 0;
 		for (int x = 0; x < reach_normalized_image.rows; x++)
@@ -341,12 +339,25 @@ int main(int argc, char* argv[]) {
 		cv::imwrite(base_path + "\\showcase.png", showcase_image);
 
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
-		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image) << '\n';
+		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
 		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
 		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image) << '\n';
 		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
 		result_file << "Execution time:  " << clock() - start_time;
 		result_file.close();
+		
+		/*Create the result for a part*/
+		{
+			std::ofstream file(base_path + "\\graph.txt", std::ios::trunc);
+			int window_width = 200;
+			int step_y = 16;
+			for (int end_y = window_width; end_y < reach_image.cols; end_y += step_y)
+			{
+				float metric = metric_area_filled(reach_image, danger_image, end_y - window_width, end_y);
+				file << end_y << " | " << metric << '\n';
+			}
+			file.close();
+		}
 	}
 
 	return 0;
