@@ -1,8 +1,6 @@
 #pragma once
 #ifndef METRIC_H
 
-#include <opencv2/imgproc.hpp>
-
 float inline metric_area_filled(const cv::Mat& reach_filled, const cv::Mat& danger_filled, int start_y, int end_y) {
 	int reach_count = 0;
 	int effective_count = 0;

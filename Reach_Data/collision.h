@@ -3,7 +3,6 @@
 #define COLLISION_H
 
 #include <fstream>
-#include <numeric>
 #include <vector>
 #include <string>
 #include "jsoncons/json.hpp"
