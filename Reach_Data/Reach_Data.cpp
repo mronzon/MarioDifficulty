@@ -347,7 +347,6 @@ int main(int argc, char* argv[]) {
 		result_file << "Execution time:  " << clock() - start_time;
 		result_file.close();
 		
-		/*Create the result for a part*/
 		{
 			std::ofstream file(base_path + "\\graph.txt", std::ios::trunc);
 			points_array points;
@@ -360,7 +359,7 @@ int main(int argc, char* argv[]) {
 				points.emplace_back(point(end_y, metric));
 			}
 			file.close();
-			create_graph(points);
+			create_graph(points, base_path);
 		}
 	}
 
