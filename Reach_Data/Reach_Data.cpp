@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
 	std::vector<int> my_vec;
 
 	if (argc != 2) return 0;
-
+	
 	clock_t start_time = clock();
 
 	std::string base_path = argv[1];
@@ -350,14 +350,14 @@ int main(int argc, char* argv[]) {
 		/*Create the result for a part*/
 		{
 			std::ofstream file(base_path + "\\graph.txt", std::ios::trunc);
-			std::vector<std::pair<int, int>> points;
+			points_array points;
 			int window_width = 200;
 			int step_y = 16;
 			for (int end_y = window_width; end_y < reach_image.cols; end_y += step_y)
 			{
 				float metric = metric_area_filled(reach_image, danger_image, end_y - window_width, end_y);
 				file << end_y << " | " << metric << '\n';
-				points.emplace_back(std::pair<int, int>(end_y, metric));
+				points.emplace_back(point(end_y, metric));
 			}
 			file.close();
 			create_graph(points);
