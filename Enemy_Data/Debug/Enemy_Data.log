@@ -1,1 +1,5 @@
-﻿  Enemy_Data.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\Enemy_Data.exe
+﻿  testgoomba.cpp
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(49,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(60,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(73,20): warning C4018: '<' : incompatibilité signed/unsigned
+  Enemy_Data.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\Enemy_Data.exe
