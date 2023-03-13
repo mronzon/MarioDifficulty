@@ -1,5 +1,13 @@
 ﻿  testgoomba.cpp
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(49,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(60,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(73,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(57,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(63,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(69,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(75,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(81,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(87,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(93,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(99,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(105,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(116,20): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(129,20): warning C4018: '<' : incompatibilité signed/unsigned
   Enemy_Data.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\Enemy_Data.exe

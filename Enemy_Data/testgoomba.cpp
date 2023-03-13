@@ -44,12 +44,68 @@ int main(int argc, char* argv[]) {
 
 	// On lit et on stocke la liste des ennemis depuis le JSON
 
-	std::vector<enemy> list_enemy;
+	std::vector<enemy> list_enemy_goomba;
+	std::vector<enemy> list_enemy_koopa;
+	std::vector<enemy> list_enemy_flying_koopa;
+	std::vector<enemy> list_enemy_piranha_plant;
+	std::vector<enemy> list_enemy_hammer_bro;
+	std::vector<enemy> list_enemy_bowser;
+	std::vector<enemy> list_enemy_flying_fish;
+	std::vector<enemy> list_enemy_lakitu;
+	std::vector<enemy> list_enemy_turtle_spike;
 
 	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
 		if (j["dynamic"]["enemies"][i]["type"] == "goomba") {
-			list_enemy.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(), 
+			list_enemy_goomba.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(), 
 				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>()});
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "koopa") {
+			list_enemy_koopa.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "flying_koopa") {
+			list_enemy_flying_koopa.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "piranha_plant") {
+			list_enemy_piranha_plant.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "hammer_bro") {
+			list_enemy_hammer_bro.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "bowser") {
+			list_enemy_bowser.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "flying_fish") {
+			list_enemy_flying_fish.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "lakitu") {
+			list_enemy_lakitu.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
+		}
+	}
+	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
+		if (j["dynamic"]["enemies"][i]["type"] == "turtle_spike") {
+			list_enemy_turtle_spike.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(),
+				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
 		}
 	}
 
@@ -93,7 +149,9 @@ int main(int argc, char* argv[]) {
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
-		for (enemy &ene : list_enemy) {
+		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Frère Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
+
+		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos.end()) {
 				nb_pos.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
 			}
