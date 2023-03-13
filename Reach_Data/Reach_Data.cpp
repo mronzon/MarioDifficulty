@@ -1,7 +1,10 @@
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 
 #include "collision.h"
 #include "metric.h"
 #include "reach.h"
+#include "graph.h"
 
 struct {
 	cv::Point2f velocity = cv::Point2f(30.f, 10.f);
@@ -15,12 +18,12 @@ int main(int argc, char* argv[]) {
 	std::vector<int> my_vec;
 
 	if (argc != 2) return 0;
-
+	
 	clock_t start_time = clock();
 
 	std::string base_path = argv[1];
 
-	std::tuple<int, int> dim_image;
+	std::pair<int, int> dim_image;
 	get_dimension(dim_image, base_path + "\\level.json");
 	
 	// Get the collision from the json file.
@@ -31,14 +34,15 @@ int main(int argc, char* argv[]) {
 		cv::Mat collision_filled_image = cv::imread(base_path + "\\collision_filled.png", cv::IMREAD_GRAYSCALE);
 		for (const collision_t& collision : collisions)
 			for (int y = collision.y; y < collision.y + collision.w; y++)
-				if (collision_filled_image.at<uchar>(collision.x - 1, y) == 0)
+				if (collision_filled_image.at<uchar>(collision.x - 1, y) != 255)
 					platform_pixels.emplace_back(cv::Point(collision.x - 1, y));
 
 		cv::Mat platform_image(collision_filled_image.rows, collision_filled_image.cols, CV_8UC1, cv::Scalar(0));
 		for (const cv::Point& pixel : platform_pixels)
 			platform_image.at<uchar>(pixel.x, pixel.y) = 255;
 		cv::imwrite(base_path + "\\platform_image.png", platform_image);
-	}	
+	}
+	
 	std::ifstream jump_up_image("jump_up.png");
 	std::ifstream jump_down_image("jump_down.png");
 
@@ -55,21 +59,26 @@ int main(int argc, char* argv[]) {
 		cv::imwrite("jump_down.png", jump_down);
 	}
 	
-	cv::Mat reach_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_32SC1, cv::Scalar(0));
+	cv::Mat reach_image(dim_image.first, dim_image.second, CV_32SC1, cv::Scalar(0));
 
 	int count = 0;
 	
 	for (const cv::Point& platform_pixel : platform_pixels) {
-		cv::Mat jump_right_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1, cv::Scalar(0));
+		cv::Point topLeftCornerRight(dim_image.first,dim_image.second);
+		cv::Point bottomRightCornerRight(0, 0);
+		cv::Mat jump_right_image(dim_image.first, dim_image.second, CV_8UC1, cv::Scalar(0));
 		/* Calculates the right sided jump. */ {
 		cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y + globals.jump_half_width);
-
+		
 		cv::Mat ascending_image(jump_right_image.rows, jump_right_image.cols, CV_8UC1, cv::Scalar(0));
 		/* Paint the full ascending motion of the jump. */ {
 			for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < platform_pixel.x; x++) {
 				float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
 				for (int y = platform_pixel.y; y <= __min(summit.y - horizontal_delta, ascending_image.cols - 1) /* if jump is too far right of the image. */; y++)
+				{
+					modifyRectangleCorner(x, y, topLeftCornerRight, bottomRightCornerRight);
 					ascending_image.at<uchar>(x, y) = 255;
+				}
 			}
 		}
 
@@ -78,7 +87,10 @@ int main(int argc, char* argv[]) {
 			for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < descending_image.rows; x++) {
 				float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, globals.velocity.y), globals.gravity, summit.x - x);
 				for (int y = platform_pixel.y; y <= __min(summit.y + horizontal_delta, descending_image.cols - 1) /* if jump is too far right of the image. */; y++)
+				{
+					modifyRectangleCorner(x, y, topLeftCornerRight, bottomRightCornerRight);
 					descending_image.at<uchar>(x, y) = 255;
+				}
 			}
 		}
 
@@ -164,28 +176,36 @@ int main(int argc, char* argv[]) {
 					right = __min(right, descending_image.cols - 1); // if the jump is farther right than the image.
 
 					for (int y = left; y <= right; y++)
+					{
+						modifyRectangleCorner(x, y, topLeftCornerRight, bottomRightCornerRight);
 						descending_image.at<uchar>(x, y) = 255;
+					}
+						
 					}
 				}
 			}
-
-			/* Merge both ascending and descending parts into one image. */ { // TODO: Optimisation possible. Mettre a jour l'image que dans les zones importantes.
-				for (int x = 0; x < jump_right_image.rows; x++)
-					for (int y = 0; y < jump_right_image.cols; y++)
+			/* Merge both ascending and descending parts into one image. */ {
+				for (int x = topLeftCornerRight.x; x <= bottomRightCornerRight.x; x++)
+					for (int y = topLeftCornerRight.y; y <= bottomRightCornerRight.y; y++)
 						jump_right_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
 			}
 		}
-
-		cv::Mat jump_left_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1, cv::Scalar(0));
+		cv::Point topLeftCornerLeft(dim_image.first,dim_image.second);
+		cv::Point bottomRightCornerLeft(0, 0);
+		cv::Mat jump_left_image(dim_image.first, dim_image.second, CV_8UC1, cv::Scalar(0));
 		/* Calculates the left sided jump. */ {
 			cv::Point summit(platform_pixel.x - globals.jump_height, platform_pixel.y - globals.jump_half_width);
-
+			
+			
 			cv::Mat ascending_image(jump_left_image.rows, jump_left_image.cols, CV_8UC1, cv::Scalar(0));
 			/* Paint the full ascending motion of the jump. */ {
 				for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < platform_pixel.x; x++) {
 					float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, -globals.velocity.y), globals.gravity, summit.x - x);
 					for (int y = __max(summit.y - horizontal_delta, 0) /* if jump is too far left of the image. */; y <= platform_pixel.y; y++)
+					{
 						ascending_image.at<uchar>(x, y) = 255;
+						modifyRectangleCorner(x, y, topLeftCornerLeft, bottomRightCornerLeft);
+					}
 				}
 			}
 
@@ -194,7 +214,10 @@ int main(int argc, char* argv[]) {
 				for (int x = __max(summit.x, 0) /* if jump is higher than the top of the image. */; x < descending_image.rows; x++) {
 					float horizontal_delta = horizontal_from_vertical(cv::Point2f(0.f, -globals.velocity.y), globals.gravity, summit.x - x);
 					for (int y = __max(summit.y + horizontal_delta, 0) /* if jump is too far left of the image. */; y <= platform_pixel.y; y++)
+					{
 						descending_image.at<uchar>(x, y) = 255;
+						modifyRectangleCorner(x, y, topLeftCornerLeft, bottomRightCornerLeft);
+					}
 				}
 			}
 			
@@ -265,31 +288,37 @@ int main(int argc, char* argv[]) {
 				}
 			}
 
-			/* Merge both ascending and descending parts into one image. */ { // TODO: Faire la même opti que l'autre coté.
-				for (int x = 0; x < jump_left_image.rows; x++)
-					for (int y = 0; y < jump_left_image.cols; y++)
+			/* Merge both ascending and descending parts into one image. */ { 
+				for (int x = topLeftCornerLeft.x; x <= bottomRightCornerLeft.x; x++)
+					for (int y = topLeftCornerLeft.y; y <= bottomRightCornerLeft.y; y++)
 						jump_left_image.at<uchar>(x, y) += ascending_image.at<uchar>(x, y) + descending_image.at<uchar>(x, y);
 			}
 		}
 
-		for (int x = 0; x < reach_image.rows; x++)
-			for (int y = 0; y < reach_image.cols; y++)
+		int start_x = (topLeftCornerLeft.x < topLeftCornerRight.x) ? topLeftCornerLeft.x : topLeftCornerRight.x;
+		int end_x = (bottomRightCornerLeft.x > bottomRightCornerRight.x) ? bottomRightCornerLeft.x : bottomRightCornerRight.x;
+
+		int start_y = (topLeftCornerLeft.y < topLeftCornerRight.y) ? topLeftCornerLeft.y : topLeftCornerRight.y;
+		int end_y = (bottomRightCornerLeft.y > bottomRightCornerRight.y) ? bottomRightCornerLeft.y : bottomRightCornerRight.y;
+		
+		for (int x = start_x; x <= end_x; x++)
+			for (int y = start_y; y <= end_y; y++)
 				reach_image.at<int>(x, y) += (jump_right_image.at<uchar>(x, y) || jump_left_image.at<uchar>(x, y));
 
 		printf("%i\n", count++);
-	} // TODO : Faire l'opti sur cette fonction.
+	} 
 
 
 	/* Prints out the reach data image with values of EITHER 0 or 255 (aka no gradient). */ {
-		cv::Mat reach_filled_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1);
+		cv::Mat reach_filled_image(dim_image.first, dim_image.second, CV_8UC1);
 		for (int x = 0; x < reach_filled_image.rows; x++)
 			for (int y = 0; y < reach_filled_image.cols; y++)
 				reach_filled_image.at<uchar>(x, y) = 255 * (reach_image.at<int>(x, y) != 0);
 		cv::imwrite(base_path + "\\reach_filled.png", reach_filled_image);
 	}
 
-	/**/ {
-		cv::Mat reach_normalized_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC1);
+	/* Create the visual of the result and save them inside a txt file.*/ {
+		cv::Mat reach_normalized_image(dim_image.first, dim_image.second, CV_8UC1);
 		int max = 0;
 		for (int x = 0; x < reach_normalized_image.rows; x++)
 			for (int y = 0; y < reach_normalized_image.cols; y++)
@@ -301,7 +330,7 @@ int main(int argc, char* argv[]) {
 
 		cv::Mat danger_image = cv::imread(base_path + "\\danger_filled.png", cv::IMREAD_GRAYSCALE);
 		cv::Mat collision_filled_image = cv::imread(base_path + "\\collision_filled.png", cv::IMREAD_GRAYSCALE);
-		cv::Mat showcase_image(std::get<0>(dim_image), std::get<1>(dim_image), CV_8UC3);
+		cv::Mat showcase_image(dim_image.first, dim_image.second, CV_8UC3);
 		for (int x = 0; x < showcase_image.rows; x++)
 			for (int y = 0; y < showcase_image.cols; y++) {
 				showcase_image.at<cv::Vec3b>(x, y)[0] = collision_filled_image.at<uchar>(x, y);
@@ -311,12 +340,27 @@ int main(int argc, char* argv[]) {
 		cv::imwrite(base_path + "\\showcase.png", showcase_image);
 
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
-		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image) << '\n';
+		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
 		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
 		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image) << '\n';
 		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
 		result_file << "Execution time:  " << clock() - start_time;
 		result_file.close();
+		
+		{
+			std::ofstream file(base_path + "\\graph.txt", std::ios::trunc);
+			points_array points;
+			int window_width = 200;
+			int step_y = 16;
+			for (int end_y = window_width; end_y < reach_image.cols; end_y += step_y)
+			{
+				float metric = metric_area_filled(reach_image, danger_image, end_y - window_width, end_y);
+				file << end_y << " | " << metric << '\n';
+				points.emplace_back(point(end_y, metric));
+			}
+			file.close();
+			create_graph(points, base_path);
+		}
 	}
 
 	return 0;

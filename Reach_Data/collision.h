@@ -27,7 +27,7 @@ collision_t inline from_string(const std::string& s) {
 }
 
 bool inline comp(const collision_t& a, const collision_t& b) {
-	return (a.x < b.x || (a.x == b.x && a.y < b.y));
+	return (a.y < b.y || (a.y == b.y && a.x < b.x));
 }
 
 std::vector<collision_t> inline from_file(const std::string& file_path) {
@@ -46,7 +46,7 @@ std::vector<collision_t> inline from_file(const std::string& file_path) {
 	return result;
 }
 
-bool inline get_dimension(std::tuple<int, int>& dim,const std::string& json_path)
+bool inline get_dimension(std::pair<int, int>& dim,const std::string& json_path)
 {
 	std::ifstream file(json_path.c_str());
 
@@ -55,9 +55,27 @@ bool inline get_dimension(std::tuple<int, int>& dim,const std::string& json_path
 		return false;
 	}
 	jsoncons::json json_content = jsoncons::json::parse(file);
-	std::get<0>(dim) = json_content["levelRows"].as<int>();
-	std::get<1>(dim) = json_content["levelCols"].as<int>();
+	dim.first = json_content["levelRows"].as<int>();
+	dim.second = json_content["levelCols"].as<int>();
 	return true;
+}
+
+void inline modifyRectangleCorner(const int& x,const int& y, cv::Point& TopLeftCorner, cv::Point& BottomRightCorner)
+{
+	if(x < TopLeftCorner.x)
+	{
+		TopLeftCorner.x = x;
+	} else if (x > BottomRightCorner.x)
+	{
+		BottomRightCorner.x = x;
+	}
+	if(y < TopLeftCorner.y)
+	{
+		TopLeftCorner.y = y;
+	} else if (y > BottomRightCorner.y)
+	{
+		BottomRightCorner.y = y;
+	}
 }
 
 #endif // !COLLISION_H
