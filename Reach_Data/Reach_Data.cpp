@@ -341,26 +341,73 @@ int main(int argc, char* argv[]) {
 
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
 		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
-		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
-		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image) << '\n';
-		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image) << '\n';
+		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
+		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image, 0, reach_image.cols) << '\n';
+		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
 		result_file << "Execution time:  " << clock() - start_time;
 		result_file.close();
 		
 		{
-			std::ofstream file(base_path + "\\graph.txt", std::ios::trunc);
-			points_array points;
+			cv::Mat split_image(dim_image.first + 200, dim_image.second, CV_8UC3);
+			cv::Mat level_image = cv::imread(base_path + "\\level.png", CV_8UC3);
+			/*for (int x = 200; x < split_image.rows; x++)
+			{
+				for (int y = 0; y < dim_image.second; y++)
+				{
+					split_image.at<cv::Vec3b>(x, y) = level_image.at<cv::Vec3d>(x-200, y);
+				}
+			}*/
+			
+			std::string metric_folder = base_path + "\\Metric";
+			std::ofstream graph_area_filed(metric_folder + "\\graph_filled_area.txt", std::ios::trunc);
+			std::ofstream graph_area_gradient(metric_folder + "\\graph_gradient_area.txt", std::ios::trunc);
+			std::ofstream graph_perimeter_filed(metric_folder + "\\graph_area_perimeter.txt", std::ios::trunc);
+			std::ofstream graph_perimeter_gradient(metric_folder + "\\graph_gradient_perimeter.txt", std::ios::trunc);
+			
+			points_array points_area_filled;
+			points_array points_area_gradient;
+			points_array points_perimeter_filed;
+			points_array points_perimeter_gradient;
+
 			int window_width = 200;
 			int step_y = 16;
+			
+			float metric = 0.f;
+			int i = 1;
 			for (int end_y = window_width; end_y < reach_image.cols; end_y += step_y)
 			{
-				float metric = metric_area_filled(reach_image, danger_image, end_y - window_width, end_y);
-				file << end_y << " | " << metric << '\n';
-				points.emplace_back(point(end_y, metric));
+				metric = metric_area_filled(reach_image, danger_image, end_y - window_width, end_y);
+				graph_area_filed << end_y << " | " << metric << '\n';
+				points_area_filled.emplace_back(point(end_y, metric));
+				/*
+				cv::Rect rect(0, end_y - window_width, window_width, level_image.rows);
+				cv::Mat copy(level_image);
+				cv::rectangle(copy, rect, cv::Scalar(255, 255, 255));
+				cv::imwrite(metric_folder + "\\Images\\images_" + std::to_string(i), copy);
+				i++;*/
+				metric = metric_area_gradient(reach_image, platform_pixels.size(), danger_image, end_y - window_width, end_y);
+				graph_area_gradient << end_y << " | " << metric << '\n';
+				points_area_gradient.emplace_back(point(end_y, metric));
+				
+				metric = metric_perimeter_filled(reach_image, danger_image, end_y - window_width, end_y);
+				graph_perimeter_filed << end_y << " | " << metric << '\n';
+				points_perimeter_filed.emplace_back(point(end_y, metric));
+				
+				metric = metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image, end_y - window_width, end_y);
+				graph_perimeter_gradient << end_y << " | " << metric << '\n';
+				points_perimeter_gradient.emplace_back(point(end_y, metric));
 			}
-			file.close();
-			create_graph(points, base_path);
+			graph_area_filed.close();
+			graph_area_gradient.close();
+			graph_perimeter_filed.close();
+			graph_perimeter_gradient.close();
+			
+			create_graph(points_area_filled, metric_folder + "\\graph_filled_area.png");
+			create_graph(points_area_gradient, metric_folder + "\\graph_gradient_area.png");
+			create_graph(points_perimeter_filed, metric_folder + "\\graph_filled_perimeter.png");
+			create_graph(points_perimeter_gradient, metric_folder + "\\graph_gradient_perimeter.png");
 		}
+		
 	}
 
 	return 0;

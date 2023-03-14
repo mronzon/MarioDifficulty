@@ -56,10 +56,10 @@ void inline create_graph(const points_array& points, std::string const path_to_s
     {
         float step_x = value_per_pixel_x * elt.second;
         float step_y = value_per_pixel_y * elt.first;
-        cv::Rect rect(50 + step_y, 890 - step_x , 10, 10);
+        cv::Rect rect(50 + step_y, 890 - step_x , 5, 5);
         cv::rectangle(graph_image, rect, cv::Scalar(255), cv::FILLED);
     }
-    cv::imwrite(path_to_save + "\\graph.png", graph_image);
+    cv::imwrite(path_to_save, graph_image);
 
 }
 
