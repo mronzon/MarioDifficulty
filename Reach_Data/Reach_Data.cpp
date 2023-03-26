@@ -338,14 +338,6 @@ int main(int argc, char* argv[]) {
 				showcase_image.at<cv::Vec3b>(x, y)[2] = danger_image.at<uchar>(x, y); 
 			}
 		cv::imwrite(base_path + "\\showcase.png", showcase_image);
-
-		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
-		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
-		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
-		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image, 0, reach_image.cols) << '\n';
-		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
-		result_file << "Execution time:  " << clock() - start_time;
-		result_file.close();
 		
 		{
 			cv::Mat split_image(dim_image.first + 200, dim_image.second, CV_8UC3);
@@ -407,7 +399,13 @@ int main(int argc, char* argv[]) {
 			create_graph(points_perimeter_filed, metric_folder + "\\graph_filled_perimeter.png");
 			create_graph(points_perimeter_gradient, metric_folder + "\\graph_gradient_perimeter.png");
 		}
-		
+		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
+		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
+		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
+		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image, 0, reach_image.cols) << '\n';
+		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
+		result_file << "Execution time:  " << clock() - start_time;
+		result_file.close();
 	}
 
 	return 0;

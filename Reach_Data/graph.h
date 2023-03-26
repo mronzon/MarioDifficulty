@@ -51,13 +51,18 @@ void inline create_graph(const points_array& points, std::string const path_to_s
         cv::rectangle(graph_image, rect_vertical, cv::Scalar(255), cv::FILLED);
         cv::putText(graph_image, truncate_float(write_step*i, 4), cv::Point(40, 900 - i*step), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(255), 1.5);
     }
-    
-    for (point const elt : points)
+    point point_avant = points.at(0);
+    for (points_array::size_type i = 1; i < points.size(); i++)
     {
-        float step_x = value_per_pixel_x * elt.second;
-        float step_y = value_per_pixel_y * elt.first;
-        cv::Rect rect(50 + step_y, 890 - step_x , 5, 5);
-        cv::rectangle(graph_image, rect, cv::Scalar(255), cv::FILLED);
+        point point_apres = points.at(i);
+        float step_x_avant = value_per_pixel_x * point_avant.second;
+        float step_y_avant = value_per_pixel_y * point_avant.first;
+        float step_x_apres = value_per_pixel_x * point_apres.second;
+        float step_y_apres = value_per_pixel_y * point_apres.first;
+        cv::Point avant(50 + step_y_avant, 890 - step_x_avant);
+        cv::Point apres(50 + step_y_apres, 890 - step_x_apres);
+        cv::line(graph_image, avant, apres, cv::Scalar(255));
+        point_avant = point_apres;
     }
     cv::imwrite(path_to_save, graph_image);
 
