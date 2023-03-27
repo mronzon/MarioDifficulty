@@ -68,4 +68,34 @@ void inline create_graph(const points_array& points, std::string const path_to_s
 
 }
 
+void inline find_max_points(const points_array& points, points_array& result)
+{
+    //Avancer dans la suite de points et regarder la valeur et celle d'apres. Si celle d'apres est plus grande on continue. Sinon on ajoute l'ancienne dans résult.
+    // A voir ce que ça donne dans un premier temps apres on peut essayer de faire un gradient descent des familles
+
+
+    
+
+    for (points_array::size_type i = 10; i < points.size(); i++)
+    {
+        bool to_add = true;
+        for(points_array::size_type j = i-10; j < __min(points.size(), i + 10); j++)
+        {
+            if(i == j)
+            {
+                continue;
+            }
+            if(points.at(j).second >= points.at(i).second)
+            {
+                to_add = false;
+                break;
+            }
+        }
+        if(to_add)
+        {
+            result.emplace_back(points.at(i));
+        }
+    }
+}
+
 #endif
