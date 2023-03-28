@@ -5,5 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="graph.h" />
+    <ClInclude Include="metric.h" />
   </ItemGroup>
 </Project>

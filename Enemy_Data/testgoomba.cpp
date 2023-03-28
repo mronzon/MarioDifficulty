@@ -10,6 +10,8 @@
 #include <jsoncons/json.hpp>
 
 #include "enemy.h"
+#include "graph.h"
+#include "metric.h"
 
 
 using namespace jsoncons;
@@ -26,7 +28,9 @@ int main(int argc, char* argv[]) {
 	std::string level_path = "\\Niveau_1_1";
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
+	std::string metric_path = base_path + level_path + "\\Metric";
 	cv::Mat level_image = cv::imread(image_path);
+	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
 
 	// On parse le JSON et on récupère les valeurs du nombre de lignes/colonnes du niveau
 
@@ -281,7 +285,7 @@ int main(int argc, char* argv[]) {
 		}
 		std::map<std::pair<int, int>, int>::iterator it_koopa;
 		for (it_koopa = nb_pos_koopa.begin(); it_koopa != nb_pos_koopa.end(); it_koopa++) {
-			cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 16, 16);
+			cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
 			cv::rectangle(Image_Final, rect,
 				cv::Scalar(0, 20 + it_koopa->second * 3, 0),
 				cv::FILLED); //BGR
@@ -291,6 +295,35 @@ int main(int argc, char* argv[]) {
 		std::string filename = "\\move_goomba_" + test + ".png";
 		cv::imwrite(base_path + level_path + "\\Images_move_goomba" + filename, Image_Final);
 	}
+
+	// Calcul métrique
+
+	int window_width = 200;
+	int step_y = 16;
+	float metric = 0.f;
+	float metric_global = 0.0f;
+	points_array points_goomba;
+	points_array points_koopa;
+	points_array points_globaux;
+	
+	std::cout << "coucou" << std::endl;
+
+	for (int end_y = window_width; end_y < reach_filled_image.cols; end_y += step_y)
+	{
+		metric_global = 0;
+		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_goomba, 216);
+		metric_global += metric;
+		points_goomba.emplace_back(point(end_y, metric));
+
+		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_koopa, 368);
+		metric_global += metric;
+		points_koopa.emplace_back(point(end_y, metric));
+
+		points_globaux.emplace_back(point(end_y, metric_global));
+	}
+	create_graph(points_goomba, metric_path + "\\metric_goomba.png");
+	create_graph(points_koopa, metric_path + "\\metric_koopa.png");
+	create_graph(points_globaux, metric_path + "\\metric_enemy_global.png");
 
 	return 0;
 }
