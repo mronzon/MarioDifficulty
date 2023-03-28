@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
 					}
 				}
 			}
-
+			/*
 			if (process_ascending) {
 				cv::Point corner(collision.x + collision.h - 1, collision.y + collision.w - 1);
 				float time = time_from_to_small(platform_pixel, corner, globals.velocity, globals.gravity);
@@ -182,7 +182,7 @@ int main(int argc, char* argv[]) {
 					}
 						
 					}
-				}
+				}*/
 			}
 			/* Merge both ascending and descending parts into one image. */ {
 				for (int x = topLeftCornerRight.x; x <= bottomRightCornerRight.x; x++)
