@@ -18,7 +18,7 @@ using namespace jsoncons;
 
 int main(int argc, char* argv[]) {
 
-	if (argc != 2) return 0;
+	if (argc != 2) return -1;
 
 	// On récupère le chemin vers le JSON 
 
@@ -27,8 +27,6 @@ int main(int argc, char* argv[]) {
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
 	cv::Mat level_image = cv::imread(image_path);
-
-	std::cout << json_path << std::endl;
 
 	// On parse le JSON et on récupère les valeurs du nombre de lignes/colonnes du niveau
 
