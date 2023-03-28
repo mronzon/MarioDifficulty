@@ -383,6 +383,12 @@ int main(int argc, char* argv[]) {
 			create_graph(points_area_gradient, metric_folder + "\\graph_gradient_area.png");
 			create_graph(points_perimeter_filed, metric_folder + "\\graph_filled_perimeter.png");
 			create_graph(points_perimeter_gradient, metric_folder + "\\graph_gradient_perimeter.png");
+			points_array max_point;
+			find_max_points(points_area_filled, max_point);
+			for(auto elt : max_point)
+			{
+				std::cout << elt.first << " | " << elt.second << std::endl;
+			}
 		}
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
 		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
