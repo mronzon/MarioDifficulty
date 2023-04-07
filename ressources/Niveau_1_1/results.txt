@@ -2,4 +2,4 @@ Filled Area Metric:	       0.158614
 Gradient Area Metric:      0.133376
 Filled Perimeter Metric:   2222
 Gradient Perimeter Metric: 73.8201
-Execution time:  35315
+Execution time:  33384

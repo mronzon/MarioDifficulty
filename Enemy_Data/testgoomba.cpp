@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
 	if (argc != 2) return -1;
 
-	// On récupère le chemin vers le JSON 
+	// On rï¿½cupï¿½re le chemin vers le JSON 
 
 	std::string base_path = argv[1];
 	std::string level_path = "\\Niveau_1_1";
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 	cv::Mat level_image = cv::imread(image_path);
 	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
 
-	// On parse le JSON et on récupère les valeurs du nombre de lignes/colonnes du niveau
+	// On parse le JSON et on rï¿½cupï¿½re les valeurs du nombre de lignes/colonnes du niveau
 
 	std::ifstream is(json_path);
 	json j = json::parse(is);
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 	float ymax = j["levelCols"].as<float>();
 	float xmax = j["levelRows"].as<float>();
 
-	// On définit les constantes physiques
+	// On dï¿½finit les constantes physiques
 	std::pair<int,int> velocity_goomba(30, 10);
 	int gravity = 5;
 
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	// Maintenant qu'on a la position des goombas et des collisions, on peut gérer le déplacement des goombas
+	// Maintenant qu'on a la position des goombas et des collisions, on peut gï¿½rer le dï¿½placement des goombas
 
 	//std::vector<std::pair<int, int>> list_position_goomba;
 	int nb_deplacement = 2500;
@@ -159,7 +159,7 @@ int main(int argc, char* argv[]) {
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
-		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Frère Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
+		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Frï¿½re Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
 
 		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos_goomba.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_goomba.end()) {
@@ -168,10 +168,10 @@ int main(int argc, char* argv[]) {
 			else {
 				nb_pos_goomba[std::pair<int, int>(ene.x, ene.y)] += 1;
 			}
-			// Si le goomba se déplace vers la gauche
+			// Si le goomba se dï¿½place vers la gauche
 			if (ene.isWalkingLeft) {
 
-				// On check d'abord si y a un tuyau qui l'empêche d'avancer
+				// On check d'abord si y a un tuyau qui l'empï¿½che d'avancer
 
 				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y - 1)) != list_pixel.end()) {
 					ene.isWalkingLeft = !ene.isWalkingLeft;
@@ -192,10 +192,10 @@ int main(int argc, char* argv[]) {
 				}
 
 			}
-			// S'il se déplace vers la droite 
+			// S'il se dï¿½place vers la droite 
 			else {
 
-				// On check d'abord si y a un tuyau qui l'empêche d'avancer
+				// On check d'abord si y a un tuyau qui l'empï¿½che d'avancer
 
 				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y + 1)) != list_pixel.end()) {
 					ene.isWalkingLeft = !ene.isWalkingLeft;
@@ -225,10 +225,10 @@ int main(int argc, char* argv[]) {
 			else {
 				nb_pos_koopa[std::pair<int, int>(ene.x, ene.y)] += 1;
 			}
-			// Si le koopa se déplace vers la gauche
+			// Si le koopa se dï¿½place vers la gauche
 			if (ene.isWalkingLeft) {
 
-				// On check d'abord si y a un tuyau qui l'empêche d'avancer
+				// On check d'abord si y a un tuyau qui l'empï¿½che d'avancer
 
 				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y - 1)) != list_pixel.end()) {
 					ene.isWalkingLeft = !ene.isWalkingLeft;
@@ -249,10 +249,10 @@ int main(int argc, char* argv[]) {
 				}
 
 			}
-			// S'il se déplace vers la droite 
+			// S'il se dï¿½place vers la droite 
 			else {
 
-				// On check d'abord si y a un tuyau qui l'empêche d'avancer
+				// On check d'abord si y a un tuyau qui l'empï¿½che d'avancer
 
 				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y + 1)) != list_pixel.end()) {
 					ene.isWalkingLeft = !ene.isWalkingLeft;
@@ -296,7 +296,7 @@ int main(int argc, char* argv[]) {
 		cv::imwrite(base_path + level_path + "\\Images_move_goomba" + filename, Image_Final);
 	}
 
-	// Calcul métrique
+	// Calcul mï¿½trique
 
 	int window_width = 200;
 	int step_y = 16;
@@ -323,7 +323,15 @@ int main(int argc, char* argv[]) {
 	}
 	create_graph(points_goomba, metric_path + "\\metric_goomba.png");
 	create_graph(points_koopa, metric_path + "\\metric_koopa.png");
-	create_graph(points_globaux, metric_path + "\\metric_enemy_global.png");
+	std::vector<points_array> tab;
+	std::vector<cv::Scalar> colors;
+	tab.emplace_back(points_goomba);
+	colors.emplace_back(cv::Scalar(255,0,0));
+	tab.emplace_back(points_koopa);
+	colors.emplace_back(cv::Scalar(0,255,0));
+	tab.emplace_back(points_globaux);
+	colors.emplace_back(cv::Scalar(255,255,255));
+	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");
 
 	return 0;
 }
