@@ -1,0 +1,11 @@
+La plante sort toutes les secondes (60 fps entre chaque cycle)
+Donc : Elle commence debout, on va la faire descendre à chaque frame (donc 44 frames pour un cycle complet montée descente car 22 pixels de hauteur) 
+Elle reste un certain temps quand elle est sortie, on peut dans un premier temps considérer qu'elle reste 1 seconde donc 60 frames à sa hauteur maximale
+
+Niveau 1_3 : le koopa volant fait un aller en 4 secondes. Ils commencent à leur apogée
+
+Les koopa volants qui font pas des haut/bas sautent 80 pixels de haut (4 blocs)
+
+Frère marteau : fait des gauches droites en permanence sur 16 pixels, je piferai un une seconde pour faire les 16 pixels
+jsp pk d'un coup ils ont pété un câble ils m'ont rush après que j'ai afk
+Ils peuvent traverser les plateformes et se réceptionnent dessus, ils descendent le plus bas puis remontent
