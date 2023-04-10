@@ -33,7 +33,7 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 49, 
+                "x": 50, 
                 "y": 2501
             }, 
             {
@@ -42,13 +42,6 @@
                 "width": 16, 
                 "x": 178, 
                 "y": 324
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 147, 
-                "y": 614
             }, 
             {
                 "height": 24, 
@@ -80,6 +73,13 @@
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 147, 
+                "y": 614
+            }, 
+            {
+                "height": 24, 
                 "type": "hammer_bro", 
                 "width": 15, 
                 "x": 47, 
@@ -89,15 +89,22 @@
                 "height": 24, 
                 "type": "hammer_bro", 
                 "width": 15, 
-                "x": 113, 
+                "x": 112, 
                 "y": 1965
             }, 
             {
                 "height": 24, 
                 "type": "hammer_bro", 
                 "width": 15, 
-                "x": 145, 
-                "y": 729
+                "x": 144, 
+                "y": 720
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 151, 
+                "y": 1303
             }, 
             {
                 "height": 22, 
@@ -122,24 +129,24 @@
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
+                "width": 17, 
+                "x": 186, 
+                "y": 2144
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 186, 
                 "y": 2163
             }, 
             {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 113, 
-                "y": 1964
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 151, 
-                "y": 1303
+                "height": 16, 
+                "type": "turtle", 
+                "width": 17, 
+                "x": 186, 
+                "y": 2182
             }
         ], 
         "platform": {
@@ -270,7 +277,7 @@
                 "y": 464
             }, 
             {
-                "height": 32, 
+                "height": 16, 
                 "width": 32, 
                 "x": 136, 
                 "y": 752
@@ -322,6 +329,12 @@
                 "width": 32, 
                 "x": 152, 
                 "y": 224
+            }, 
+            {
+                "height": 16, 
+                "width": 48, 
+                "x": 152, 
+                "y": 736
             }, 
             {
                 "height": 16, 
