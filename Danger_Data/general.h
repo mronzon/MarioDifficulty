@@ -35,4 +35,6 @@ bool inline get_dimension(std::tuple<int, int>& dim, std::string json_path)
     return true;
 }
 
+int create_danger(std::string const& folder_path);
+
 #endif // !GENERAL_HPP
