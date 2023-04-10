@@ -35,6 +35,13 @@
                 "width": 16, 
                 "x": 146, 
                 "y": 2616
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 438
             }
         ], 
         "platform": {

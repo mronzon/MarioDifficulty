@@ -16,67 +16,11 @@
                 "y": 2915
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
+                "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
-                "x": 65, 
-                "y": 3227
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 135, 
-                "y": 870
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 135, 
-                "y": 1077
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 136, 
-                "y": 2670
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 142, 
-                "y": 1019
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 145, 
-                "y": 242
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 148, 
-                "y": 2198
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 155, 
-                "y": 1440
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 157, 
-                "y": 2709
+                "x": 154, 
+                "y": 1510
             }, 
             {
                 "height": 24, 
@@ -89,8 +33,71 @@
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
+                "x": 66, 
+                "y": 3227
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
                 "x": 125, 
                 "y": 2774
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 136, 
+                "y": 870
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 136, 
+                "y": 1077
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 137, 
+                "y": 2670
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 143, 
+                "y": 1019
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 146, 
+                "y": 242
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 149, 
+                "y": 2198
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 156, 
+                "y": 1440
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 158, 
+                "y": 2709
             }, 
             {
                 "height": 24, 
@@ -132,6 +139,13 @@
                 "type": "turtle_spike", 
                 "width": 17, 
                 "x": 185, 
+                "y": 3002
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 185, 
                 "y": 3003
             }, 
             {
@@ -147,6 +161,27 @@
                 "width": 17, 
                 "x": 186, 
                 "y": 1885
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 186, 
+                "y": 1925
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1732
+            }, 
+            {
+                "height": 15, 
+                "type": "turtle_spike", 
+                "width": 16, 
+                "x": 186, 
+                "y": 1884
             }
         ], 
         "platform": {

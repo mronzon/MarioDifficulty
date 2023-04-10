@@ -5,14 +5,7 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 164, 
-                "y": 444
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
+                "x": 178, 
                 "y": 2180
             }, 
             {
@@ -24,10 +17,38 @@
             }, 
             {
                 "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 165, 
+                "y": 444
+            }, 
+            {
+                "height": 24, 
                 "type": "hammer_bro", 
                 "width": 15, 
                 "x": 113, 
                 "y": 1020
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 155, 
+                "y": 2553
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 173, 
+                "y": 1048
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 176, 
+                "y": 2827
             }, 
             {
                 "height": 24, 
@@ -75,22 +96,8 @@
                 "height": 24, 
                 "type": "hammer_bro", 
                 "width": 16, 
-                "x": 155, 
-                "y": 2552
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
                 "x": 177, 
                 "y": 2324
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2827
             }
         ], 
         "platform": {

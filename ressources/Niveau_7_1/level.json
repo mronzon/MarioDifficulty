@@ -5,15 +5,15 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 141, 
-                "y": 374
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
                 "x": 178, 
                 "y": 1778
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 142, 
+                "y": 374
             }, 
             {
                 "height": 24, 

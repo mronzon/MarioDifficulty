@@ -20,6 +20,13 @@
                 "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
+                "y": 331
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 185, 
                 "y": 457
             }, 
             {
@@ -132,6 +139,27 @@
                 "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
+                "y": 234
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 597
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2012
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
                 "y": 2301
             }, 
             {
@@ -142,39 +170,18 @@
                 "y": 2325
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 140, 
-                "y": 911
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 597
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2012
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 234
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
                 "x": 137, 
                 "y": 1333
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 140, 
+                "y": 910
             }, 
             {
                 "height": 24, 

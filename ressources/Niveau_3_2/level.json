@@ -90,7 +90,21 @@
                 "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
+                "y": 2969
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 185, 
                 "y": 2992
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 243
             }, 
             {
                 "height": 23, 
@@ -118,7 +132,56 @@
                 "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
+                "y": 700
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1037
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1229
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1742
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
                 "y": 2119
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2219
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2242
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2266
             }, 
             {
                 "height": 23, 
@@ -131,64 +194,22 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 177, 
-                "y": 1229
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2242
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2266
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 177, 
+                "x": 178, 
                 "y": 2566
             }, 
             {
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 177, 
+                "x": 178, 
                 "y": 2590
             }, 
             {
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 177, 
+                "x": 178, 
                 "y": 2613
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 243
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 700
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 1037
             }, 
             {
                 "height": 24, 
