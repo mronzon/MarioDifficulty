@@ -12,15 +12,15 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 72, 
-                "y": 3218
+                "x": 178, 
+                "y": 392
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
+                "height": 24, 
+                "type": "flying_koopa", 
                 "width": 16, 
-                "x": 177, 
-                "y": 392
+                "x": 73, 
+                "y": 3218
             }, 
             {
                 "height": 22, 
@@ -230,7 +230,21 @@
                 "type": "turtle_spike", 
                 "width": 17, 
                 "x": 186, 
+                "y": 817
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 186, 
                 "y": 1458
+            }, 
+            {
+                "height": 16, 
+                "type": "turtle_spike", 
+                "width": 17, 
+                "x": 186, 
+                "y": 2534
             }
         ], 
         "platform": {
@@ -238,6 +252,8 @@
             "moving": []
         }
     }, 
+    "levelCols": 3672, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -637,6 +653,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

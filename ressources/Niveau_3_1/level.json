@@ -90,7 +90,98 @@
                 "type": "goomba", 
                 "width": 16, 
                 "x": 185, 
+                "y": 2487
+            }, 
+            {
+                "height": 16, 
+                "type": "goomba", 
+                "width": 16, 
+                "x": 185, 
                 "y": 2512
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 50, 
+                "y": 2413
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 97, 
+                "y": 2993
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 114, 
+                "y": 2691
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 145, 
+                "y": 2945
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 959
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1574
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 2356
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 134, 
+                "y": 396
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 137, 
+                "y": 286
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 138, 
+                "y": 2593
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 159, 
+                "y": 2711
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 146, 
+                "y": 2651
             }, 
             {
                 "height": 24, 
@@ -105,167 +196,6 @@
                 "width": 15, 
                 "x": 113, 
                 "y": 1854
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 50, 
-                "y": 2413
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 959
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 1574
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2356
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 50, 
-                "y": 2413
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 96, 
-                "y": 2993
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 113, 
-                "y": 2690
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 144, 
-                "y": 2944
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 959
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 1574
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2356
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 134, 
-                "y": 396
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 137, 
-                "y": 286
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 138, 
-                "y": 2593
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 159, 
-                "y": 2711
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 96, 
-                "y": 2993
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 113, 
-                "y": 2690
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 134, 
-                "y": 396
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 137, 
-                "y": 286
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 138, 
-                "y": 2593
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 144, 
-                "y": 2944
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 146, 
-                "y": 2651
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 159, 
-                "y": 2711
             }, 
             {
                 "height": 22, 
@@ -308,6 +238,8 @@
             "moving": []
         }
     }, 
+    "levelCols": 3416, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -647,6 +579,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

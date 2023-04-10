@@ -131,11 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Collision_Data.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="collision.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="general.h" />
     <ClInclude Include="platforms.h" />
     <ClInclude Include="pipe.h" />
   </ItemGroup>

@@ -132,7 +132,7 @@
                 "type": "turtle_spike", 
                 "width": 16, 
                 "x": 177, 
-                "y": 2419
+                "y": 2415
             }, 
             {
                 "height": 15, 
@@ -193,9 +193,57 @@
         ], 
         "platform": {
             "balanced": [], 
-            "moving": []
+            "moving": [
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 63, 
+                    "y": 940
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 142, 
+                    "y": 1836
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 88, 
+                    "y": 1980
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 12, 
+                    "y": 2492
+                }, 
+                {
+                    "axe": 1, 
+                    "first_limit": -1, 
+                    "height": 8, 
+                    "second_limit": -1, 
+                    "width": 48, 
+                    "x": 168, 
+                    "y": 2492
+                }
+            ]
         }
     }, 
+    "levelCols": 3074, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 32, 
@@ -607,6 +655,7 @@
         ], 
         "spawn": {
             "height": 15, 
+            "width": 13, 
             "x": 49, 
             "y": 42
         }

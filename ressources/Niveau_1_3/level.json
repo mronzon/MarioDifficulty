@@ -6,7 +6,7 @@
                 "type": "goomba", 
                 "width": 16, 
                 "x": 41, 
-                "y": 655
+                "y": 654
             }, 
             {
                 "height": 16, 
@@ -44,27 +44,6 @@
                 "y": 413
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 50, 
-                "y": 413
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 57, 
-                "y": 1184
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 64, 
-                "y": 1824
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
@@ -88,8 +67,8 @@
                     "height": 8, 
                     "second_limit": 216, 
                     "width": 48, 
-                    "x": 89, 
-                    "y": 2046
+                    "x": 159, 
+                    "y": 880
                 }, 
                 {
                     "axe": 0, 
@@ -115,12 +94,14 @@
                     "height": 8, 
                     "second_limit": 2096, 
                     "width": 48, 
-                    "x": 159, 
-                    "y": 880
+                    "x": 89, 
+                    "y": 2046
                 }
             ]
         }
     }, 
+    "levelCols": 2632, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -285,6 +266,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

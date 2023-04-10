@@ -18,10 +18,7 @@ void propagate(const std::vector<collision_t>& collision_merged, cv::Mat& danger
 
 }
 
-int main(int argc, char* argv[]) {
-    if (argc != 3) return 0;
-    std::string const base_path = argv[1];
-    std::string const folder_path = base_path + "\\" + argv[2];
+int create_danger(std::string const& folder_path) {
     std::tuple<int, int> dim;
 
     //Get the dimensions of the image.
@@ -40,7 +37,7 @@ int main(int argc, char* argv[]) {
     
     for (int y = 0; y < danger_filled.cols-100; y++) { // We don't need to propagate the danger gradient on the last 100 pixels.
         propagate(collisions_merged, danger_filled, cv::Point(danger_filled.rows - 8, y)); 
-        printf("progress...%i%%\n", 100 * (y + 1) / danger_filled.cols);
+        //printf("progress...%i%%\n", 100 * (y + 1) / danger_filled.cols);
     }
     cv::imwrite(folder_path + "\\danger_filled.png", danger_filled);
 

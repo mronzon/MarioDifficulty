@@ -2,6 +2,55 @@
     "dynamic": {
         "enemies": [
             {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1152
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 130, 
+                "y": 1475
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 178, 
+                "y": 1878
+            }, 
+            {
+                "height": 23, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 130, 
+                "y": 600
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 90, 
+                "y": 2207
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 103, 
+                "y": 867
+            }, 
+            {
+                "height": 24, 
+                "type": "flying_koopa", 
+                "width": 16, 
+                "x": 136, 
+                "y": 2479
+            }, 
+            {
                 "height": 16, 
                 "type": "flying_fish", 
                 "width": 15, 
@@ -126,69 +175,6 @@
                 "width": 15, 
                 "x": 195, 
                 "y": 1421
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 130, 
-                "y": 1152
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 130, 
-                "y": 1475
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 1878
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 90, 
-                "y": 2208
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 130, 
-                "y": 600
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 130, 
-                "y": 1475
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 136, 
-                "y": 2480
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 103, 
-                "y": 867
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 103, 
-                "y": 867
             }
         ], 
         "platform": {
@@ -196,6 +182,8 @@
             "moving": []
         }
     }, 
+    "levelCols": 3800, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -522,6 +510,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

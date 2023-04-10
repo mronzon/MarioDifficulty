@@ -3,10 +3,15 @@
 #define ENNEMY_H
 
 #include <string>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+#include <vector>
 #include <map>
+#include <filesystem>
 
 typedef enum {
-	goomba, koopa, flying_koopa, bowser, lakitu, turtle_spike, hammer_bro, piranha_plant, flying_fish
+	goomba, koopa, flying_koopa, bowser, lakitu, turtle_spike, hammer_bro, piranha_plant, flying_fish, turtle
 } type_enemy;
 
 struct enemy {
@@ -17,7 +22,7 @@ struct enemy {
 	std::string type;
 };
 
-static std::map<type_enemy, std::string> mapToConvertString = { {goomba,"goomba"},{koopa,"koopa"},{flying_koopa,"flying_koopa"},{bowser,"bowser"},{lakitu,"lakitu"},{turtle_spike,"turtle_spike"},{hammer_bro,"hammer_bro"},{piranha_plant,"piranha_plant"}, {flying_fish,"flying_fish"} };
+static std::map<type_enemy, std::string> mapToConvertString = { {goomba,"goomba"},{koopa,"koopa"},{flying_koopa,"flying_koopa"},{bowser,"bowser"},{lakitu,"lakitu"},{turtle_spike,"turtle_spike"},{hammer_bro,"hammer_bro"},{piranha_plant,"piranha_plant"}, {flying_fish,"flying_fish"}, {turtle,"turtle" }};
 
 std::vector<cv::Mat> inline find_textures_enemies(const std::string& path, std::map<int,type_enemy>* map)
 {
@@ -47,8 +52,11 @@ std::vector<cv::Mat> inline find_textures_enemies(const std::string& path, std::
 		else if (entry.path().filename().string().find("piranha_plant") != std::string::npos) {
 			map->insert({ i , piranha_plant });
 		}
-		else if (entry.path().filename().string().find("turtle") != std::string::npos) {
+		else if (entry.path().filename().string().find("turtle_spike") != std::string::npos) {
 			map->insert({ i , turtle_spike });
+		}
+		else if (entry.path().filename().string().find("turtle") != std::string::npos) {
+			map->insert({ i , turtle });
 		}
 		i++;
 	}
@@ -58,7 +66,9 @@ std::vector<cv::Mat> inline find_textures_enemies(const std::string& path, std::
 std::string convertToString(type_enemy tEnemy) {
 	return mapToConvertString[tEnemy];
 }
-
+bool is_equal(const enemy& enemy1, const enemy& enemy2) {
+	return enemy1.x == enemy2.x && enemy1.y == enemy2.y;
+}
 
 #endif //ENNEMY_H
 

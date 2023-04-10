@@ -117,8 +117,8 @@
                 "height": 24, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 178, 
-                "y": 837
+                "x": 177, 
+                "y": 838
             }, 
             {
                 "height": 22, 
@@ -140,6 +140,13 @@
                 "width": 16, 
                 "x": 146, 
                 "y": 1848
+            }, 
+            {
+                "height": 25, 
+                "type": "koopa", 
+                "width": 16, 
+                "x": 176, 
+                "y": 2357
             }
         ], 
         "platform": {
@@ -184,6 +191,8 @@
             ]
         }
     }, 
+    "levelCols": 2720, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 32, 
@@ -553,6 +562,7 @@
         ], 
         "spawn": {
             "height": 15, 
+            "width": 13, 
             "x": 49, 
             "y": 26
         }

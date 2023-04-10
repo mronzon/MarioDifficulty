@@ -44,27 +44,6 @@
                 "y": 413
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 50, 
-                "y": 413
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 57, 
-                "y": 1184
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 64, 
-                "y": 1824
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
@@ -83,48 +62,46 @@
             "balanced": [], 
             "moving": [
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 80, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 216, 
                     "width": 32, 
-                    "x": 89, 
-                    "y": 2046
+                    "x": 159, 
+                    "y": 880
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1325, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1375, 
                     "width": 32, 
                     "x": 121, 
                     "y": 1375
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 1450, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 1502, 
                     "width": 32, 
                     "x": 137, 
                     "y": 1503
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 0, 
+                    "first_limit": 2046, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 2095, 
                     "width": 32, 
-                    "x": 159, 
-                    "y": 880
+                    "x": 89, 
+                    "y": 2046
                 }
             ]
         }
     }, 
+    "levelCols": 2632, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -289,6 +266,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }
