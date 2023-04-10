@@ -184,6 +184,8 @@
             ]
         }
     }, 
+    "levelCols": 2720, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 32, 
@@ -553,6 +555,7 @@
         ], 
         "spawn": {
             "height": 15, 
+            "width": 13, 
             "x": 49, 
             "y": 26
         }

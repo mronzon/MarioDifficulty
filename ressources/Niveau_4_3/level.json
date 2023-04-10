@@ -111,38 +111,37 @@
             ], 
             "moving": [
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 87, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 216, 
                     "width": 48, 
-                    "x": 67, 
-                    "y": 2176
+                    "x": 87, 
+                    "y": 928
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 188, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 50, 
                     "width": 48, 
                     "x": 68, 
                     "y": 992
                 }, 
                 {
-                    "axe": -1, 
-                    "first_limit": 0, 
+                    "axe": 1, 
+                    "first_limit": 67, 
                     "height": 8, 
-                    "initial_velocity": 0, 
-                    "second_limit": 0, 
+                    "second_limit": 215, 
                     "width": 48, 
-                    "x": 87, 
-                    "y": 928
+                    "x": 67, 
+                    "y": 2176
                 }
             ]
         }
     }, 
+    "levelCols": 2552, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 151, 
@@ -307,6 +306,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

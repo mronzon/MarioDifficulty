@@ -93,20 +93,6 @@
                 "y": 2512
             }, 
             {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 15, 
-                "x": 177, 
-                "y": 1801
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 15, 
-                "x": 113, 
-                "y": 1854
-            }, 
-            {
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
@@ -268,6 +254,20 @@
                 "y": 2711
             }, 
             {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 177, 
+                "y": 1801
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 113, 
+                "y": 1854
+            }, 
+            {
                 "height": 22, 
                 "type": "piranha_plant", 
                 "width": 16, 
@@ -308,6 +308,8 @@
             "moving": []
         }
     }, 
+    "levelCols": 3416, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -647,6 +649,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

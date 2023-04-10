@@ -2,55 +2,6 @@
     "dynamic": {
         "enemies": [
             {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 113, 
-                "y": 1916
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 155, 
-                "y": 2552
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2324
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2827
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 15, 
-                "x": 113, 
-                "y": 1020
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 15, 
-                "x": 176, 
-                "y": 2964
-            }, 
-            {
-                "height": 24, 
-                "type": "hammer_bro", 
-                "width": 15, 
-                "x": 177, 
-                "y": 1887
-            }, 
-            {
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
@@ -86,6 +37,27 @@
                 "y": 2180
             }, 
             {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 113, 
+                "y": 1020
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 176, 
+                "y": 2964
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 15, 
+                "x": 177, 
+                "y": 1887
+            }, 
+            {
                 "height": 22, 
                 "type": "piranha_plant", 
                 "width": 16, 
@@ -105,6 +77,34 @@
                 "width": 16, 
                 "x": 130, 
                 "y": 2696
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 113, 
+                "y": 1916
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 155, 
+                "y": 2552
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 177, 
+                "y": 2324
+            }, 
+            {
+                "height": 24, 
+                "type": "hammer_bro", 
+                "width": 16, 
+                "x": 177, 
+                "y": 2827
             }
         ], 
         "platform": {
@@ -112,6 +112,8 @@
             "moving": []
         }
     }, 
+    "levelCols": 3672, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -294,6 +296,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

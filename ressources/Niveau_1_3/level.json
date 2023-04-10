@@ -88,8 +88,8 @@
                     "height": 8, 
                     "second_limit": 216, 
                     "width": 48, 
-                    "x": 89, 
-                    "y": 2046
+                    "x": 159, 
+                    "y": 880
                 }, 
                 {
                     "axe": 0, 
@@ -115,12 +115,14 @@
                     "height": 8, 
                     "second_limit": 2096, 
                     "width": 48, 
-                    "x": 159, 
-                    "y": 880
+                    "x": 89, 
+                    "y": 2046
                 }
             ]
         }
     }, 
+    "levelCols": 2632, 
+    "levelRows": 224, 
     "static": {
         "end": {
             "height": 152, 
@@ -285,6 +287,7 @@
         ], 
         "spawn": {
             "height": 16, 
+            "width": 12, 
             "x": 185, 
             "y": 42
         }

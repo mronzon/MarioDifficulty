@@ -3,7 +3,12 @@
 #define ENNEMY_H
 
 #include <string>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
+#include <vector>
 #include <map>
+#include <filesystem>
 
 typedef enum {
 	goomba, koopa, flying_koopa, bowser, lakitu, turtle_spike, hammer_bro, piranha_plant, flying_fish
