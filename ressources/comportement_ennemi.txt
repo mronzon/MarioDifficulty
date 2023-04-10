@@ -4,7 +4,7 @@ Elle reste un certain temps quand elle est sortie, on peut dans un premier temps
 
 Niveau 1_3 : le koopa volant fait un aller en 4 secondes. Ils commencent à leur apogée
 
-Les koopa volants qui font pas des haut/bas sautent 80 pixels de haut (4 blocs)
+Les koopa volants qui font pas des haut/bas sautent 80 pixels de haut (5 blocs)
 
 Frère marteau : fait des gauches droites en permanence sur 16 pixels, je piferai un une seconde pour faire les 16 pixels
 jsp pk d'un coup ils ont pété un câble ils m'ont rush après que j'ai afk
