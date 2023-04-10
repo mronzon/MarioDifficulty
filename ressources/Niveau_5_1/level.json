@@ -170,20 +170,6 @@
                 "y": 234
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2301
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2325
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
@@ -203,41 +189,6 @@
                 "width": 16, 
                 "x": 145, 
                 "y": 2808
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 137, 
-                "y": 1333
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 140, 
-                "y": 2885
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 145, 
-                "y": 2808
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 597
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2012
             }, 
             {
                 "height": 22, 

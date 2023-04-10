@@ -181,27 +181,6 @@
                 "type": "koopa", 
                 "width": 16, 
                 "x": 178, 
-                "y": 513
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 536
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 676
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
                 "y": 700
             }, 
             {
@@ -212,60 +191,11 @@
                 "y": 1037
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2119
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 2394
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
                 "x": 136, 
                 "y": 1479
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 1229
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2242
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2266
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2590
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 177, 
-                "y": 2613
             }, 
             {
                 "height": 22, 

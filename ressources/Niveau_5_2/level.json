@@ -51,46 +51,11 @@
                 "y": 614
             }, 
             {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
-                "x": 178, 
-                "y": 324
-            }, 
-            {
                 "height": 24, 
                 "type": "flying_koopa", 
                 "width": 16, 
                 "x": 138, 
                 "y": 2623
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 49, 
-                "y": 2501
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 81, 
-                "y": 2964
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 136, 
-                "y": 1682
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 139, 
-                "y": 2642
             }, 
             {
                 "height": 24, 

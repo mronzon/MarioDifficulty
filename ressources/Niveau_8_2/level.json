@@ -94,20 +94,6 @@
             }, 
             {
                 "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 16, 
-                "y": 358
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 125, 
-                "y": 2774
-            }, 
-            {
-                "height": 24, 
                 "type": "lakitu", 
                 "width": 16, 
                 "x": 33, 

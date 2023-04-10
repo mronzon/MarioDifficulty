@@ -40,22 +40,8 @@
                 "height": 23, 
                 "type": "koopa", 
                 "width": 16, 
-                "x": 130, 
-                "y": 1475
-            }, 
-            {
-                "height": 23, 
-                "type": "koopa", 
-                "width": 16, 
                 "x": 136, 
                 "y": 2480
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 103, 
-                "y": 867
             }, 
             {
                 "height": 24, 

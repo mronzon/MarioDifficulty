@@ -9,5 +9,5 @@
 int main(int argc, char* argv[]) {
 	if (argc != 2) return 0;
 	
-	return create_json(argv[1], "\\Niveau_1_1");
+	return create_json(argv[1], "\\Niveau_2_1");
 }

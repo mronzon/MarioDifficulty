@@ -31,20 +31,6 @@
             }, 
             {
                 "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 151, 
-                "y": 820
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 163, 
-                "y": 613
-            }, 
-            {
-                "height": 24, 
                 "type": "hammer_bro", 
                 "width": 15, 
                 "x": 113, 

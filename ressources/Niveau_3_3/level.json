@@ -49,27 +49,6 @@
                 "width": 16, 
                 "x": 77, 
                 "y": 1824
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 81, 
-                "y": 813
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 145, 
-                "y": 851
-            }, 
-            {
-                "height": 24, 
-                "type": "flying_koopa", 
-                "width": 16, 
-                "x": 77, 
-                "y": 1824
             }
         ], 
         "platform": {
