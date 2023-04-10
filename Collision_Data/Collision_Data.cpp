@@ -131,7 +131,17 @@ int create_json(std::string const& base_path, std::string const& level_path)
 			for (int y = 0; y < enemy_hits.cols - 8; y++)
 				if (enemy_hits.at<float>(x, y) >= 0.70f)
 				{
-					enemy_raw.push_back(enemy{ x, y, enemy_texture.rows, enemy_texture.cols, tEnemy });
+					bool toAdd = true;
+					enemy comp_enemy{ x, y, enemy_texture.rows, enemy_texture.cols, tEnemy };
+					for (auto enemy : enemy_raw) {
+						if (is_equal(enemy, comp_enemy)) {
+							toAdd = false;
+							break;
+						}
+					}
+					if (toAdd) {
+						enemy_raw.push_back(comp_enemy);
+					}
 				}
 	}
 

@@ -63,7 +63,9 @@ std::vector<cv::Mat> inline find_textures_enemies(const std::string& path, std::
 std::string convertToString(type_enemy tEnemy) {
 	return mapToConvertString[tEnemy];
 }
-
+bool is_equal(const enemy& enemy1, const enemy& enemy2) {
+	return enemy1.x == enemy2.x && enemy1.y == enemy2.y;
+}
 
 #endif //ENNEMY_H
 
