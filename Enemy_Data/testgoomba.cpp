@@ -32,6 +32,8 @@ int main(int argc, char* argv[]) {
 	cv::Mat level_image = cv::imread(image_path);
 	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
 
+	bool mache_travail_mathis = false;
+
 	// On parse le JSON et on r�cup�re les valeurs du nombre de lignes/colonnes du niveau
 
 	std::ifstream is(json_path);
@@ -439,44 +441,84 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
+		if (mache_travail_mathis) {
+			std::map<std::pair<int, int>, int>::iterator it_goomba;
+			for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
+				cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(0, 29 + it_goomba->second * 2, 58 + it_goomba->second * 2),
+					cv::FILLED); //BGR
+			}
 
-		std::map<std::pair<int, int>, int>::iterator it_goomba;
-		for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
-			cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
-			cv::rectangle(Image_Final, rect,
-				cv::Scalar(0, 29+it_goomba->second*2, 58 + it_goomba->second * 2),
-				cv::FILLED); //BGR
+			std::map<std::pair<int, int>, int>::iterator it_turtle_spike;
+			for (it_turtle_spike = nb_pos_turtle_spike.begin(); it_turtle_spike != nb_pos_turtle_spike.end(); it_turtle_spike++) {
+				cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 16, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(0, 0, 40 + it_turtle_spike->second * 2),
+					cv::FILLED); //BGR
+			}
+
+			std::map<std::pair<int, int>, int>::iterator it_turtle;
+			for (it_turtle = nb_pos_turtle.begin(); it_turtle != nb_pos_turtle.end(); it_turtle++) {
+				cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 16, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(20 + it_turtle->second * 2, 20 + it_turtle->second * 2, 20 + it_turtle->second * 2),
+					cv::FILLED); //BGR
+			}
+
+
+			std::map<std::pair<int, int>, int>::iterator it_koopa;
+			for (it_koopa = nb_pos_koopa.begin(); it_koopa != nb_pos_koopa.end(); it_koopa++) {
+				cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(0, 20 + it_koopa->second * 3, 0),
+					cv::FILLED); //BGR
+			}
+
+			std::string num_fichier = std::to_string(i);
+			std::string filename = "\\move_enemies" + num_fichier + ".png";
+			cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final);
 		}
-
-		std::map<std::pair<int, int>, int>::iterator it_turtle_spike;
-		for (it_turtle_spike = nb_pos_turtle_spike.begin(); it_turtle_spike != nb_pos_turtle_spike.end(); it_turtle_spike++) {
-			cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 16, 16);
-			cv::rectangle(Image_Final, rect,
-				cv::Scalar(0, 0, 40 + it_turtle_spike->second * 2),
-				cv::FILLED); //BGR
-		}
-
-		std::map<std::pair<int, int>, int>::iterator it_turtle;
-		for (it_turtle = nb_pos_turtle.begin(); it_turtle != nb_pos_turtle.end(); it_turtle++) {
-			cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 16, 16);
-			cv::rectangle(Image_Final, rect,
-				cv::Scalar(20 + it_turtle->second * 2, 20 + it_turtle->second * 2, 20 + it_turtle->second * 2),
-				cv::FILLED); //BGR
-		}
-
-
-		std::map<std::pair<int, int>, int>::iterator it_koopa;
-		for (it_koopa = nb_pos_koopa.begin(); it_koopa != nb_pos_koopa.end(); it_koopa++) {
-			cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
-			cv::rectangle(Image_Final, rect,
-				cv::Scalar(0, 20 + it_koopa->second * 3, 0),
-				cv::FILLED); //BGR
-		}
-
-		std::string num_fichier = std::to_string(i);
-		std::string filename = "\\move_enemies" + num_fichier + ".png";
-		cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final);
 	}
+
+	cv::Mat Image_Final_Temp(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
+
+	std::map<std::pair<int, int>, int>::iterator it_goomba;
+	for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
+		cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(0, 29 + it_goomba->second * 2, 58 + it_goomba->second * 2),
+			cv::FILLED); //BGR
+	}
+
+	std::map<std::pair<int, int>, int>::iterator it_turtle_spike;
+	for (it_turtle_spike = nb_pos_turtle_spike.begin(); it_turtle_spike != nb_pos_turtle_spike.end(); it_turtle_spike++) {
+		cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 16, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(0, 0, 40 + it_turtle_spike->second * 2),
+			cv::FILLED); //BGR
+	}
+
+	std::map<std::pair<int, int>, int>::iterator it_turtle;
+	for (it_turtle = nb_pos_turtle.begin(); it_turtle != nb_pos_turtle.end(); it_turtle++) {
+		cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 16, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(20 + it_turtle->second * 2, 20 + it_turtle->second * 2, 20 + it_turtle->second * 2),
+			cv::FILLED); //BGR
+	}
+
+
+	std::map<std::pair<int, int>, int>::iterator it_koopa;
+	for (it_koopa = nb_pos_koopa.begin(); it_koopa != nb_pos_koopa.end(); it_koopa++) {
+		cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(0, 20 + it_koopa->second * 3, 0),
+			cv::FILLED); //BGR
+	}
+
+	std::string num_fichier = std::to_string(0);
+	std::string filename = "\\move_enemies" + num_fichier + ".png";
+	cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final_Temp);
 
 	// Calcul m�trique
 
