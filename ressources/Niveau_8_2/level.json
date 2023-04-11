@@ -136,49 +136,49 @@
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 185, 
                 "y": 3002
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 185, 
                 "y": 3003
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 186, 
                 "y": 1733
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 186, 
                 "y": 1885
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 186, 
                 "y": 1925
             }, 
             {
                 "height": 15, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 16, 
                 "x": 186, 
                 "y": 1732
             }, 
             {
                 "height": 15, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 16, 
                 "x": 186, 
                 "y": 1884

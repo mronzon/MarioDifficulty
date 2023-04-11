@@ -73,14 +73,14 @@
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 89, 
                 "y": 2667
             }, 
             {
                 "height": 16, 
-                "type": "turtle_spike", 
+                "type": "turtle", 
                 "width": 17, 
                 "x": 89, 
                 "y": 2668
