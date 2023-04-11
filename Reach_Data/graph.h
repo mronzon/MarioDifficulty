@@ -2,7 +2,13 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
+
 #include <vector>
+#include <algorithm>
+#include <iostream>
 
 typedef std::pair<int, float> point;
 typedef std::vector<point> points_array;
@@ -18,7 +24,12 @@ std::string inline truncate_float(float val, int numDigits)
     return output;
 }
 
-void inline create_graph(const points_array& points, std::string const path_to_save)
+bool inline comp_point(point const& p1, point const& p2)
+{
+    return p1.first < p2.first;
+}
+
+void inline create_graph(points_array& points, std::string const path_to_save)
 {
     cv::Mat graph_image(1000, 1000, CV_8UC1, cv::Scalar(0));
     // Creation of the axes. Width = 10.
@@ -30,6 +41,7 @@ void inline create_graph(const points_array& points, std::string const path_to_s
     points_array::size_type const step = 840 / n;
     float max_value = -1; // The maximum value of the points.
     int max_y = -1;
+    std::sort(points.begin(), points.end(), comp_point);
     for (point elt : points)
     {
         if (elt.second > max_value)

@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="..\Collision_Data\Collision_Data.cpp" />
     <ClCompile Include="..\Danger_Data\Danger_Data.cpp" />
+    <ClCompile Include="..\Reach_Data\Reach_Data.cpp" />
     <ClCompile Include="Test_Levels.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
