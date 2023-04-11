@@ -1,0 +1,102 @@
+{
+    "dynamic": {
+        "enemies": [], 
+        "platform": {
+            "balanced": [], 
+            "moving": []
+        }
+    }, 
+    "levelCols": 3384, 
+    "levelRows": 224, 
+    "static": {
+        "end": {
+            "height": 152, 
+            "width": 8, 
+            "x": 31, 
+            "y": 3172
+        }, 
+        "magicBean": {
+            "height": 0, 
+            "width": 0, 
+            "x": 0, 
+            "x_exit": 0, 
+            "y": 0, 
+            "y_exit": 0
+        }, 
+        "pipes": [], 
+        "positionCollision": [
+            {
+                "height": 16, 
+                "width": 3376, 
+                "x": 8, 
+                "y": 0
+            }, 
+            {
+                "height": 16, 
+                "width": 3168, 
+                "x": 24, 
+                "y": 0
+            }, 
+            {
+                "height": 160, 
+                "width": 192, 
+                "x": 24, 
+                "y": 3184
+            }, 
+            {
+                "height": 32, 
+                "width": 3152, 
+                "x": 40, 
+                "y": 0
+            }, 
+            {
+                "height": 16, 
+                "width": 3168, 
+                "x": 72, 
+                "y": 0
+            }, 
+            {
+                "height": 96, 
+                "width": 3152, 
+                "x": 88, 
+                "y": 0
+            }, 
+            {
+                "height": 16, 
+                "width": 32, 
+                "x": 184, 
+                "y": 0
+            }, 
+            {
+                "height": 16, 
+                "width": 3088, 
+                "x": 184, 
+                "y": 64
+            }, 
+            {
+                "height": 16, 
+                "width": 16, 
+                "x": 184, 
+                "y": 3168
+            }, 
+            {
+                "height": 16, 
+                "width": 176, 
+                "x": 184, 
+                "y": 3200
+            }, 
+            {
+                "height": 16, 
+                "width": 3376, 
+                "x": 200, 
+                "y": 0
+            }
+        ], 
+        "spawn": {
+            "height": 16, 
+            "width": 12, 
+            "x": 185, 
+            "y": 42
+        }
+    }
+}

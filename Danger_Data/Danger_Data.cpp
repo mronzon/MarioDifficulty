@@ -35,8 +35,8 @@ int create_danger(std::string const& folder_path) {
     }
 
     
-    for (int y = 0; y < danger_filled.cols-100; y++) { // We don't need to propagate the danger gradient on the last 100 pixels.
-        propagate(collisions_merged, danger_filled, cv::Point(danger_filled.rows - 8, y)); 
+    for (int y = 0; y < danger_filled.cols-100; y++) { // We don't need to propagate the danger gradient on the last 100 pixels (end of level reached).
+        propagate(collisions_merged, danger_filled, cv::Point(danger_filled.rows - 8, y)); // We don't take into account 8 pixels at the bottom (underneath the level).
         //printf("progress...%i%%\n", 100 * (y + 1) / danger_filled.cols);
     }
     cv::imwrite(folder_path + "\\danger_filled.png", danger_filled);

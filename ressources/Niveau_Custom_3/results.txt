@@ -1,0 +1,5 @@
+Filled Area Metric:	       0
+Gradient Area Metric:      0
+Filled Perimeter Metric:   0
+Gradient Perimeter Metric: 0
+Execution time:  283686
