@@ -1,6 +1,8 @@
 
 #include "../Collision_Data/general.h"
 #include "../Danger_Data/general.h"
+#include "../Reach_Data/general.h"
+#include "../Reach_Data/graph.h"
 #include <string>
 #include <iostream>
 #include <filesystem>
@@ -23,10 +25,11 @@ int main(int argc, char* argv[])
     string const base_path = argv[1];
     string level_path;
     string folder_path;
-    size_t result;
     bool create_all_jsons = false;
     bool create_dangers = false;
     bool create_reachs = false;
+    points_array tab;
+    
     for (int i = 2; i < argc - 1; i++)
     {
         string to_switch = argv[i];
@@ -59,21 +62,25 @@ int main(int argc, char* argv[])
         if(create_all_jsons)
         {
             cout << "Creation du json pour " << level_path << endl;
-            result = create_json(base_path, level_path);
-            if(result < 0)
-            {
-                cout << "Probleme avec ce niveau" << endl;
-            }
+            create_json(base_path, level_path);
         }
         if(create_dangers)
         {
             cout << "Creation du danger pour " << level_path << endl;
             create_danger(folder_path);
         }
-        
-        
-        
-        
+        if(create_reachs)
+        {
+            cout << "Creation du reach de " << level_path << endl;
+            std::string level_name = level_path.substr(8, level_path.size());
+            int index = ((int) level_name[0] - 49) * 3 + (int) level_name[2] - 48;
+            tab.emplace_back(point(index, create_reach(folder_path)));
+        }
+    }
+    cout << "Creation FINI !!!!!"<< endl;
+    if(create_reachs)
+    {
+        create_graph(tab, base_path + "\\all_metric.png");
     }
     return 0;
 }

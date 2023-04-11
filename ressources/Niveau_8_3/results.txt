@@ -1,0 +1,5 @@
+Filled Area Metric:	       0.256603
+Gradient Area Metric:      0.178089
+Filled Perimeter Metric:   2699
+Gradient Perimeter Metric: 79.9401
+Execution time:  65397

@@ -1,11 +1,13 @@
-#include <opencv2/highgui/highgui.hpp>
-#include <opencv2/imgproc.hpp>
+#include <filesystem>
 
+#include "general.h"
+#include "graph.h"
 #include "collision.h"
 #include "metric.h"
 #include "reach.h"
-#include "graph.h"
 
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 struct {
 	cv::Point2f velocity = cv::Point2f(30.f, 10.f);
 	float gravity = -5.f;
@@ -13,15 +15,10 @@ struct {
 	float jump_half_width = -(velocity.y * velocity.x) / gravity;
 } globals;
 
-
-int main(int argc, char* argv[]) {
+float create_reach(std::string const& base_path) {
 	std::vector<int> my_vec;
-
-	if (argc != 2) return 0;
-	
+	float metric = -1;
 	clock_t start_time = clock();
-
-	std::string base_path = argv[1];
 
 	std::pair<int, int> dim_image;
 	get_dimension(dim_image, base_path + "\\level.json");
@@ -305,7 +302,7 @@ int main(int argc, char* argv[]) {
 			for (int y = start_y; y <= end_y; y++)
 				reach_image.at<int>(x, y) += (jump_right_image.at<uchar>(x, y) || jump_left_image.at<uchar>(x, y));
 
-		printf("%i\n", count++);
+		//printf("%i\n", count++);
 	} 
 
 
@@ -340,7 +337,9 @@ int main(int argc, char* argv[]) {
 		cv::imwrite(base_path + "\\showcase.png", showcase_image);
 		
 		{
-			
+			if (!std::filesystem::is_directory(base_path + "\\Metric") || !std::filesystem::exists(base_path + "\\Metric")) { // Check if Metric folder exists
+				std::filesystem::create_directory(base_path + "\\Metric"); // create Metric folder
+			}
 			std::string metric_folder = base_path + "\\Metric";
 			std::ofstream graph_area_filed(metric_folder + "\\graph_filled_area.txt", std::ios::trunc);
 			std::ofstream graph_area_gradient(metric_folder + "\\graph_gradient_area.txt", std::ios::trunc);
@@ -391,7 +390,8 @@ int main(int argc, char* argv[]) {
 			}
 		}
 		std::ofstream result_file(base_path + "\\results.txt", std::ios::trunc);
-		result_file << "Filled Area Metric:	       " << metric_area_filled(reach_image, danger_image,0, reach_image.cols) << '\n';
+		metric = metric_area_filled(reach_image, danger_image,0, reach_image.cols);
+		result_file << "Filled Area Metric:	       " << metric << '\n';
 		result_file << "Gradient Area Metric:      " << metric_area_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
 		result_file << "Filled Perimeter Metric:   " << metric_perimeter_filled(reach_image, danger_image, 0, reach_image.cols) << '\n';
 		result_file << "Gradient Perimeter Metric: " << metric_perimeter_gradient(reach_image, platform_pixels.size(), danger_image, 0, reach_image.cols) << '\n';
@@ -399,5 +399,6 @@ int main(int argc, char* argv[]) {
 		result_file.close();
 	}
 
-	return 0;
+	return metric;
+
 }
