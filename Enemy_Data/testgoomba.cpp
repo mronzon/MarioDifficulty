@@ -1,43 +1,25 @@
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
-
-#include <fstream>
-#include <vector>
-#include <map>
-#include <vector>
-#include <utility>
-#include <jsoncons/json.hpp>
-#include <filesystem>
-
-#include "enemy.h"
-#include "graph.h"
-#include "metric.h"
+#include "general.h"
 
 
 using namespace jsoncons;
 
 // On passe en argument le chemin vers le fichier JSON
 
-int main(int argc, char* argv[]) {
-
-	if (argc != 2) return -1;
+void create_metric(std::string base_path, std::string level_path, bool create_images) {
 
 	// On r�cup�re le chemin vers le JSON 
-
-	std::string base_path = argv[1];
-	std::string level_path = "\\Niveau_2_1";
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
 	std::string metric_path = base_path + level_path + "\\Metric";
-	if (!std::filesystem::is_directory(base_path + level_path + "\\Images_move_enemies") || !std::filesystem::exists(base_path + level_path + "\\Images_move_enemies")) { // Check if Metric folder exists
-		std::filesystem::create_directory(base_path + level_path + "\\Images_move_enemies"); // create Metric folder
+	if (!std::filesystem::is_directory(base_path + level_path + "\\Metric") || !std::filesystem::exists(base_path + level_path + "\\Metric")) { // Check if Metric folder exists
+		std::filesystem::create_directory(base_path + level_path + "\\Metric"); // create Metric folder
+	}
+	if (!std::filesystem::is_directory(base_path + level_path + "\\Metric") || !std::filesystem::exists(base_path + level_path + "\\Metric")) { // Check if Metric folder exists
+		std::filesystem::create_directory(base_path + level_path + "\\Metric"); // create Metric folder
 	}
 
 	cv::Mat level_image = cv::imread(image_path);
 	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
-
-	bool mache_travail_mathis = false;
 
 	// On parse le JSON et on r�cup�re les valeurs du nombre de lignes/colonnes du niveau
 
@@ -486,7 +468,7 @@ int main(int argc, char* argv[]) {
 		}
 		
 
-		if (mache_travail_mathis) {
+		if (create_images) {
 			std::map<std::pair<int, int>, int>::iterator it_goomba;
 			for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
 				cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
@@ -640,6 +622,4 @@ int main(int argc, char* argv[]) {
 	tab.emplace_back(points_globaux);
 	colors.emplace_back(cv::Scalar(255,255,255));
 	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");
-
-	return 0;
 }
