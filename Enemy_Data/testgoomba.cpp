@@ -8,6 +8,7 @@
 #include <vector>
 #include <utility>
 #include <jsoncons/json.hpp>
+#include <filesystem>
 
 #include "enemy.h"
 #include "graph.h"
@@ -25,10 +26,14 @@ int main(int argc, char* argv[]) {
 	// On r�cup�re le chemin vers le JSON 
 
 	std::string base_path = argv[1];
-	std::string level_path = "\\Niveau_1_1";
+	std::string level_path = "\\Niveau_2_1";
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
 	std::string metric_path = base_path + level_path + "\\Metric";
+	if (!std::filesystem::is_directory(base_path + level_path + "\\Images_move_enemies") || !std::filesystem::exists(base_path + level_path + "\\Images_move_enemies")) { // Check if Metric folder exists
+		std::filesystem::create_directory(base_path + level_path + "\\Images_move_enemies"); // create Metric folder
+	}
+
 	cv::Mat level_image = cv::imread(image_path);
 	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
 
@@ -153,7 +158,7 @@ int main(int argc, char* argv[]) {
 	// Maintenant qu'on a la position des goombas et des collisions, on peut g�rer le d�placement des goombas
 
 	//std::vector<std::pair<int, int>> list_position_goomba;
-	int nb_deplacement = 1000;
+	int nb_deplacement = 250;
 	std::map<std::pair<int, int>, int> nb_pos_goomba;
 	std::map<std::pair<int, int>, int> nb_pos_koopa;
 	std::map<std::pair<int, int>, int> nb_pos_flying_koopa;
@@ -165,7 +170,13 @@ int main(int argc, char* argv[]) {
 	std::map<std::pair<int, int>, int> nb_pos_turtle_spike;
 	std::map<std::pair<int, int>, int> nb_pos_turtle; 
 
+	int nb_frames_wait_piranha_plant = 60;
+	int nb_frames_deplacement_piranha_plant = 0;
+
 	for (int i = 0; i < nb_deplacement; i++) {
+
+		bool didPiranhaPlantMove = false;
+		bool didPiranhaPlantWait = false;
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
@@ -441,6 +452,40 @@ int main(int argc, char* argv[]) {
 			}
 		}
 
+		for (enemy& ene : list_enemy_piranha_plant) {
+			if (nb_pos_piranha_plant.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_piranha_plant.end()) {
+				nb_pos_piranha_plant.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
+			}
+			else {
+				nb_pos_piranha_plant[std::pair<int, int>(ene.x, ene.y)] += 1;
+			}
+			if (nb_frames_wait_piranha_plant != 0) {
+				didPiranhaPlantWait = true;
+			}
+			else if (nb_frames_deplacement_piranha_plant != ene.height && ene.isWalkingLeft) {
+				ene.x += 1;	
+				didPiranhaPlantMove = true;
+			}
+			else if (nb_frames_deplacement_piranha_plant != ene.height && !ene.isWalkingLeft) {
+				ene.x -= 1;		
+				didPiranhaPlantMove = true;
+			}
+			else {
+				ene.isWalkingLeft = !ene.isWalkingLeft;			
+			}			
+		}
+		if (didPiranhaPlantWait) {
+			nb_frames_wait_piranha_plant -= 1;
+		}		
+		else if (didPiranhaPlantMove) {
+			nb_frames_deplacement_piranha_plant += 1;
+		}
+		else {
+			nb_frames_wait_piranha_plant = 60;
+			nb_frames_deplacement_piranha_plant = 0;
+		}
+		
+
 		if (mache_travail_mathis) {
 			std::map<std::pair<int, int>, int>::iterator it_goomba;
 			for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
@@ -452,7 +497,7 @@ int main(int argc, char* argv[]) {
 
 			std::map<std::pair<int, int>, int>::iterator it_turtle_spike;
 			for (it_turtle_spike = nb_pos_turtle_spike.begin(); it_turtle_spike != nb_pos_turtle_spike.end(); it_turtle_spike++) {
-				cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 16, 16);
+				cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 15, 16);
 				cv::rectangle(Image_Final, rect,
 					cv::Scalar(0, 0, 40 + it_turtle_spike->second * 2),
 					cv::FILLED); //BGR
@@ -460,7 +505,7 @@ int main(int argc, char* argv[]) {
 
 			std::map<std::pair<int, int>, int>::iterator it_turtle;
 			for (it_turtle = nb_pos_turtle.begin(); it_turtle != nb_pos_turtle.end(); it_turtle++) {
-				cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 16, 16);
+				cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 15, 16);
 				cv::rectangle(Image_Final, rect,
 					cv::Scalar(20 + it_turtle->second * 2, 20 + it_turtle->second * 2, 20 + it_turtle->second * 2),
 					cv::FILLED); //BGR
@@ -472,6 +517,14 @@ int main(int argc, char* argv[]) {
 				cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
 				cv::rectangle(Image_Final, rect,
 					cv::Scalar(0, 20 + it_koopa->second * 3, 0),
+					cv::FILLED); //BGR
+			}
+
+			std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
+			for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
+				cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(20 + it_piranha_plant->second , 0, 20 + it_piranha_plant->second),
 					cv::FILLED); //BGR
 			}
 
@@ -493,7 +546,7 @@ int main(int argc, char* argv[]) {
 
 	std::map<std::pair<int, int>, int>::iterator it_turtle_spike;
 	for (it_turtle_spike = nb_pos_turtle_spike.begin(); it_turtle_spike != nb_pos_turtle_spike.end(); it_turtle_spike++) {
-		cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 16, 16);
+		cv::Rect rect(it_turtle_spike->first.second, it_turtle_spike->first.first, 15, 16);
 		cv::rectangle(Image_Final_Temp, rect,
 			cv::Scalar(0, 0, 40 + it_turtle_spike->second * 2),
 			cv::FILLED); //BGR
@@ -501,7 +554,7 @@ int main(int argc, char* argv[]) {
 
 	std::map<std::pair<int, int>, int>::iterator it_turtle;
 	for (it_turtle = nb_pos_turtle.begin(); it_turtle != nb_pos_turtle.end(); it_turtle++) {
-		cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 16, 16);
+		cv::Rect rect(it_turtle->first.second, it_turtle->first.first, 15, 16);
 		cv::rectangle(Image_Final_Temp, rect,
 			cv::Scalar(20 + it_turtle->second * 2, 20 + it_turtle->second * 2, 20 + it_turtle->second * 2),
 			cv::FILLED); //BGR
@@ -513,6 +566,14 @@ int main(int argc, char* argv[]) {
 		cv::Rect rect(it_koopa->first.second, it_koopa->first.first, 23, 16);
 		cv::rectangle(Image_Final_Temp, rect,
 			cv::Scalar(0, 20 + it_koopa->second * 3, 0),
+			cv::FILLED); //BGR
+	}
+
+	std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
+	for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
+		cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(20 + it_piranha_plant->second * 2, 0, 20 + it_piranha_plant->second * 2),
 			cv::FILLED); //BGR
 	}
 
@@ -530,6 +591,7 @@ int main(int argc, char* argv[]) {
 	points_array points_koopa;
 	points_array points_turtle_spike;
 	points_array points_turtle;
+	points_array points_piranha_plant;
 	points_array points_globaux;
 	
 
@@ -552,12 +614,17 @@ int main(int argc, char* argv[]) {
 		metric_global += metric;
 		points_turtle.emplace_back(point(end_y, metric));
 
+		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_piranha_plant, 22);
+		metric_global += metric;
+		points_piranha_plant.emplace_back(point(end_y, metric));
+
 		points_globaux.emplace_back(point(end_y, metric_global));
 	}
 	create_graph(points_goomba, metric_path + "\\metric_goomba.png");
 	create_graph(points_koopa, metric_path + "\\metric_koopa.png");
 	create_graph(points_turtle_spike, metric_path + "\\metric_turtle_spike.png");
 	create_graph(points_turtle, metric_path + "\\metric_turtle.png");
+	create_graph(points_piranha_plant, metric_path + "\\metric_piranha_plant.png");
 	std::vector<points_array> tab;
 	std::vector<cv::Scalar> colors;
 	tab.emplace_back(points_goomba);
@@ -568,6 +635,8 @@ int main(int argc, char* argv[]) {
 	colors.emplace_back(cv::Scalar(0, 0, 255));
 	tab.emplace_back(points_turtle);
 	colors.emplace_back(cv::Scalar(100, 100, 100));
+	tab.emplace_back(points_piranha_plant);
+	colors.emplace_back(cv::Scalar(255, 0, 255));
 	tab.emplace_back(points_globaux);
 	colors.emplace_back(cv::Scalar(255,255,255));
 	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");
