@@ -14,16 +14,15 @@
 #include "graph.h"
 #include "metric.h"
 
-
 using namespace jsoncons;
 
 // On passe en argument le chemin vers le fichier JSON
 
 int main(int argc, char* argv[]) {
-
+	
 	if (argc != 2) return -1;
 
-	// On r�cup�re le chemin vers le JSON 
+	// On recupere le chemin vers le JSON 
 
 	std::string base_path = argv[1];
 	std::string level_path = "\\Niveau_2_1";
@@ -39,7 +38,7 @@ int main(int argc, char* argv[]) {
 
 	bool mache_travail_mathis = false;
 
-	// On parse le JSON et on r�cup�re les valeurs du nombre de lignes/colonnes du niveau
+	// On parse le JSON et on recupere les valeurs du nombre de lignes/colonnes du niveau
 
 	std::ifstream is(json_path);
 	json j = json::parse(is);
@@ -47,7 +46,7 @@ int main(int argc, char* argv[]) {
 	float ymax = j["levelCols"].as<float>();
 	float xmax = j["levelRows"].as<float>();
 
-	// On d�finit les constantes physiques
+	// On definit les constantes physiques
 	std::pair<int,int> velocity_goomba(30, 10);
 	int gravity = 5;
 
@@ -155,7 +154,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	// Maintenant qu'on a la position des goombas et des collisions, on peut g�rer le d�placement des goombas
+	// Maintenant qu'on a la position des goombas et des collisions, on peut gerer le deplacement des goombas
 
 	//std::vector<std::pair<int, int>> list_position_goomba;
 	int nb_deplacement = 250;
@@ -521,7 +520,7 @@ int main(int argc, char* argv[]) {
 			}
 
 			std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
-			for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
+			for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); ++it_piranha_plant) {
 				cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
 				cv::rectangle(Image_Final, rect,
 					cv::Scalar(20 + it_piranha_plant->second , 0, 20 + it_piranha_plant->second),
@@ -569,11 +568,20 @@ int main(int argc, char* argv[]) {
 			cv::FILLED); //BGR
 	}
 
-	std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
-	for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
-		cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
+	// this vector will sort the map values in ascending order
+	std::vector<std::pair<int, std::pair<int, int>>> vec;
+	for (auto key : nb_pos_piranha_plant)
+	{
+		vec.emplace_back(key.second, key.first);
+	}
+	sort(vec.begin(), vec.end());
+
+	// iterate over the vector and print rectangles
+	std::vector<std::pair<int, std::pair<int, int>>>::iterator it_piranha_plant;
+	for (it_piranha_plant = vec.begin(); it_piranha_plant != vec.end(); it_piranha_plant++) {
+		cv::Rect rect(it_piranha_plant->second.second, it_piranha_plant->second.first, 22, 16);
 		cv::rectangle(Image_Final_Temp, rect,
-			cv::Scalar(20 + it_piranha_plant->second * 2, 0, 20 + it_piranha_plant->second * 2),
+			cv::Scalar(20 + it_piranha_plant->first * 2, 0, 20 + it_piranha_plant->first * 2),
 			cv::FILLED); //BGR
 	}
 
@@ -581,7 +589,7 @@ int main(int argc, char* argv[]) {
 	std::string filename = "\\move_enemies" + num_fichier + ".png";
 	cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final_Temp);
 
-	// Calcul m�trique
+	// Calcul metrique
 
 	int window_width = 200;
 	int step_y = 16;
