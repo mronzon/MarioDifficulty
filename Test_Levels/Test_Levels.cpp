@@ -28,7 +28,6 @@ int main(int argc, char* argv[])
     bool create_all_jsons = false;
     bool create_dangers = false;
     bool create_reachs = false;
-    bool create_enemies_metric = false;
     points_array tab;
     
     for (int i = 2; i < argc - 1; i++)
@@ -49,11 +48,6 @@ int main(int argc, char* argv[])
             create_reachs = convert_string(argv[i+1]);
             i++;
         }
-        if(to_switch == "--enemies")
-        {
-            create_enemies_metric = convert_string(argv[i+1]);
-            i++;
-        }
     }
     
     for(auto const& entry : filesystem::directory_iterator(base_path))
@@ -71,7 +65,7 @@ int main(int argc, char* argv[])
             create_json(base_path, level_path);
         }
         if(create_dangers)
-        {
+        {   
             cout << "Creation du danger pour " << level_path << endl;
             create_danger(folder_path);
         }
@@ -81,11 +75,6 @@ int main(int argc, char* argv[])
             std::string level_name = level_path.substr(8, level_path.size());
             int index = ((int) level_name[0] - 49) * 3 + (int) level_name[2] - 48;
             tab.emplace_back(point(index, create_reach(folder_path)));
-        }
-        if(create_enemies_metric)
-        {
-            cout << "Creation des metrics enemies de " << level_path << endl;
-            create_metric(base_path, "\\Niveau_1_1", false);
         }
     }
     cout << "Creation FINI !!!!!"<< endl;

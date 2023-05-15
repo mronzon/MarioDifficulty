@@ -154,19 +154,14 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	int nb_frames_wait_piranha_plant = 60;
 	int nb_frames_deplacement_piranha_plant = 0;
 
-	std::cout << "Je suis bien la" << std::endl;
 	for (int i = 0; i < nb_deplacement; i++) {
-		std::cout << "J'arrive dans la boucle" << std::endl;
 		bool didPiranhaPlantMove = false;
 		bool didPiranhaPlantWait = false;
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
 		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Fr�re Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
-		std::cout << "Goomba !" << std::endl;
-		std::cout << list_enemy_goomba.size() << std::endl;
 		list_enemy_goomba.push_back(enemy{0, 0, 0, 0, "", false});
-		std::cout << list_enemy_goomba.size() << std::endl;
 		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos_goomba.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_goomba.end()) {
 				nb_pos_goomba.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -223,7 +218,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 			}
 		}
-		std::cout << "Koopa !" << std::endl;
 		for (enemy& ene : list_enemy_koopa) {
 			if (nb_pos_koopa.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_koopa.end()) {
 				nb_pos_koopa.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -294,7 +288,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 			}
 		}
-		std::cout << "Turtle spike !" << std::endl;
 		for (enemy& ene : list_enemy_turtle_spike) {
 			if (nb_pos_turtle_spike.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_turtle_spike.end()) {
 				nb_pos_turtle_spike.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -365,7 +358,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 			}
 		}
-		std::cout << "Turtle !" << std::endl;
 		for (enemy& ene : list_enemy_turtle) {
 			if (nb_pos_turtle.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_turtle.end()) {
 				nb_pos_turtle.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -436,7 +428,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 			}
 		}
-		std::cout << "Piranha !" << std::endl;
 		for (enemy& ene : list_enemy_piranha_plant) {
 			if (nb_pos_piranha_plant.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_piranha_plant.end()) {
 				nb_pos_piranha_plant.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -470,7 +461,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			nb_frames_deplacement_piranha_plant = 0;
 		}
 		
-		std::cout << " Avant creation images !" << std::endl;
 		if (create_images) {
 			std::map<std::pair<int, int>, int>::iterator it_goomba;
 			for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
@@ -520,7 +510,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	}
 
 	cv::Mat Image_Final_Temp(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
-	std::cout << " je suis bien ici !" << std::endl;
 	std::map<std::pair<int, int>, int>::iterator it_goomba;
 	for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
 		cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
