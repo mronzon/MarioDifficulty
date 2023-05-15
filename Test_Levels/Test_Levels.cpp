@@ -1,8 +1,8 @@
-
 #include "../Collision_Data/general.h"
 #include "../Danger_Data/general.h"
 #include "../Reach_Data/general.h"
 #include "../Reach_Data/graph.h"
+#include "../Enemy_Data/general.h"
 #include <string>
 #include <iostream>
 #include <filesystem>
@@ -20,7 +20,7 @@ bool convert_string(string const& str)
 
 int main(int argc, char* argv[])
 {
-    if(argc != 8)
+    if(argc != 10)
         return -1;
     string const base_path = argv[1];
     string level_path;
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
             create_json(base_path, level_path);
         }
         if(create_dangers)
-        {
+        {   
             cout << "Creation du danger pour " << level_path << endl;
             create_danger(folder_path);
         }

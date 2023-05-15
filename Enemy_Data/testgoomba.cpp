@@ -1,44 +1,26 @@
-#include <opencv2/core/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/imgcodecs.hpp>
+#include "general.h"
 
-#include <fstream>
-#include <vector>
-#include <map>
-#include <vector>
-#include <utility>
-#include <jsoncons/json.hpp>
-#include <filesystem>
-
-#include "enemy.h"
-#include "graph.h"
-#include "metric.h"
 
 using namespace jsoncons;
 
 // On passe en argument le chemin vers le fichier JSON
 
-int main(int argc, char* argv[]) {
-	
-	if (argc != 2) return -1;
-
-	// On recupere le chemin vers le JSON 
-
-	std::string base_path = argv[1];
-	std::string level_path = "\\Niveau_2_1";
+void create_metric(std::string base_path, std::string level_path, bool create_images) {
+	// On r�cup�re le chemin vers le JSON 
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
 	std::string metric_path = base_path + level_path + "\\Metric";
-	if (!std::filesystem::is_directory(base_path + level_path + "\\Images_move_enemies") || !std::filesystem::exists(base_path + level_path + "\\Images_move_enemies")) { // Check if Metric folder exists
-		std::filesystem::create_directory(base_path + level_path + "\\Images_move_enemies"); // create Metric folder
+	if (!std::filesystem::is_directory(base_path + level_path + "\\Metric") || !std::filesystem::exists(base_path + level_path + "\\Metric")) { // Check if Metric folder exists
+		std::filesystem::create_directory(base_path + level_path + "\\Metric"); // create Metric folder
+	}
+	if (!std::filesystem::is_directory(base_path + level_path + "\\Metric") || !std::filesystem::exists(base_path + level_path + "\\Metric")) { // Check if Metric folder exists
+		std::filesystem::create_directory(base_path + level_path + "\\Metric"); // create Metric folder
 	}
 
 	cv::Mat level_image = cv::imread(image_path);
 	cv::Mat reach_filled_image = cv::imread(base_path + level_path + "\\reach_filled.png", cv::IMREAD_GRAYSCALE);
 
-	bool mache_travail_mathis = false;
-
-	// On parse le JSON et on recupere les valeurs du nombre de lignes/colonnes du niveau
+	// On parse le JSON et on r�cup�re les valeurs du nombre de lignes/colonnes du niveau
 
 	std::ifstream is(json_path);
 	json j = json::parse(is);
@@ -46,7 +28,7 @@ int main(int argc, char* argv[]) {
 	float ymax = j["levelCols"].as<float>();
 	float xmax = j["levelRows"].as<float>();
 
-	// On definit les constantes physiques
+	// On d�finit les constantes physiques
 	std::pair<int,int> velocity_goomba(30, 10);
 	int gravity = 5;
 
@@ -154,7 +136,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	// Maintenant qu'on a la position des goombas et des collisions, on peut gerer le deplacement des goombas
+	// Maintenant qu'on a la position des goombas et des collisions, on peut g�rer le d�placement des goombas
 
 	//std::vector<std::pair<int, int>> list_position_goomba;
 	int nb_deplacement = 250;
@@ -173,14 +155,13 @@ int main(int argc, char* argv[]) {
 	int nb_frames_deplacement_piranha_plant = 0;
 
 	for (int i = 0; i < nb_deplacement; i++) {
-
 		bool didPiranhaPlantMove = false;
 		bool didPiranhaPlantWait = false;
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
 		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Fr�re Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
-
+		list_enemy_goomba.push_back(enemy{0, 0, 0, 0, "", false});
 		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos_goomba.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_goomba.end()) {
 				nb_pos_goomba.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -237,7 +218,6 @@ int main(int argc, char* argv[]) {
 
 			}
 		}
-
 		for (enemy& ene : list_enemy_koopa) {
 			if (nb_pos_koopa.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_koopa.end()) {
 				nb_pos_koopa.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -308,7 +288,6 @@ int main(int argc, char* argv[]) {
 
 			}
 		}
-
 		for (enemy& ene : list_enemy_turtle_spike) {
 			if (nb_pos_turtle_spike.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_turtle_spike.end()) {
 				nb_pos_turtle_spike.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -379,7 +358,6 @@ int main(int argc, char* argv[]) {
 
 			}
 		}
-
 		for (enemy& ene : list_enemy_turtle) {
 			if (nb_pos_turtle.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_turtle.end()) {
 				nb_pos_turtle.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -450,7 +428,6 @@ int main(int argc, char* argv[]) {
 
 			}
 		}
-
 		for (enemy& ene : list_enemy_piranha_plant) {
 			if (nb_pos_piranha_plant.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_piranha_plant.end()) {
 				nb_pos_piranha_plant.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -484,8 +461,7 @@ int main(int argc, char* argv[]) {
 			nb_frames_deplacement_piranha_plant = 0;
 		}
 		
-
-		if (mache_travail_mathis) {
+		if (create_images) {
 			std::map<std::pair<int, int>, int>::iterator it_goomba;
 			for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
 				cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
@@ -520,7 +496,7 @@ int main(int argc, char* argv[]) {
 			}
 
 			std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
-			for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); ++it_piranha_plant) {
+			for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
 				cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
 				cv::rectangle(Image_Final, rect,
 					cv::Scalar(20 + it_piranha_plant->second , 0, 20 + it_piranha_plant->second),
@@ -534,7 +510,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	cv::Mat Image_Final_Temp(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
-
 	std::map<std::pair<int, int>, int>::iterator it_goomba;
 	for (it_goomba = nb_pos_goomba.begin(); it_goomba != nb_pos_goomba.end(); it_goomba++) {
 		cv::Rect rect(it_goomba->first.second, it_goomba->first.first, 16, 16);
@@ -568,20 +543,11 @@ int main(int argc, char* argv[]) {
 			cv::FILLED); //BGR
 	}
 
-	// this vector will sort the map values in ascending order
-	std::vector<std::pair<int, std::pair<int, int>>> vec;
-	for (auto key : nb_pos_piranha_plant)
-	{
-		vec.emplace_back(key.second, key.first);
-	}
-	sort(vec.begin(), vec.end());
-
-	// iterate over the vector and print rectangles
-	std::vector<std::pair<int, std::pair<int, int>>>::iterator it_piranha_plant;
-	for (it_piranha_plant = vec.begin(); it_piranha_plant != vec.end(); it_piranha_plant++) {
-		cv::Rect rect(it_piranha_plant->second.second, it_piranha_plant->second.first, 22, 16);
+	std::map<std::pair<int, int>, int>::iterator it_piranha_plant;
+	for (it_piranha_plant = nb_pos_piranha_plant.begin(); it_piranha_plant != nb_pos_piranha_plant.end(); it_piranha_plant++) {
+		cv::Rect rect(it_piranha_plant->first.second, it_piranha_plant->first.first, 22, 16);
 		cv::rectangle(Image_Final_Temp, rect,
-			cv::Scalar(20 + it_piranha_plant->first * 2, 0, 20 + it_piranha_plant->first * 2),
+			cv::Scalar(20 + it_piranha_plant->second * 2, 0, 20 + it_piranha_plant->second * 2),
 			cv::FILLED); //BGR
 	}
 
@@ -589,7 +555,7 @@ int main(int argc, char* argv[]) {
 	std::string filename = "\\move_enemies" + num_fichier + ".png";
 	cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final_Temp);
 
-	// Calcul metrique
+	// Calcul m�trique
 
 	int window_width = 200;
 	int step_y = 16;
@@ -648,6 +614,4 @@ int main(int argc, char* argv[]) {
 	tab.emplace_back(points_globaux);
 	colors.emplace_back(cv::Scalar(255,255,255));
 	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");
-
-	return 0;
 }
