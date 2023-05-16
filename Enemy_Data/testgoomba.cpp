@@ -161,7 +161,6 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
 		// On traite d'abord les goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Fr�re Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
-		list_enemy_goomba.push_back(enemy{0, 0, 0, 0, "", false});
 		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos_goomba.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_goomba.end()) {
 				nb_pos_goomba.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
