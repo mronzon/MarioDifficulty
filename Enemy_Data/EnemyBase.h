@@ -20,15 +20,21 @@ public:
 	Enemy_Base();
 	~Enemy_Base();
 	Enemy_Base(int x, int y, int height, int width, std::string type);
-	virtual void Move(std::map<std::pair<int, int>, int>& nb_pos_enemy);
-	virtual void GenerateImage(std::map<std::pair<int, int>, int> nb_pos_enemy, cv::Mat Image, int height, int width);
-	void get_Json(std::string type, std::vector<Enemy_Base>& liste_ennemy, json j);
-	int get_x() { return _x; };
-	int get_y() { return _y; };
-	int get_height() { return _height; };
-	int get_width() { return _width; };
-	std::string get_type() { return _type; };
-	bool get_isWalkingLeft() { return _isWalkingLeft; };
+	virtual void Move(std::map<std::pair<int, int>, int>& nb_pos_enemy, std::vector<std::pair<int, int>> list_pixel)=0;
+	virtual void GenerateImage(std::map<std::pair<int, int>, int> nb_pos_enemy, cv::Mat Image, int height, int width)=0;
+	template <typename T> void get_Json(std::string type, std::vector<T>& liste_ennemy, json j);
+	int get_x() const { return _x; };
+	int get_y() const { return _y; };
+	int get_height() const { return _height; };
+	int get_width() const { return _width; };
+	std::string get_type() const { return _type; };
+	bool get_isWalkingLeft() const { return _isWalkingLeft; };
+	void set_x(int x) { _x = x; };
+	void set_y(int y) { _y = y; };
+	void set_height(int height) { _height = height; };
+	void set_width(int width) { _width = width; };
+	void set_type(std::string type) { _type = type; };
+	void set_isWalkingLeft(bool isWalkingLeft) { _isWalkingLeft = isWalkingLeft; };
 
 
 private:
@@ -56,6 +62,7 @@ Enemy_Base::Enemy_Base(int x, int y, int height, int width, std::string type) {
 	_width = width;
 	_type = type;
 }
+
 
 Enemy_Base::~Enemy_Base()
 {
