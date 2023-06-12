@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Koopa.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testgoomba.cpp" />
   </ItemGroup>
@@ -138,6 +139,7 @@
     <ClInclude Include="enemy.h" />
     <ClInclude Include="general.h" />
     <ClInclude Include="graph.h" />
+    <ClInclude Include="Koopa.h" />
     <ClInclude Include="metric.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
