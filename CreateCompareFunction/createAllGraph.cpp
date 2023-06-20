@@ -35,7 +35,23 @@ void create_graphs(const std::string& folder_path, const std::string& level_name
             graph_area_filed << end_y << " | " << metric << '\n';
             points.emplace_back(point(end_y, metric));
         }
+        
+        float Somme_Int = 0;
+        for (int i = 0; i < points.size() - 1; i++) {
+            /*std::cout << "b : " << points[i + 1].first << std::endl;
+            std::cout << "a : " << points[i].first << std::endl;
+            std::cout << "f(b) : " << points[i + 1].second << std::endl;
+            std::cout << "f(a) : " << points[i].second << std::endl;*/
+            Somme_Int += (0.5f) * (points[i + 1].first - points[i].first) * (points[i + 1].second + points[i].second);
+            //std::cout << "Somme Int : " << Somme_Int << std::endl;
+        }
+
+        graph_area_filed << "Valeur de l'integrale : " << Somme_Int << std::endl;
+
         graph_area_filed.close();
+
+        std::cout << "Integrale pour une fenetre de taille " + std::to_string(window_width) + " : " << Somme_Int << std::endl;
+
 
         create_graph(points, save_path + "\\" + std::to_string(window_width) + ".png");
 
