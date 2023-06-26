@@ -4,6 +4,7 @@ int main(int argc, char* argv[])
 {
     std::string const base_path = argv[1];
 
+    std::cout << "hello???" << std::endl;
     for(auto const& entry : std::filesystem::directory_iterator(base_path))
     {
         std::string folder_path = entry.path().string();

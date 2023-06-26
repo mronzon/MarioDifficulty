@@ -2,7 +2,7 @@
 
 int main(int argc, char* argv[]) {
 	
-    if (argc == 2) create_metric(argv[1], "\\Niveau_1_3", true);
+    if (argc == 2) create_metric(argv[1], "\\Niveau_1_1", true);
 	
 	if (argc == 3)
 	{

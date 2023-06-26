@@ -556,7 +556,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 	// Calcul m�trique
 
-	int window_width = 200;
+	int window_width = 16;
 	int step_y = 16;
 	float metric = 0.f;
 	float metric_global = 0.0f;
@@ -567,33 +567,48 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	points_array points_piranha_plant;
 	points_array points_globaux;
 	
+	for (int window_width = 16; window_width <= 320; window_width += 16) {
+		for (int end_y = window_width; end_y < reach_filled_image.cols; end_y += step_y)
+		{
+			metric_global = 0;
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_goomba, 16);
+			metric_global += metric;
+			points_goomba.emplace_back(point(end_y, metric));
 
-	for (int end_y = window_width; end_y < reach_filled_image.cols; end_y += step_y)
-	{
-		metric_global = 0;
-		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_goomba, 16);
-		metric_global += metric;
-		points_goomba.emplace_back(point(end_y, metric));
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_koopa, 23);
+			metric_global += metric;
+			points_koopa.emplace_back(point(end_y, metric));
 
-		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_koopa, 23);
-		metric_global += metric;
-		points_koopa.emplace_back(point(end_y, metric));
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_turtle_spike, 15);
+			metric_global += metric;
+			points_turtle_spike.emplace_back(point(end_y, metric));
 
-		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_turtle_spike, 15);
-		metric_global += metric;
-		points_turtle_spike.emplace_back(point(end_y, metric));
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_turtle, 15);
+			metric_global += metric;
+			points_turtle.emplace_back(point(end_y, metric));
 
-		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_turtle, 15);
-		metric_global += metric;
-		points_turtle.emplace_back(point(end_y, metric));
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_piranha_plant, 22);
+			metric_global += metric;
+			points_piranha_plant.emplace_back(point(end_y, metric));
 
-		metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_piranha_plant, 22);
-		metric_global += metric;
-		points_piranha_plant.emplace_back(point(end_y, metric));
+			points_globaux.emplace_back(point(end_y, metric_global));
+		}
+		std::ofstream graph_area_filed(base_path + +"\\Graph" + level_path + "\\" + std::to_string(window_width) + " enemy.txt", std::ios::trunc);
+		for (point p : points_globaux) {
+			graph_area_filed << p.second << '\n';
+		}
+		std::cout << window_width << std::endl;
 
-		points_globaux.emplace_back(point(end_y, metric_global));
+		graph_area_filed.close();
+		points_globaux.clear();
+
 	}
-	create_graph(points_goomba, metric_path + "\\metric_goomba.png");
+	
+
+
+
+
+	/*create_graph(points_goomba, metric_path + "\\metric_goomba.png");
 	create_graph(points_koopa, metric_path + "\\metric_koopa.png");
 	create_graph(points_turtle_spike, metric_path + "\\metric_turtle_spike.png");
 	create_graph(points_turtle, metric_path + "\\metric_turtle.png");
@@ -612,5 +627,5 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	colors.emplace_back(cv::Scalar(255, 0, 255));
 	tab.emplace_back(points_globaux);
 	colors.emplace_back(cv::Scalar(255,255,255));
-	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");
+	create_graph(tab, colors, metric_path + "\\metric_enemy_global.png");*/
 }
