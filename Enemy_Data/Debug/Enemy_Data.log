@@ -1,4 +1,4 @@
-﻿  testgoomba.cpp
+﻿  main.cpp
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\graph.h(48,137): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\graph.h(52,144): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\graph.h(62,48): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
@@ -45,16 +45,4 @@ C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\graph.h(118,36): warn
               _Tp=int
           ]
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\metric.h(18,60): warning C4244: '+=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(48,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(54,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(60,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(66,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(72,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(78,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(84,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(90,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(96,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(102,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(113,20): warning C4018: '<' : incompatibilité signed/unsigned
-C:\Users\jules\Documents\GitHub\MarioDifficulty\Enemy_Data\testgoomba.cpp(126,20): warning C4018: '<' : incompatibilité signed/unsigned
   Enemy_Data.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\Enemy_Data.exe

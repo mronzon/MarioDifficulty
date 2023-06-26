@@ -45,6 +45,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	std::vector<enemy> list_enemy_turtle_spike;
 	std::vector<enemy> list_enemy_turtle;
 
+
 	for (int i = 0; i < j["dynamic"]["enemies"].size(); i++) {
 		if (j["dynamic"]["enemies"][i]["type"] == "goomba") {
 			list_enemy_goomba.push_back(enemy{ j["dynamic"]["enemies"][i]["x"].as<int>(), j["dynamic"]["enemies"][i]["y"].as<int>(), 
@@ -105,6 +106,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				j["dynamic"]["enemies"][i]["height"].as<int>(), j["dynamic"]["enemies"][i]["width"].as<int>(), j["dynamic"]["enemies"][i]["type"].as<std::string>() });
 		}
 	}
+
 
 	// On lit et on stocke la liste des paires de pixel qui composent les collisions
 
@@ -567,6 +569,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	points_array points_piranha_plant;
 	points_array points_globaux;
 	
+	std::cout << "ccccc" << std::endl;
+
 	for (int window_width = 16; window_width <= 320; window_width += 16) {
 		for (int end_y = window_width; end_y < reach_filled_image.cols; end_y += step_y)
 		{
