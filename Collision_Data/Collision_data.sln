@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Enemy_Data", "..\Enemy_Data
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_Levels", "..\Test_Levels\Test_Levels.vcxproj", "{41D2E8D1-D086-435D-A187-4AC8765F957F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CreateCompareFunction", "..\CreateCompareFunction\CreateCompareFunction.vcxproj", "{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{41D2E8D1-D086-435D-A187-4AC8765F957F}.Release|x64.Build.0 = Release|x64
 		{41D2E8D1-D086-435D-A187-4AC8765F957F}.Release|x86.ActiveCfg = Release|Win32
 		{41D2E8D1-D086-435D-A187-4AC8765F957F}.Release|x86.Build.0 = Release|Win32
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Debug|x64.ActiveCfg = Debug|x64
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Debug|x64.Build.0 = Debug|x64
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Debug|x86.ActiveCfg = Debug|Win32
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Debug|x86.Build.0 = Debug|Win32
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Release|x64.ActiveCfg = Release|x64
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Release|x64.Build.0 = Release|x64
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Release|x86.ActiveCfg = Release|Win32
+		{A4536D1F-FB30-4340-B6BD-8D0D3F061BDF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
