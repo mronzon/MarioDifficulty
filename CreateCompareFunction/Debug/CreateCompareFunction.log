@@ -1,4 +1,4 @@
-﻿  createAllGraph.cpp
+﻿  main.cpp
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Reach_Data\graph.h(60,135): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Reach_Data\graph.h(64,140): warning C4244: 'argument' : conversion de 'double' en 'int', perte possible de données
 C:\Users\jules\Documents\GitHub\MarioDifficulty\Reach_Data\graph.h(74,48): warning C4244: 'argument' : conversion de 'float' en '_Tp', perte possible de données
@@ -44,6 +44,25 @@ C:\Users\jules\Documents\GitHub\MarioDifficulty\Reach_Data\graph.h(155,36): warn
           [
               _Tp=int
           ]
-C:\Users\jules\Documents\GitHub\MarioDifficulty\CreateCompareFunction\createAllGraph.cpp(26,73): warning C4244: '+=' : conversion de 'float' en 'int', perte possible de données
-C:\Users\jules\Documents\GitHub\MarioDifficulty\CreateCompareFunction\createAllGraph.cpp(85,27): warning C4018: '<' : incompatibilité signed/unsigned
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\utility(172,54): warning C4244: 'initialisation' : conversion de '_Ty' en '_Ty2', perte possible de données
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              _Ty2=float
+          ]
+C:\Users\jules\Documents\GitHub\MarioDifficulty\CreateCompareFunction\main.cpp(7,39): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<int,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
+C:\Users\jules\Documents\GitHub\MarioDifficulty\CreateCompareFunction\main.cpp(7,28): message : voir la référence à l'instanciation de la fonction modèle 'std::pair<int,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' en cours de compilation
+          with
+          [
+              _Other1=int,
+              _Other2=int
+          ]
   CreateCompareFunction.vcxproj -> C:\Users\jules\Documents\GitHub\MarioDifficulty\Collision_Data\Debug\CreateCompareFunction.exe
