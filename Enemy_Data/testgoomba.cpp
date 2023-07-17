@@ -168,6 +168,9 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				nb_pos_goomba.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
 			}
 			else {
+
+				// nb_phéromones_déposés par un goomba 
+
 				nb_pos_goomba[std::pair<int, int>(ene.x, ene.y)] += 1;
 			}
 			// Si le goomba se d�place vers la gauche
@@ -224,6 +227,9 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				nb_pos_koopa.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
 			}
 			else {
+
+				// nb_phéromones_déposés par un koopa 
+
 				nb_pos_koopa[std::pair<int, int>(ene.x, ene.y)] += 1;
 			}
 			// Si le koopa se d�place vers la gauche
@@ -364,7 +370,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				nb_pos_turtle.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
 			}
 			else {
-				nb_pos_turtle[std::pair<int, int>(ene.x, ene.y)] += 1;
+				nb_pos_turtle[std::pair<int, int>(ene.x, ene.y)] += 1; // On depose un pheromone
 			}
 			// Si le koopa se d�place vers la gauche
 			if (ene.isWalkingLeft) {
