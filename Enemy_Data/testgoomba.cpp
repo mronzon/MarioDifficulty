@@ -457,6 +457,99 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				ene.isWalkingLeft = !ene.isWalkingLeft;			
 			}			
 		}
+		for (enemy& ene : list_enemy_lakitu) {
+			if (nb_pos_lakitu.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_lakitu.end()) {
+				nb_pos_lakitu.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
+			}
+			else {
+				// Il faudrait déposer le pheromone sur la position en hauteur la plus haute
+				nb_pos_lakitu[std::pair<int, int>(ene.x, ene.y)] += 1; // On depose un pheromone
+			}
+			// Si le Lakitu se deplace vers la gauche
+			if (ene.isWalkingLeft) {
+
+				// On fait avancer vers la gauche le Lakitu vu donné qu'il n'y a aucun obstacle qui peut l'en empecher
+				ene.y -= 1;
+
+			}
+			// Si le Lakitu se deplace vers la droite 
+			else {
+
+				// On fait avancer vers la droite le Lakitu vu qu'il n'y a aucun obstacle qui peut l'en empecher
+				ene.y += 1;
+
+			}
+		}
+		for (enemy& ene : list_enemy_hammer_bro) {
+			if (nb_pos_hammer_bro.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_hammer_bro.end()) {
+				nb_pos_hammer_bro.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
+			}
+			else {
+				nb_pos_hammer_bro[std::pair<int, int>(ene.x, ene.y)] += 1; // On depose un pheromone
+			}
+			// Si le Hammer Bro se deplace vers la gauche
+			if (ene.isWalkingLeft) {
+
+				// On check d'abord si y a un tuyau qui l'empeche d'avancer
+
+				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y - 1)) != list_pixel.end()) {
+					ene.isWalkingLeft = !ene.isWalkingLeft;
+					ene.y += 1;
+				}
+
+				// On check maintenant si y a pas un trou sous lui auquel cas il tombe (cas où l'ennemi est au dessus du vide au début)
+
+				else if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x + 24, ene.y)) == list_pixel.end()) {
+					ene.x += 5;
+					ene.y -= 1;
+				}
+
+				// On check si le prochain pas va l'emmener au dessus du vide, auquel cas il faudra faire demi-tour
+
+				else if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x + 24, ene.y - 1)) == list_pixel.end()) {
+					ene.isWalkingLeft = !ene.isWalkingLeft;
+					ene.y += 1;
+				}
+
+				// Si aucun de ces cas ne se réalisent, alors ça signifie qu'on peut avancer tranquillement
+
+				else {
+					ene.y -= 1;
+				}
+
+			}
+			// S'il se deplace vers la droite 
+			else {
+
+				// On check d'abord si y a un tuyau qui l'empeche d'avancer
+
+				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y + 1)) != list_pixel.end()) {
+					ene.isWalkingLeft = !ene.isWalkingLeft;
+					ene.y -= 1;
+				}
+
+				// On check maintenant si y a pas un trou sous lui auquel cas il tombe (cas où l'ennemi est au dessus du vide au début)
+
+				else if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x + 24, ene.y + 16)) == list_pixel.end()) {
+					ene.y += 1;
+					ene.x += 5;
+				}
+
+				// On check si le prochain pas va l'emmener au dessus du vide, auquel cas on fait demi-tour
+
+				else if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x + 24, ene.y + 17)) == list_pixel.end()) {
+					ene.isWalkingLeft = !ene.isWalkingLeft;
+					ene.y -= 1;
+				}
+
+				// Si aucun de ces cas ne se réalisent, alors ça signifie qu'on peut avancer tranquillement
+
+				else {
+					ene.y += 1;
+				}
+
+			}
+		}
 		if (didPiranhaPlantWait) {
 			nb_frames_wait_piranha_plant -= 1;
 		}		
