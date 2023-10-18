@@ -131,10 +131,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CollisionObstacle.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="testgoomba.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CollisionObstacle.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="general.h" />
     <ClInclude Include="graph.h" />

@@ -1,4 +1,5 @@
 #include "general.h"
+#include "CollisionObstacle.h"
 
 
 using namespace jsoncons;
@@ -121,6 +122,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	// On lit et on stocke la liste des paires de pixel qui composent les collisions
 	std::vector<std::pair<int, int>> list_pixel;
 
+	std::vector<CollisionObstacle*> list_collisionObstacle;
+
 	for (int i = 0; i < j["static"]["pipes"].size(); i++) {
 		int tmp_height = j["static"]["pipes"][i]["height"].as<int>();
 		int tmp_width = j["static"]["pipes"][i]["width"].as<int>();
@@ -132,6 +135,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				list_pixel.push_back(tmp_pair);
 			}
 		}
+
+		list_collisionObstacle.push_back(new CollisionObstacle(tmp_x, tmp_y, tmp_width, tmp_height));
 	}
 
 	for (int i = 0; i < j["static"]["positionCollision"].size(); i++) {
@@ -145,6 +150,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				list_pixel.push_back(tmp_pair);
 			}
 		}
+
+		list_collisionObstacle.push_back(new CollisionObstacle(tmp_x, tmp_y, tmp_width, tmp_height));
 	}
 
 	// Maintenant qu'on a la position des goombas et des collisions, on peut gerer le deplacement des ennemis
@@ -171,7 +178,16 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
-		// Goombas (Marron -> Orange sur l'image) (Koopa -> Vert / Plante piranha -> Rouge / Frère Marteau -> Bleu / Lakitu -> Blanc / Bowser -> Blanc / Poisson volant -> / Turtle Spike -> Gris)
+		/*
+			Goombas(Marron->Orange sur l'image)
+			Koopa -> Vert
+			Plante piranha -> Rouge
+			Frère Marteau -> Bleu
+			Lakitu -> Blanc
+			Bowser -> Blanc
+			Poisson volant -> Gris
+			Turtle Spike -> Gris
+		*/
 		
 		// On simule le déplacement pour les Gooma
 		for (enemy &ene : list_enemy_goomba) {
@@ -275,10 +291,10 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				}
 
 			}
-			// S'il se d�place vers la droite 
+			// S'il se déplace vers la droite 
 			else {
 
-				// On check d'abord si y a un tuyau qui l'emp�che d'avancer
+				// On check d'abord si y a un tuyau qui l'empêche d'avancer
 
 				if (std::find(list_pixel.begin(), list_pixel.end(), std::pair<int, int>(ene.x, ene.y + 1)) != list_pixel.end()) {
 					ene.isWalkingLeft = !ene.isWalkingLeft;
@@ -315,7 +331,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			else {
 				nb_pos_turtle_spike[std::pair<int, int>(ene.x, ene.y)] += 1;
 			}
-			// Si le koopa se d�place vers la gauche
+			// Si le koopa se déplace vers la gauche
 			if (ene.isWalkingLeft) {
 
 				// On check d'abord si y a un tuyau qui l'emp�che d'avancer
@@ -475,26 +491,39 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		// On simule le déplacement pour les Lakitu
 		for (enemy& ene : list_enemy_lakitu) {
 
-			int higherObstacleY = 0;
-			for (std::pair<int, int>& obstacle : list_pixel)
+			int highestObstacleY = 0;
+			
+			for (CollisionObstacle* co : list_collisionObstacle)
 			{
-				/*
-				 si la pos x de l'ennemi est plus grand ou égale à la pos de l'obstacle en x et plus petit que la pos x de l'obstacle plus sa largeur. (S'il est au dessus de l'obstacle)
-				 if (ene.x >= obstacle.first && ene.x <= obstacle.first)
-				*/
-				// si la pos y de l'obstacle est plus grand que higherObstacleY, alors higherObstacleY sera égale à se Y pour placer les phéromones seulement sur l'obstacle le plus haut, pas tous les obstacles en dessous.
-				if (obstacle.second > higherObstacleY)
+				// Si la pos x de l'ennemi est plus grand ou égale à la pos de l'obstacle en x et plus petit que la pos x de l'obstacle plus sa largeur. (S'il est au dessus de l'obstacle)
+				if (ene.x >= co->getPosX() || ene.x <= (co->getPosX() + co->getWidth()))
 				{
-					higherObstacleY = obstacle.second;
+					// Si la pos y de l'obstacle est plus grand que higherObstacleY, alors higherObstacleY sera égale à se Y pour placer les phéromones seulement sur l'obstacle le plus haut, pas tous les obstacles en dessous.
+					// On vérifie s'il est plus petit, car comment ça fonctionne, c'est que plus c'est haut dans la map, plus le "y" se rapproche de zéro
+					if (co->getPosY() < highestObstacleY)
+					{
+						highestObstacleY = co->getPosY();
+					}
 				}
 			}
 
+			// S'il n'y a pas de phéromone, placer le premier pour la pair de (x,y) position
 			if (nb_pos_lakitu.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_lakitu.end()) {
-				nb_pos_lakitu.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
+				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
+				for (size_t i = ene.y; i < highestObstacleY; i++)
+				{
+					nb_pos_lakitu.insert({ std::pair<int, int>(ene.x, i), 1 });
+				}
 			}
-			else {
-				// Il faudrait déposer le pheromone sur la position en hauteur la plus haute
-				nb_pos_lakitu[std::pair<int, int>(ene.x, ene.y)] += 1; // On depose un pheromone
+			// Rajouter un phéromone de plus pour la pair de (x,y) position
+			else 
+			{
+				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
+				for (size_t i = ene.y; i < highestObstacleY; i++)
+				{
+					// Rajouter le phéromone
+					nb_pos_lakitu[std::pair<int, int>(ene.x, i)] += 1;
+				}
 			}
 			// Si le Lakitu se deplace vers la gauche
 			if (ene.isWalkingLeft) {
@@ -631,6 +660,24 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 					cv::FILLED); //BGR
 			}
 
+			// On crée l'image avec les phéromones pour les Lakitu
+			std::map<std::pair<int, int>, int>::iterator it_lakitu;
+			for (it_lakitu = nb_pos_lakitu.begin(); it_lakitu != nb_pos_lakitu.end(); it_lakitu++) {
+				cv::Rect rect(it_lakitu->first.second, it_lakitu->first.first, 23, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2),
+					cv::FILLED); //BGR
+			}
+
+			// On crée l'image avec les phéromones pour les Hammer Bro
+			std::map<std::pair<int, int>, int>::iterator it_hammer_bro;
+			for (it_hammer_bro = nb_pos_hammer_bro.begin(); it_hammer_bro != nb_pos_hammer_bro.end(); it_hammer_bro++) {
+				cv::Rect rect(it_hammer_bro->first.second, it_hammer_bro->first.first, 23, 16);
+				cv::rectangle(Image_Final, rect,
+					cv::Scalar(40 + it_hammer_bro->second * 2, 0, 0),
+					cv::FILLED); //BGR
+			}
+
 			std::string num_fichier = std::to_string(i);
 			std::string filename = "\\move_enemies" + num_fichier + ".png";
 			cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final);
@@ -684,6 +731,24 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			cv::FILLED); //BGR
 	}
 
+	// On crée les phéromones pour les Lakitu
+	std::map<std::pair<int, int>, int>::iterator it_lakitu;
+	for (it_lakitu = nb_pos_lakitu.begin(); it_lakitu != nb_pos_lakitu.end(); it_lakitu++) {
+		cv::Rect rect(it_lakitu->first.second, it_lakitu->first.first, 23, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2),
+			cv::FILLED); //BGR
+	}
+
+	// On crée les phéromones pour les Hammer Bro
+	std::map<std::pair<int, int>, int>::iterator it_hammer_bro;
+	for (it_hammer_bro = nb_pos_hammer_bro.begin(); it_hammer_bro != nb_pos_hammer_bro.end(); it_hammer_bro++) {
+		cv::Rect rect(it_hammer_bro->first.second, it_hammer_bro->first.first, 23, 16);
+		cv::rectangle(Image_Final_Temp, rect,
+			cv::Scalar(40 + it_hammer_bro->second * 2, 0, 0),
+			cv::FILLED); //BGR
+	}
+
 	std::string num_fichier = std::to_string(0);
 	std::string filename = "\\move_enemies" + num_fichier + ".png";
 	cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final_Temp);
@@ -699,6 +764,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	points_array points_turtle_spike;
 	points_array points_turtle;
 	points_array points_piranha_plant;
+	points_array points_lakitu;
+	points_array points_hammer_bro;
 	points_array points_globaux;
 	
 	std::cout << "ccccc" << std::endl;
@@ -731,6 +798,16 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_piranha_plant, 22);
 			metric_global += metric;
 			points_piranha_plant.emplace_back(point(end_y, metric));
+
+			// Création de la métrique pour les Lakitu
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_lakitu, 23);
+			metric_global += metric;
+			points_lakitu.emplace_back(point(end_y, metric));
+
+			// Création de la métrique pour les Hammer Bro
+			metric = metric_area_filled(reach_filled_image, end_y - window_width, end_y, nb_pos_hammer_bro, 23);
+			metric_global += metric;
+			points_hammer_bro.emplace_back(point(end_y, metric));
 
 			points_globaux.emplace_back(point(end_y, metric_global));
 		}
