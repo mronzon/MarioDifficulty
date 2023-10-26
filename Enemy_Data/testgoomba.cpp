@@ -172,9 +172,12 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	int nb_frames_wait_piranha_plant = 60;
 	int nb_frames_deplacement_piranha_plant = 0;
 
+	std::cout << "Start of behaviour simulation" << std::endl;
 	for (int i = 0; i < nb_deplacement; i++) {
 		bool didPiranhaPlantMove = false;
 		bool didPiranhaPlantWait = false;
+
+		std::cout << "Simulation #" << i << " out of " << nb_deplacement << std::endl;
 
 		cv::Mat Image_Final(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 		
@@ -190,6 +193,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		*/
 		
 		// On simule le déplacement pour les Gooma
+		
 		for (enemy &ene : list_enemy_goomba) {
 			if (nb_pos_goomba.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_goomba.end()) {
 				nb_pos_goomba.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
@@ -491,7 +495,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		// On simule le déplacement pour les Lakitu
 		for (enemy& ene : list_enemy_lakitu) {
 
-			int highestObstacleY = 0;
+			int highestObstacleY = 10000;
 			
 			for (CollisionObstacle* co : list_collisionObstacle)
 			{
@@ -500,29 +504,29 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				{
 					// Si la pos y de l'obstacle est plus grand que higherObstacleY, alors higherObstacleY sera égale à se Y pour placer les phéromones seulement sur l'obstacle le plus haut, pas tous les obstacles en dessous.
 					// On vérifie s'il est plus petit, car comment ça fonctionne, c'est que plus c'est haut dans la map, plus le "y" se rapproche de zéro
-					if (co->getPosY() < highestObstacleY)
+					if (co->getPosY() < highestObstacleY && co->getPosY() >= ene.x)
 					{
 						highestObstacleY = co->getPosY();
 					}
 				}
 			}
-
+			
 			// S'il n'y a pas de phéromone, placer le premier pour la pair de (x,y) position
 			if (nb_pos_lakitu.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_lakitu.end()) {
 				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
-				for (size_t i = ene.y; i < highestObstacleY; i++)
+				for (int cptP = ene.y; cptP < highestObstacleY; cptP++)
 				{
-					nb_pos_lakitu.insert({ std::pair<int, int>(ene.x, i), 1 });
+					nb_pos_lakitu.insert({ std::pair<int, int>(ene.x, cptP), 1 });
 				}
 			}
 			// Rajouter un phéromone de plus pour la pair de (x,y) position
 			else 
 			{
 				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
-				for (size_t i = ene.y; i < highestObstacleY; i++)
+				for (int cptP = ene.y; cptP < highestObstacleY; cptP++)
 				{
 					// Rajouter le phéromone
-					nb_pos_lakitu[std::pair<int, int>(ene.x, i)] += 1;
+					nb_pos_lakitu[std::pair<int, int>(ene.x, cptP)] += 1;
 				}
 			}
 			// Si le Lakitu se deplace vers la gauche
@@ -684,6 +688,8 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		}
 	}
 
+	std::cout << "Start of image generation" << std::endl;
+
 	cv::Mat Image_Final_Temp(level_image.rows, level_image.cols, level_image.type(), cv::Scalar(0, 0, 0));
 
 	// On crée les phéromones pour les Goomba
@@ -768,7 +774,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 	points_array points_hammer_bro;
 	points_array points_globaux;
 	
-	std::cout << "ccccc" << std::endl;
+	std::cout << "Start of metric generation" << std::endl;
 
 	for (int window_width = 16; window_width <= 320; window_width += 16) {
 		for (int end_y = window_width; end_y < reach_filled_image.cols; end_y += step_y)
