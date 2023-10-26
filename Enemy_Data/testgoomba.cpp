@@ -6,7 +6,7 @@ using namespace jsoncons;
 
 // On passe en argument le chemin vers le fichier JSON
 
-void create_metric(std::string base_path, std::string level_path, bool create_images) {
+void create_metric(std::string base_path, std::string level_path, bool create_images_for_each_deplacement) {
 	// On r�cup�re le chemin vers le JSON 
 	std::string json_path = base_path + level_path + "\\level.json";
 	std::string image_path = base_path + level_path + "\\level.png";
@@ -492,59 +492,7 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 				ene.isWalkingLeft = !ene.isWalkingLeft;			
 			}			
 		}
-		// On simule le déplacement pour les Lakitu
-		for (enemy& ene : list_enemy_lakitu) {
-
-			// L'obstacle le plus haut est le plus bas de la map pour commencer
-			int highestObstacleY = level_image.rows;
-			
-			for (CollisionObstacle* co : list_collisionObstacle)
-			{
-				// Si la pos x de l'ennemi est plus grand ou égale à la pos de l'obstacle en x et plus petit que la pos x de l'obstacle plus sa largeur. (S'il est au dessus de l'obstacle)
-				if (ene.y >= co->getPosY() && ene.y <= (co->getPosY() + co->getWidth()))
-				{
-					// Si la pos y de l'obstacle est plus grand que higherObstacleY, alors higherObstacleY sera égale à se Y pour placer les phéromones seulement sur l'obstacle le plus haut, pas tous les obstacles en dessous.
-					// On vérifie s'il est plus petit, car comment ça fonctionne, c'est que plus c'est haut dans la map, plus le "y" se rapproche de zéro
-					if (co->getPosX() < highestObstacleY)
-					{
-						highestObstacleY = co->getPosX();
-					}
-				}
-			}
-			
-			// S'il n'y a pas de phéromone, placer le premier pour la pair de (x,y) position
-			if (nb_pos_lakitu.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_lakitu.end()) {
-				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
-				for (int cptP = ene.x; cptP < highestObstacleY; cptP++)
-				{
-					nb_pos_lakitu.insert({ std::pair<int, int>(cptP, ene.y), 1 });
-				}
-			}
-			// Rajouter un phéromone de plus pour la pair de (x,y) position
-			else 
-			{
-				// Placer un phéromone pour chaque y en dessous du Lakitu jusqu'à se rendre à collisionner avec un obstacle
-				for (int cptP = ene.x; cptP < highestObstacleY; cptP++)
-				{
-					// Rajouter le phéromone
-					nb_pos_lakitu[std::pair<int, int>(cptP, ene.y)] += 1;
-				}
-			}
-			// Si le Lakitu se deplace vers la gauche
-			if (ene.isWalkingLeft) {
-
-				// On fait avancer vers la gauche le Lakitu vu donné qu'il n'y a aucun obstacle qui peut l'en empecher
-				ene.y -= 1;
-
-			}
-			// Si le Lakitu se deplace vers la droite 
-			else {
-
-				// On fait avancer vers la droite le Lakitu vu qu'il n'y a aucun obstacle qui peut l'en empecher
-				ene.y += 1;
-
-			}
-		}
+		
 		// On simule le déplacement pour les Hammer Bro
 		for (enemy& ene : list_enemy_hammer_bro) {
 			if (nb_pos_hammer_bro.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_hammer_bro.end()) {
@@ -619,16 +567,9 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			nb_frames_deplacement_piranha_plant = 0;
 		}
 		
-		if (create_images) {
+		if (create_images_for_each_deplacement) {
 
-			// On crée l'image avec les phéromones pour les Lakitu (On le fait en premier pour ne pas que sa couleur overwrite les autres)
-			std::map<std::pair<int, int>, int>::iterator it_lakitu;
-			for (it_lakitu = nb_pos_lakitu.begin(); it_lakitu != nb_pos_lakitu.end(); it_lakitu++) {
-				cv::Rect rect(it_lakitu->first.second, it_lakitu->first.first, 23, 16);
-				cv::rectangle(Image_Final, rect,
-					cv::Scalar(127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2, 127 + it_lakitu->second * 2),
-					cv::FILLED); //BGR
-			}
+			// Pas besoin de faire le lakitu vu qu'il se fait une fois à la fin
 			
 			// On crée l'image avec les phéromones pour les Goomba
 			std::map<std::pair<int, int>, int>::iterator it_goomba;
@@ -687,6 +628,18 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 			std::string num_fichier = std::to_string(i);
 			std::string filename = "\\move_enemies" + num_fichier + ".png";
 			cv::imwrite(base_path + level_path + "\\Images_move_enemies" + filename, Image_Final);
+		}
+	}
+
+	// On simule le déplacement pour les Lakitu
+	for (enemy& ene : list_enemy_lakitu) {
+
+		for (int nbrRow = 0; nbrRow < level_image.rows; nbrRow++)
+		{
+			for (int nbrColumn = 0; nbrColumn < level_image.cols; nbrColumn++)
+			{
+				nb_pos_lakitu[std::pair<int, int>(nbrRow, nbrColumn)] += 1; // On depose un pheromone
+			}
 		}
 	}
 
