@@ -495,35 +495,39 @@ void create_metric(std::string base_path, std::string level_path, bool create_im
 		
 		// On simule le déplacement pour les Hammer Bro
 		for (enemy& ene : list_enemy_hammer_bro) {
-			if (nb_pos_hammer_bro.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_hammer_bro.end()) {
+
+			int highestYDanger = ene.x - (ene.height * 1.5);
+			
+			if (nb_pos_hammer_bro.find(std::pair<int, int>(ene.x, ene.y)) == nb_pos_hammer_bro.end())
+				{
 				nb_pos_hammer_bro.insert({ std::pair<int, int>(ene.x, ene.y), 1 });
 
-				// Ajouter des phéromones jusqu'à un hammer bro de plus (En hauteur) pour courvrir la zone du marteau et du saut
-				for (int cptX = 1; cptX < ene.height; cptX++)
+				// Générer des phéromones jusqu'à la longueur du hammer bro de chacun de ses côtés pour couvrir la zone du marteau
+				for (int cptY = 1; cptY < ene.width; cptY++)
 				{
-					// Générer des phéromones jusqu'à la longueur du hammer bro de chacun de ses côtés pour couvrir la zone du marteau
-					for (int cptY = 1; cptY < ene.width; cptY++)
+					for (int cptX = highestYDanger; cptX < level_image.rows; cptX++)
 					{
+						// Ne pas oublier que c'est (ene.x - cptX), car plus on descend à la vertical, plus la valeur est élevé
 						// Vers la droite
-						nb_pos_hammer_bro.insert({ std::pair<int, int>((ene.x + cptX), (ene.y + cptY)), 1 });
+						nb_pos_hammer_bro.insert({ std::pair<int, int>(cptX, (ene.y + cptY)), 1 });
 						// Vers la gauche
-						nb_pos_hammer_bro.insert({ std::pair<int, int>((ene.x + cptX), (ene.y - cptY)), 1 });
+						nb_pos_hammer_bro.insert({ std::pair<int, int>(cptX, (ene.y - cptY)), 1 });
 					}
 				}
 			}
 			else {
 				nb_pos_hammer_bro[std::pair<int, int>(ene.x, ene.y)] += 1; // On depose un pheromone
-				
-				// Ajouter des phéromones jusqu'à un hammer bro de plus (En hauteur) pour courvrir la zone du marteau et du saut
-				for (int cptX = 1; cptX < ene.height; cptX++)
+
+				// Générer des phéromones jusqu'à la longueur du hammer bro de chacun de ses côtés pour couvrir la zone du marteau
+				for (int cptY = 1; cptY < ene.width; cptY++)
 				{
-					// Générer des phéromones jusqu'à la longueur du hammer bro de chacun de ses côtés pour couvrir la zone du marteau
-					for (int cptY = 1; cptY < ene.width; cptY++)
+					for (int cptX = highestYDanger; cptX < level_image.rows; cptX++)
 					{
+						// Ne pas oublier que c'est (ene.x - cptX), car plus on descend à la vertical, plus la valeur est élevé
 						// Vers la droite
-						nb_pos_hammer_bro[std::pair<int, int>((ene.x + cptX), (ene.y + cptY))] += 1; // On depose un pheromone
+						nb_pos_hammer_bro[std::pair<int, int>(cptX, (ene.y + cptY))] += 1; // On depose un pheromone
 						// Vers la gauche
-						nb_pos_hammer_bro[std::pair<int, int>((ene.x + cptX), (ene.y - cptY))] += 1; // On depose un pheromone
+						nb_pos_hammer_bro[std::pair<int, int>(cptX, (ene.y - cptY))] += 1; // On depose un pheromone
 					}
 				}
 			}
